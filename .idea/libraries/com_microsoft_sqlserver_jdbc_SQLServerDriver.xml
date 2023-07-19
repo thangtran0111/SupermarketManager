@@ -1,6 +1,8 @@
 <component name="libraryTable">
   <library name="com.microsoft.sqlserver.jdbc.SQLServerDriver">
-    <CLASSES />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../Others/sqljdbc_12.2.0.0_enu/sqljdbc_12.2/enu/mssql-jdbc-12.2.0.jre8.jar!/" />
+    </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="file://$PROJECT_DIR$/../../Others/sqljdbc_12.2.0.0_enu/sqljdbc_12.2/enu/samples/adaptive" />
