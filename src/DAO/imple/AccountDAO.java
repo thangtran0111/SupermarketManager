@@ -36,7 +36,7 @@ public class AccountDAO implements AccountDAOInterface {
         Account account;
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("SELECT * FROM TaiKhoan WHERE UserName = ?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM Account WHERE Username = ?");
 
             preparedStatement.setString(1, userName);
             resultSet = preparedStatement.executeQuery();

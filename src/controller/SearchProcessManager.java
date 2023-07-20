@@ -10,7 +10,7 @@ import static view.View.showMessage;
 public class SearchProcessManager {
     public SearchProcessManager(){}
     public Object[] processSearch(String findText, String selectedTable, DefaultTableModel model, Component cmp) {
-        String message = Controller.checkMa(selectedTable, findText);
+        String message = Controller.checkCode(selectedTable, findText);
         Object[] rowData = null;
 
         if (message.equals("Mã đã tồn tại")) {
@@ -34,7 +34,7 @@ public class SearchProcessManager {
     }
 
     public Object[][] processSearchMultipleRows(String findText, String selectedTable, DefaultTableModel model, Component cmp) {
-        String message = Controller.checkMa(selectedTable, findText);
+        String message = Controller.checkCode(selectedTable, findText);
         List<Object[]> dataList = new ArrayList<>();
 
         if (message.equals("Mã đã tồn tại")) {

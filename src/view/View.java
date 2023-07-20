@@ -86,8 +86,8 @@ public class View {
         loginButton = new JButton("LOG IN");
         loginButton.setActionCommand("loginButtonClicked");
 
-        userTextField = new JTextField("TestAccount");
-        userPasswordField = new JPasswordField("TestAccount");
+        userTextField = new JTextField("AccountTest");
+        userPasswordField = new JPasswordField("AccountTest");
 
         JPanel centerPanel = new JPanel(new GridLayout(6, 1, 0, 5));
         JPanel topHomePanel = new JPanel();
@@ -296,7 +296,7 @@ public class View {
 
 
     public void createInfoFrame(Object[] titles, Object[] data) {
-        infoFrame = new JFrame("formation");
+        infoFrame = new JFrame("Information");
         infoFrame.setLayout(new BorderLayout());
         infoFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/resource/info.png"))).getImage());
 
