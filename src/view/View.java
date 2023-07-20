@@ -1,7 +1,7 @@
 package view;
 
 import controller.SearchProcessManager;
-import model.HoaDonBanHang;
+import model.SalesInvoice;
 import model.HoaDonMatHang;
 import model.Product;
 import model.Employee;
@@ -21,10 +21,10 @@ public class View {
     private final int PADDING = 60;
 
     //column name
-    //TODO thêm các bảng khác các bảng hiện có Product, Employee, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
+    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SalesInvoice, Hoá Đơn Mặt Hàng
     private final Object[] productColumnNames = {"Product ID", "Barcode", "Product Name", "Retail Price", "Quantity In Stock", "Product Type", "Description"};
     private final Object[] employeeColumnNames = {"Employee ID", "EmployeeName", "Phone Number", "Email", "Date Of Birth",  "Gender", "Address", "Position", "Salary"};
-    private final Object[] billColumnNames = {"Mã hoá đơn", "Ngày lập", "Mã khách hàng", "Phương thức thanh toán"};
+    private final Object[] salesInvoiceColumnNames = {"InvoiceID", "InvoiceDate", "CustomerID", "Payment method"};
     private final Object[] bill_ProductColumnNames = {"Mã hoá đơn", "Mã mặt hàng", "Số lượng"};
 
     //login component
@@ -229,7 +229,7 @@ public class View {
         homeFrame.repaint();
     }
 
-    public void createHoaDonBanHangManagementFrame() {
+    public void createSaleInvoicesManagementFrame() {
         if (midHomePanel.isAncestorOf(welcomeLabel)) {
             midHomePanel.remove(welcomeLabel);
         }
@@ -535,17 +535,17 @@ public class View {
         deleteFrame.setVisible(true);
     }
 
-    //TODO thêm các bảng khác các bảng hiện có Product, Employee, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
+    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SalesInvoice, Hoá Đơn Mặt Hàng
     public Class<?> getClassByTableName(String selectedTable){
         return switch (selectedTable) {
             case "Employee" -> Employee.class;
             case "Product" -> Product.class;
-            case "Hoá Đơn Bán Hàng" -> HoaDonBanHang.class;
+            case "SalesInvoice" -> SalesInvoice.class;
             case "Hoá Đơn Mặt Hàng" -> HoaDonMatHang.class;
             default -> null;
         };
     }
-    //TODO thêm các bảng khác các bảng hiện có Product, Employee, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
+    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SaleInvoices, Hoá Đơn Mặt Hàng
     public <T> T createObject(String selectedTable, JTextField[] _properties) {
         Class<?> cl = getClassByTableName(selectedTable);
         if (cl == null) {
@@ -557,7 +557,7 @@ public class View {
                         cl.getConstructor(String.class, String.class, String.class, Integer.class, int.class, String.class, String.class);
                 case "Employee"->
                         cl.getConstructor(String.class, String.class, String.class, String.class, String.class, Date.class, String.class, String.class, String.class, int.class);
-                case "Hoá Đơn Bán Hàng" ->
+                case "SaleInvoices" ->
                         cl.getConstructor(String.class, Date.class, String.class, String.class);
                 case "Hoá Đơn Mặt Hàng" ->
                         cl.getConstructor(String.class, String.class, Integer.class);
@@ -654,18 +654,18 @@ public class View {
 
     public Object[] getEmployeeColumnNames(){ return employeeColumnNames; }
 
-    public Object[] getBillColumnNames(){ return billColumnNames; }
+    public Object[] getSalesInvoiceColumnNames(){ return salesInvoiceColumnNames; }
     
     public Object[] getBill_ProductColumnNames(){ return bill_ProductColumnNames; }
 
-    //TODO thêm các bảng khác các bảng hiện có Product, Employee, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
+    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SaleInvoices, Hoá Đơn Mặt Hàng
     public Object[] getColumnNames(String selectedTable){
         if(selectedTable.equals(tableNames[1])){
             return getEmployeeColumnNames();
         }else if(selectedTable.equals(tableNames[2])){
             return getProductColumnNames();
         }else if(selectedTable.equals(tableNames[3])){
-            return getBillColumnNames();
+            return getSalesInvoiceColumnNames();
         }else if(selectedTable.equals(tableNames[4])){
             return getBill_ProductColumnNames();
         }

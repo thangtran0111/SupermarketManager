@@ -1,15 +1,15 @@
 package controller;
 
-import DAO.imple.DaoHoaDonBanHang;
+import DAO.imple.SalesInvoiceDAO;
 import DAO.imple.DaoHoaDonMatHang;
 import DAO.imple.ProductDAO;
 import DAO.imple.EmployeeDAO;
-import DAO.itf.IDaoHoaDonBanHang;
+import DAO.itf.SalesInvoiceDAOInterface;
 import DAO.itf.IDaoHoaDonMatHang;
 import DAO.itf.ProductDAOInterface;
 import DAO.itf.EmployeeDAOInterface;
 
-import model.HoaDonBanHang;
+import model.SalesInvoice;
 import model.HoaDonMatHang;
 import model.Product;
 import model.Employee;
@@ -21,17 +21,17 @@ import java.util.List;
 public class TableSelectionProcessManager {
     private ProductDAOInterface productDAO;
     private EmployeeDAOInterface employeeDAO;
-    private IDaoHoaDonBanHang daoHoaDonBanHang;
+    private SalesInvoiceDAOInterface salesInvoiceDAO;
     private IDaoHoaDonMatHang daoHoaDonMatHang;
 
     public TableSelectionProcessManager(){
         productDAO = new ProductDAO();
         employeeDAO = new EmployeeDAO();
-        daoHoaDonBanHang = new DaoHoaDonBanHang();
+        salesInvoiceDAO = new SalesInvoiceDAO();
         daoHoaDonMatHang = new DaoHoaDonMatHang();
     }
 
-    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
+    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, SaleInvoices, Hoá Đơn Mặt Hàng
     public void processTableSelection(View view) {
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
         DefaultTableModel oldModel = (DefaultTableModel) view.getTable().getModel();
@@ -45,8 +45,8 @@ public class TableSelectionProcessManager {
             List<Product> productList = productDAO.read();
             view.createProductManagementFrame();
         } else if(selectedTable.equals(view.getTableName(3))){
-            List<HoaDonBanHang> hoaDonBanHangList = daoHoaDonBanHang.read();
-            view.createHoaDonBanHangManagementFrame();
+            List<SalesInvoice> salesInvoiceList = salesInvoiceDAO.read();
+            view.createSaleInvoicesManagementFrame();
         } else if(selectedTable.equals(view.getTableName(4))){
             List<HoaDonMatHang> hoaDonBanHangList = daoHoaDonMatHang.read();
             view.createHoaDonMatHangManagementFrame();
@@ -67,9 +67,9 @@ public class TableSelectionProcessManager {
                     model.addRow(new Object[]{String.valueOf(product.getProductID()),String.valueOf(product.getBarcode()) ,String.valueOf(product.getProductName()), product.getRetailPrice(), product.getQuantityInStock(), String.valueOf(product.getProductType()), String.valueOf(product.getDescription())});
                 }
         }else if (selectedTable.equals(view.getTableName(3))) {
-            List<HoaDonBanHang> hoaDonBanHangList = daoHoaDonBanHang.read();
-            for (HoaDonBanHang hoaDonBanHang : hoaDonBanHangList) {
-                model.addRow(new Object[]{String.valueOf(hoaDonBanHang.getMaHoaDon()), hoaDonBanHang.getNgayLap(), String.valueOf(hoaDonBanHang.getMaKhachHang()), String.valueOf(hoaDonBanHang.getPhuongThucThanhToan())});
+            List<SalesInvoice> salesInvoiceList = salesInvoiceDAO.read();
+            for (SalesInvoice salesInvoice : salesInvoiceList) {
+                model.addRow(new Object[]{String.valueOf(salesInvoice.getInvoiceID()), salesInvoice.getInvoiceDate(), String.valueOf(salesInvoice.getCustomerID()), String.valueOf(salesInvoice.getPaymentMethod())});
             }
         }else if (selectedTable.equals(view.getTableName(4))) {
             List<HoaDonMatHang> hoaDonMatHangList = daoHoaDonMatHang.read();

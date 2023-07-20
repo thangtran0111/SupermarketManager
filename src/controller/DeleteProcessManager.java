@@ -1,10 +1,10 @@
 package controller;
 
-import DAO.imple.DaoHoaDonBanHang;
+import DAO.imple.SalesInvoiceDAO;
 import DAO.imple.DaoHoaDonMatHang;
 import DAO.imple.ProductDAO;
 import DAO.imple.EmployeeDAO;
-import DAO.itf.IDaoHoaDonBanHang;
+import DAO.itf.SalesInvoiceDAOInterface;
 import DAO.itf.IDaoHoaDonMatHang;
 import DAO.itf.ProductDAOInterface;
 import DAO.itf.EmployeeDAOInterface;
@@ -13,16 +13,16 @@ import view.View;
 public class DeleteProcessManager {
     EmployeeDAOInterface employeeDAO;
     ProductDAOInterface productDAO;
-    IDaoHoaDonBanHang daoHoaDonBanHang;
+    SalesInvoiceDAOInterface salesInvoiceDAO;
     IDaoHoaDonMatHang daoHoaDonMatHang;
     public DeleteProcessManager(){
         productDAO = new ProductDAO();
         employeeDAO = new EmployeeDAO();
-        daoHoaDonBanHang = new DaoHoaDonBanHang();
+        salesInvoiceDAO = new SalesInvoiceDAO();
         daoHoaDonMatHang = new DaoHoaDonMatHang();
     }
 
-    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
+    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, SaleInvoices, Hoá Đơn Mặt Hàng
     public void processDelete(View view){
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
         String ma = view.getNewFieldValues()[0].getText();
@@ -36,10 +36,10 @@ public class DeleteProcessManager {
             } else if(selectedTable.equals(view.getTableName(2))){
                 count = productDAO.delete(ma);
             }else if(selectedTable.equals(view.getTableName(3))){
-                count = daoHoaDonBanHang.delete(ma);
+                count = salesInvoiceDAO.delete(ma);
                 if(count > 0){
                     count = 0;
-                    count = daoHoaDonBanHang.delete(ma);
+                    count = salesInvoiceDAO.delete(ma);
                 }
             }else if(selectedTable.equals(view.getTableName(4))){
                 count = daoHoaDonMatHang.delete(ma, view.getNewFieldValues()[1].getText());

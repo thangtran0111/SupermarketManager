@@ -1,8 +1,8 @@
 package DAO.imple;
 
-import DAO.itf.IDaoHoaDonBanHang;
+import DAO.itf.SalesInvoiceDAOInterface;
 import databaseConnection.DatabaseConnection;
-import model.HoaDonBanHang;
+import model.SalesInvoice;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,23 +11,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DaoHoaDonBanHang implements IDaoHoaDonBanHang {
+public class SalesInvoiceDAO implements SalesInvoiceDAOInterface {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
 
 
     @Override
-    public int create(HoaDonBanHang hoaDonBanHang) {
+    public int create(SalesInvoice salesInvoice) {
         int count = 0;
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("INSERT INTO HoaDonBanHang (MaHoaDon, NgayLap, MaKhachHang, PhuongThucThanhToan) VALUES (?, ?, ?, ?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO SalesInvoice (InvoiceID, InvoiceDate, CustomerID, PaymentMethod) VALUES (?, ?, ?, ?)");
 
-            preparedStatement.setString(1, hoaDonBanHang.getMaHoaDon());
-            preparedStatement.setDate(2, new java.sql.Date(hoaDonBanHang.getNgayLap().getTime()));
-            preparedStatement.setString(3, hoaDonBanHang.getMaKhachHang());
-            preparedStatement.setString(4, hoaDonBanHang.getPhuongThucThanhToan());
+            preparedStatement.setString(1, salesInvoice.getInvoiceID());
+            preparedStatement.setDate(2, new java.sql.Date(salesInvoice.getInvoiceDate().getTime()));
+            preparedStatement.setString(3, salesInvoice.getCustomerID());
+            preparedStatement.setString(4, salesInvoice.getPaymentMethod());
             count = preparedStatement.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -39,20 +39,20 @@ public class DaoHoaDonBanHang implements IDaoHoaDonBanHang {
     }
 
     @Override
-    public List<HoaDonBanHang> read() {
+    public List<SalesInvoice> read() {
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("SELECT * FROM HoaDonBanHang;");
+            preparedStatement = connection.prepareStatement("SELECT * FROM SalesInvoice;");
             resultSet = preparedStatement.executeQuery();
-            List<HoaDonBanHang> listHoaDonBanHang = new ArrayList<>();
+            List<SalesInvoice> listSalesInvoice = new ArrayList<>();
             while (resultSet.next()) {
-                listHoaDonBanHang.add(new HoaDonBanHang(
-                        resultSet.getString("MaHoaDon").trim(),
-                        resultSet.getDate("NgayLap"),
-                        resultSet.getString("MaKhachHang").trim(),
-                        resultSet.getString("PhuongThucThanhToan").trim()));
+                listSalesInvoice.add(new SalesInvoice(
+                        resultSet.getString("InvoiceID").trim(),
+                        resultSet.getDate("InvoiceDate"),
+                        resultSet.getString("CustomerID").trim(),
+                        resultSet.getString("PaymentMethod").trim()));
             }
-            return listHoaDonBanHang;
+            return listSalesInvoice;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -63,16 +63,16 @@ public class DaoHoaDonBanHang implements IDaoHoaDonBanHang {
     }
 
     @Override
-    public int update(HoaDonBanHang hoaDonBanHang) {
+    public int update(SalesInvoice salesInvoice) {
         int count = 0;
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("UPDATE HoaDonBanHang SET  NgayLap = ?, MaKhachHang = ?, PhuongThucThanhToan = ? WHERE MaHoaDOn = ?");
+            preparedStatement = connection.prepareStatement("UPDATE SalesInvoice SET  InvoiceDate = ?, CustomerID = ?, PaymentMethod = ? WHERE MaHoaDOn = ?");
 
-            preparedStatement.setDate(1, new java.sql.Date(hoaDonBanHang.getNgayLap().getTime()));
-            preparedStatement.setString(2, hoaDonBanHang.getMaKhachHang());
-            preparedStatement.setString(3, hoaDonBanHang.getPhuongThucThanhToan());
-            preparedStatement.setString(4, hoaDonBanHang.getMaHoaDon());
+            preparedStatement.setDate(1, new java.sql.Date(salesInvoice.getInvoiceDate().getTime()));
+            preparedStatement.setString(2, salesInvoice.getCustomerID());
+            preparedStatement.setString(3, salesInvoice.getPaymentMethod());
+            preparedStatement.setString(4, salesInvoice.getInvoiceID());
             count = preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -83,13 +83,13 @@ public class DaoHoaDonBanHang implements IDaoHoaDonBanHang {
     }
 
     @Override
-    public int delete(String maHoaDonBanHang) {
+    public int delete(String saleInvoiceID) {
         int count = 0;
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("DELETE FROM HoaDonBanHang WHERE MaHoaDon = ?");
+            preparedStatement = connection.prepareStatement("DELETE FROM SalesInvoice WHERE InvoiceID = ?");
 
-            preparedStatement.setString(1, maHoaDonBanHang);
+            preparedStatement.setString(1, saleInvoiceID);
 
             count = preparedStatement.executeUpdate();
 
