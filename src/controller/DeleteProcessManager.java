@@ -1,11 +1,11 @@
 package controller;
 
 import DAO.imple.SalesInvoiceDAO;
-import DAO.imple.DaoHoaDonMatHang;
+import DAO.imple.InvoiceProductDAO;
 import DAO.imple.ProductDAO;
 import DAO.imple.EmployeeDAO;
 import DAO.itf.SalesInvoiceDAOInterface;
-import DAO.itf.IDaoHoaDonMatHang;
+import DAO.itf.InvoiceProductDAOInterface;
 import DAO.itf.ProductDAOInterface;
 import DAO.itf.EmployeeDAOInterface;
 import view.View;
@@ -14,15 +14,15 @@ public class DeleteProcessManager {
     EmployeeDAOInterface employeeDAO;
     ProductDAOInterface productDAO;
     SalesInvoiceDAOInterface salesInvoiceDAO;
-    IDaoHoaDonMatHang daoHoaDonMatHang;
+    InvoiceProductDAOInterface invoiceProductDAO;
     public DeleteProcessManager(){
         productDAO = new ProductDAO();
         employeeDAO = new EmployeeDAO();
         salesInvoiceDAO = new SalesInvoiceDAO();
-        daoHoaDonMatHang = new DaoHoaDonMatHang();
+        invoiceProductDAO = new InvoiceProductDAO();
     }
 
-    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, SaleInvoices, Hoá Đơn Mặt Hàng
+    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, SaleInvoices, InvoiceProduct
     public void processDelete(View view){
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
         String ma = view.getNewFieldValues()[0].getText();
@@ -42,7 +42,7 @@ public class DeleteProcessManager {
                     count = salesInvoiceDAO.delete(ma);
                 }
             }else if(selectedTable.equals(view.getTableName(4))){
-                count = daoHoaDonMatHang.delete(ma, view.getNewFieldValues()[1].getText());
+                count = invoiceProductDAO.delete(ma, view.getNewFieldValues()[1].getText());
             }
         }else{
             view.showMessage(view.getAddFrame(), message);

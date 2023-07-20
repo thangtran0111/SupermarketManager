@@ -2,7 +2,7 @@ package view;
 
 import controller.SearchProcessManager;
 import model.SalesInvoice;
-import model.HoaDonMatHang;
+import model.InvoiceProduct;
 import model.Product;
 import model.Employee;
 
@@ -21,11 +21,11 @@ public class View {
     private final int PADDING = 60;
 
     //column name
-    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SalesInvoice, Hoá Đơn Mặt Hàng
+    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SalesInvoice, InvoiceProduct
     private final Object[] productColumnNames = {"Product ID", "Barcode", "Product Name", "Retail Price", "Quantity In Stock", "Product Type", "Description"};
-    private final Object[] employeeColumnNames = {"Employee ID", "EmployeeName", "Phone Number", "Email", "Date Of Birth",  "Gender", "Address", "Position", "Salary"};
-    private final Object[] salesInvoiceColumnNames = {"InvoiceID", "InvoiceDate", "CustomerID", "Payment method"};
-    private final Object[] bill_ProductColumnNames = {"Mã hoá đơn", "Mã mặt hàng", "Số lượng"};
+    private final Object[] employeeColumnNames = {"Employee ID", "Employee Name", "Phone Number", "Email", "Date Of Birth",  "Gender", "Address", "Position", "Salary"};
+    private final Object[] salesInvoiceColumnNames = {"Invoice ID", "Invoice Date", "CustomerI D", "Payment method"};
+    private final Object[] invoiceProductColumnNames = {"Invoice ID", "Product ID", "Quantity"};
 
     //login component
     private JFrame loginFrame;
@@ -261,7 +261,7 @@ public class View {
         homeFrame.repaint();
     }
 
-    public void createHoaDonMatHangManagementFrame() {
+    public void createInvoiceProductManagementFrame() {
         if (midHomePanel.isAncestorOf(welcomeLabel)) {
             midHomePanel.remove(welcomeLabel);
         }
@@ -535,17 +535,17 @@ public class View {
         deleteFrame.setVisible(true);
     }
 
-    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SalesInvoice, Hoá Đơn Mặt Hàng
+    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SalesInvoice, InvoiceProduct
     public Class<?> getClassByTableName(String selectedTable){
         return switch (selectedTable) {
             case "Employee" -> Employee.class;
             case "Product" -> Product.class;
             case "SalesInvoice" -> SalesInvoice.class;
-            case "Hoá Đơn Mặt Hàng" -> HoaDonMatHang.class;
+            case "InvoiceProduct" -> InvoiceProduct.class;
             default -> null;
         };
     }
-    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SaleInvoices, Hoá Đơn Mặt Hàng
+    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SaleInvoices, InvoiceProduct
     public <T> T createObject(String selectedTable, JTextField[] _properties) {
         Class<?> cl = getClassByTableName(selectedTable);
         if (cl == null) {
@@ -559,7 +559,7 @@ public class View {
                         cl.getConstructor(String.class, String.class, String.class, String.class, String.class, Date.class, String.class, String.class, String.class, int.class);
                 case "SaleInvoices" ->
                         cl.getConstructor(String.class, Date.class, String.class, String.class);
-                case "Hoá Đơn Mặt Hàng" ->
+                case "InvoiceProduct" ->
                         cl.getConstructor(String.class, String.class, Integer.class);
                 default -> throw new IllegalStateException("Invalid table name: " + selectedTable);
             };
@@ -656,9 +656,9 @@ public class View {
 
     public Object[] getSalesInvoiceColumnNames(){ return salesInvoiceColumnNames; }
     
-    public Object[] getBill_ProductColumnNames(){ return bill_ProductColumnNames; }
+    public Object[] getInvoiceProductColumnNames(){ return invoiceProductColumnNames; }
 
-    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SaleInvoices, Hoá Đơn Mặt Hàng
+    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SaleInvoices, InvoiceProduct
     public Object[] getColumnNames(String selectedTable){
         if(selectedTable.equals(tableNames[1])){
             return getEmployeeColumnNames();
@@ -667,7 +667,7 @@ public class View {
         }else if(selectedTable.equals(tableNames[3])){
             return getSalesInvoiceColumnNames();
         }else if(selectedTable.equals(tableNames[4])){
-            return getBill_ProductColumnNames();
+            return getInvoiceProductColumnNames();
         }
         return new Object[0];
     }

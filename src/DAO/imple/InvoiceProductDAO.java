@@ -1,8 +1,8 @@
 package DAO.imple;
 
-import DAO.itf.IDaoHoaDonMatHang;
+import DAO.itf.InvoiceProductDAOInterface;
 import databaseConnection.DatabaseConnection;
-import model.HoaDonMatHang;
+import model.InvoiceProduct;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,20 +11,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DaoHoaDonMatHang implements IDaoHoaDonMatHang {
+public class InvoiceProductDAO implements InvoiceProductDAOInterface {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
     @Override
-    public int create(HoaDonMatHang hoaDonMatHang) {
+    public int create(InvoiceProduct invoiceProduct) {
         int count = 0;
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("INSERT INTO HoaDonMatHang (MaHoaDon, MaMatHang, SoLuong) VALUES (?, ?, ?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO InvoiceProduct (InvoiceID, ProductID, Quantity) VALUES (?, ?, ?)");
 
-            preparedStatement.setString(1, hoaDonMatHang.getMaHoaDon());
-            preparedStatement.setString(2, hoaDonMatHang.getMaMatHang());
-            preparedStatement.setInt(3, hoaDonMatHang.getSoLuong());
+            preparedStatement.setString(1, invoiceProduct.getInvoiceID());
+            preparedStatement.setString(2, invoiceProduct.getProductID());
+            preparedStatement.setInt(3, invoiceProduct.getQuantity());
 
             count = preparedStatement.executeUpdate();
 
@@ -37,19 +37,19 @@ public class DaoHoaDonMatHang implements IDaoHoaDonMatHang {
     }
 
     @Override
-    public List<HoaDonMatHang> read() {
+    public List<InvoiceProduct> read() {
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("SELECT * FROM HoaDonMatHang;");
+            preparedStatement = connection.prepareStatement("SELECT * FROM InvoiceProduct;");
             resultSet = preparedStatement.executeQuery();
-            List<HoaDonMatHang> listHoaDonMatHang = new ArrayList<>();
+            List<InvoiceProduct> listInvoiceProduct = new ArrayList<>();
             while (resultSet.next()) {
-                listHoaDonMatHang.add(new HoaDonMatHang(
-                        resultSet.getString("MaHoaDon").trim(),
-                        resultSet.getString("MaMatHang").trim(),
-                        resultSet.getInt("SoLuong")));
+                listInvoiceProduct.add(new InvoiceProduct(
+                        resultSet.getString("InvoiceID").trim(),
+                        resultSet.getString("ProductID").trim(),
+                        resultSet.getInt("Quantity")));
             }
-            return listHoaDonMatHang;
+            return listInvoiceProduct;
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
@@ -58,15 +58,15 @@ public class DaoHoaDonMatHang implements IDaoHoaDonMatHang {
     }
 
     @Override
-    public int update(HoaDonMatHang hoaDonMatHang) {
+    public int update(InvoiceProduct invoiceProduct) {
         int count = 0;
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("UPDATE HoaDonMatHang SET SoLuong = ? WHERE MaHoaDon = ? AND MaMatHang = ?");
+            preparedStatement = connection.prepareStatement("UPDATE InvoiceProduct SET Quantity = ? WHERE InvoiceID = ? AND ProductID = ?");
 
-            preparedStatement.setInt(1, hoaDonMatHang.getSoLuong());
-            preparedStatement.setString(2, hoaDonMatHang.getMaHoaDon());
-            preparedStatement.setString(3, hoaDonMatHang.getMaMatHang());
+            preparedStatement.setInt(1, invoiceProduct.getQuantity());
+            preparedStatement.setString(2, invoiceProduct.getInvoiceID());
+            preparedStatement.setString(3, invoiceProduct.getProductID());
 
             count = preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
@@ -78,14 +78,14 @@ public class DaoHoaDonMatHang implements IDaoHoaDonMatHang {
     }
 
     @Override
-    public int delete(String maHoaDon, String maMatHang) {
+    public int delete(String invoiceID, String productID) {
         int count = 0;
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("DELETE FROM HoaDonMatHang WHERE MaHoaDon = ? AND MaMatHang = ?");
+            preparedStatement = connection.prepareStatement("DELETE FROM InvoiceProduct WHERE InvoiceID = ? AND ProductID = ?");
 
-            preparedStatement.setString(1, maHoaDon);
-            preparedStatement.setString(2, maMatHang);
+            preparedStatement.setString(1, invoiceID);
+            preparedStatement.setString(2, productID);
 
             count = preparedStatement.executeUpdate();
 
@@ -99,13 +99,13 @@ public class DaoHoaDonMatHang implements IDaoHoaDonMatHang {
     }
 
     @Override
-    public int delete(String maHoaDon) {
+    public int delete(String invoiceID) {
         int count = 0;
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("DELETE FROM HoaDonMatHang WHERE MaHoaDon = ?");
+            preparedStatement = connection.prepareStatement("DELETE FROM InvoiceProduct WHERE InvoiceID = ?");
 
-            preparedStatement.setString(1, maHoaDon);
+            preparedStatement.setString(1, invoiceID);
             count = preparedStatement.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {

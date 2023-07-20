@@ -1,15 +1,15 @@
 package controller;
 
 import DAO.imple.SalesInvoiceDAO;
-import DAO.imple.DaoHoaDonMatHang;
+import DAO.imple.InvoiceProductDAO;
 import DAO.imple.ProductDAO;
 import DAO.imple.EmployeeDAO;
 import DAO.itf.SalesInvoiceDAOInterface;
-import DAO.itf.IDaoHoaDonMatHang;
+import DAO.itf.InvoiceProductDAOInterface;
 import DAO.itf.ProductDAOInterface;
 import DAO.itf.EmployeeDAOInterface;
 import model.SalesInvoice;
-import model.HoaDonMatHang;
+import model.InvoiceProduct;
 import model.Product;
 import model.Employee;
 import view.View;
@@ -18,16 +18,16 @@ public class AddProcessManager {
     private ProductDAOInterface productDAO;
     private EmployeeDAOInterface employeeDAO;
     private SalesInvoiceDAOInterface salesInvoiceDAO;
-    private IDaoHoaDonMatHang daoHoaDonMatHang;
+    private InvoiceProductDAOInterface invoiceProductDAO;
 
     public AddProcessManager(){
         productDAO = new ProductDAO();
         employeeDAO = new EmployeeDAO();
         salesInvoiceDAO = new SalesInvoiceDAO();
-        daoHoaDonMatHang = new DaoHoaDonMatHang();
+        invoiceProductDAO = new InvoiceProductDAO();
     }
 
-    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, SaleInvoices, Hoá Đơn Mặt Hàng
+    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, SaleInvoices, InvoiceProduct
     public void processAdd(View view){
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
         String message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
@@ -43,8 +43,8 @@ public class AddProcessManager {
                 SalesInvoice salesInvoice = view.createObject(selectedTable, view.getNewFieldValues());
                 count = salesInvoiceDAO.create(salesInvoice);
             }else if(selectedTable.equals(view.getTableName(4))){
-                HoaDonMatHang hoaDonMatHang = view.createObject(selectedTable, view.getNewFieldValues());
-                count = daoHoaDonMatHang.create(hoaDonMatHang);
+                InvoiceProduct invoiceProduct = view.createObject(selectedTable, view.getNewFieldValues());
+                count = invoiceProductDAO.create(invoiceProduct);
             }
         }else{
             view.showMessage(view.getAddFrame(), message);
