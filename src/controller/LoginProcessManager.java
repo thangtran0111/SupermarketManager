@@ -1,8 +1,8 @@
 package controller;
 
-import DAO.imple.DaoTaiKhoan;
-import DAO.itf.IDaoTaiKhoan;
-import model.TaiKhoan;
+import DAO.imple.AccountDAO;
+import DAO.itf.AccountDAOInterface;
+import model.Account;
 import view.View;
 
 import javax.swing.*;
@@ -11,7 +11,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class LoginProcessManager {
-    private IDaoTaiKhoan daoTaiKhoan;
+    private AccountDAOInterface daoTaiKhoan;
 
     private String encode(String input)  {
         StringBuilder hexString = new StringBuilder();
@@ -30,7 +30,7 @@ public class LoginProcessManager {
     }
 
     public LoginProcessManager() {
-        this.daoTaiKhoan = new DaoTaiKhoan();
+        this.daoTaiKhoan = new AccountDAO();
     }
     private String convert(char[] charArray) {
         StringBuilder str = new StringBuilder();
@@ -52,14 +52,14 @@ public class LoginProcessManager {
         char[] passwdArray = view.getUserPasswordField().getPassword();
         String passwd = convert(passwdArray);
 
-        TaiKhoan taiKhoan = daoTaiKhoan.get(userName);
-        if(taiKhoan == null){
+        Account account = daoTaiKhoan.get(userName);
+        if(account == null){
             view.showMessage(view.getLoginFrame(), "Account does not exist!");
             view.getUserPasswordField().setText("");
             view.getUserTextField().setText("");
         }else{
             String encodePasswd = encode(passwd);
-            if(encodePasswd.equals(String.valueOf(taiKhoan.getPasswd()))){
+            if(encodePasswd.equals(String.valueOf(account.getPasswd()))){
                 view.showMessage(view.getLoginFrame(), "Login successfully!");
                 view.getLoginFrame().dispose();
                 view.createHomeFrame();

@@ -1,8 +1,8 @@
 package DAO.imple;
 
-import DAO.itf.IDaoTaiKhoan;
+import DAO.itf.AccountDAOInterface;
 import databaseConnection.DatabaseConnection;
-import model.TaiKhoan;
+import model.Account;
 
 import java.sql.Connection;
 
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DaoTaiKhoan implements IDaoTaiKhoan {
+public class AccountDAO implements AccountDAOInterface {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
@@ -32,8 +32,8 @@ public class DaoTaiKhoan implements IDaoTaiKhoan {
     }
 
     @Override
-    public TaiKhoan get(String userName) {
-        TaiKhoan taiKhoan;
+    public Account get(String userName) {
+        Account account;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("SELECT * FROM TaiKhoan WHERE UserName = ?");
@@ -42,9 +42,9 @@ public class DaoTaiKhoan implements IDaoTaiKhoan {
             resultSet = preparedStatement.executeQuery();
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                taiKhoan = new TaiKhoan(resultSet.getString(1).toCharArray(), resultSet.getString(2), resultSet.getString(3));
+                account = new Account(resultSet.getString(1).toCharArray(), resultSet.getString(2), resultSet.getString(3));
             } else {
-                taiKhoan = new TaiKhoan();
+                account = new Account();
             }
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -52,11 +52,11 @@ public class DaoTaiKhoan implements IDaoTaiKhoan {
         }finally {
             DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
-        return taiKhoan;
+        return account;
     }
 
     @Override
-    public List<TaiKhoan> read() {
+    public List<Account> read() {
         return new ArrayList<>();
     }
 
