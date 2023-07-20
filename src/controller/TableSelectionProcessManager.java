@@ -59,12 +59,12 @@ public class TableSelectionProcessManager {
         if (selectedTable.equals(view.getTableName(1))) {
             List<Employee> employeeList = employeeDAO.read();
             for (Employee employee : employeeList) {
-                model.addRow(new Object[]{String.valueOf(employee.getEmployeeID()), String.valueOf(employee.getEmployeeName()), String.valueOf(employee.getEmployeeID()), String.valueOf(employee.getPhoneNumber()), String.valueOf(employee.getEmail()), employee.getDateOfBirth(), String.valueOf(employee.getGender()), String.valueOf(employee.getAddress()), String.valueOf(employee.getPosition()), employee.getSalary()});
+                model.addRow(new Object[]{String.valueOf(employee.getEmployeeID()), String.valueOf(employee.getEmployeeName()), String.valueOf(employee.getIDNumber()), String.valueOf(employee.getPhoneNumber()), String.valueOf(employee.getEmail()), employee.getDateOfBirth(), String.valueOf(employee.getGender()), String.valueOf(employee.getAddress()), String.valueOf(employee.getPosition()), employee.getSalary()});
             }
         }else if (selectedTable.equals(view.getTableName(2))) {
                 List<Product> productList = productDAO.read();
                 for (Product product : productList) {
-                    model.addRow(new Object[]{String.valueOf(product.getProductID()),String.valueOf(product.getBarcode()) ,String.valueOf(product.getProductName()), product.getRetailPrice(), product.getQuantityInStock(), String.valueOf(product.getProductType()), String.valueOf(product.getDescription())});
+                    model.addRow(new Object[]{String.valueOf(product.getProductID()), String.valueOf(product.getBarcode()) ,String.valueOf(product.getProductName()), product.getRetailPrice(), product.getQuantityInStock(), String.valueOf(product.getProductType()), String.valueOf(product.getDescription())});
                 }
         }else if (selectedTable.equals(view.getTableName(3))) {
             List<SalesInvoice> salesInvoiceList = salesInvoiceDAO.read();

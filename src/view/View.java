@@ -23,8 +23,8 @@ public class View {
     //column name
     //TODO thêm các bảng khác các bảng hiện có Product, Employee, SalesInvoice, InvoiceProduct
     private final Object[] productColumnNames = {"Product ID", "Barcode", "Product Name", "Retail Price", "Quantity In Stock", "Product Type", "Description"};
-    private final Object[] employeeColumnNames = {"Employee ID", "Employee Name", "Phone Number", "Email", "Date Of Birth",  "Gender", "Address", "Position", "Salary"};
-    private final Object[] salesInvoiceColumnNames = {"Invoice ID", "Invoice Date", "CustomerI D", "Payment method"};
+    private final Object[] employeeColumnNames = {"Employee ID", "Employee Name", "ID Number", "Phone Number", "Email", "Date Of Birth",  "Gender", "Address", "Position", "Salary"};
+    private final Object[] salesInvoiceColumnNames = {"Invoice ID", "Invoice Date", "Customer ID", "Payment Method"};
     private final Object[] invoiceProductColumnNames = {"Invoice ID", "Product ID", "Quantity"};
 
     //login component
@@ -304,7 +304,7 @@ public class View {
 
         JPanel topInfoPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         topInfoPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        topInfoPanel.add(new JLabel("THÔNG TIN"));
+        topInfoPanel.add(new JLabel("INFORMATION"));
 
         JPanel midInfoPanel = new JPanel(new GridLayout(rowCount, 2, 5, 5));
         midInfoPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
@@ -336,7 +336,7 @@ public class View {
     }
 
     public void createInfoFrameWithMultipleRows(Object[] titles, Object[][] data) {
-        infoFrame = new JFrame("formation");
+        infoFrame = new JFrame("Information");
         infoFrame.setLayout(new BorderLayout());
         infoFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/resource/info.png"))).getImage());
 
@@ -345,7 +345,7 @@ public class View {
 
         JPanel topInfoPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         topInfoPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        topInfoPanel.add(new JLabel("THÔNG TIN" + data[0][0]));
+        topInfoPanel.add(new JLabel("INFORMATION" + data[0][0]));
 
         JPanel midInfoPanel = new JPanel(new GridLayout(rowCount + 1, columnCount, 5, 5));
         midInfoPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
@@ -424,7 +424,7 @@ public class View {
         addFrame.setLayout(new FlowLayout());
         JPanel topAddPanel = new JPanel();
         topAddPanel.setPreferredSize(new Dimension(addFrame.getWidth(), PADDING));
-        topAddPanel.add(new JLabel("THÊM", SwingConstants.CENTER));
+        topAddPanel.add(new JLabel("ADD", SwingConstants.CENTER));
 
         JPanel midAddPanel = new JPanel(new GridLayout(rowCount, 2));
 
@@ -554,13 +554,13 @@ public class View {
         try {
             Constructor<?> constructor = switch (selectedTable) {
                 case "Product" ->
-                        cl.getConstructor(String.class, String.class, String.class, Integer.class, int.class, String.class, String.class);
+                        cl.getConstructor(String.class, String.class, String.class, int.class, int.class, String.class, String.class);
                 case "Employee"->
                         cl.getConstructor(String.class, String.class, String.class, String.class, String.class, Date.class, String.class, String.class, String.class, int.class);
-                case "SaleInvoices" ->
+                case "SalesInvoice" ->
                         cl.getConstructor(String.class, Date.class, String.class, String.class);
                 case "InvoiceProduct" ->
-                        cl.getConstructor(String.class, String.class, Integer.class);
+                        cl.getConstructor(String.class, String.class, int.class);
                 default -> throw new IllegalStateException("Invalid table name: " + selectedTable);
             };
             String[] properties = new String[_properties.length];

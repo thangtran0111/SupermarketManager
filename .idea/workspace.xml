@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="Translate the InvoiceProduct table into English">
+    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="Translate table name">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/databaseConnection/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/databaseConnection/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/imple/EmployeeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/EmployeeDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/imple/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/ProductDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/imple/SalesInvoiceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/SalesInvoiceDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/TableSelectionProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/TableSelectionProcessManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/View.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +111,28 @@
       <option name="project" value="LOCAL" />
       <updated>1689875419182</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Change database">
+      <created>1689875547396</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1689875547396</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Fix error">
+      <created>1689875734547</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1689875734547</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Translate table name">
+      <created>1689875876264</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1689875876264</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -117,6 +142,9 @@
     <MESSAGE value="Translate the Account table into English" />
     <MESSAGE value="Translate the SalesInvoice table into English" />
     <MESSAGE value="Translate the InvoiceProduct table into English" />
-    <option name="LAST_COMMIT_MESSAGE" value="Translate the InvoiceProduct table into English" />
+    <MESSAGE value="Change database" />
+    <MESSAGE value="Fix error" />
+    <MESSAGE value="Translate table name" />
+    <option name="LAST_COMMIT_MESSAGE" value="Translate table name" />
   </component>
 </project>

@@ -43,7 +43,7 @@ public class EmployeeDAO implements EmployeeDAOInterface {
         int count = 0;
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("INSERT INTO Employee (EmployeeID, EmployeeName, IDNumber, PhoneNumber, Email, DateOfBirth, Gender, Address, Position, Salary) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO Employee (EmployeeID, EmployeeName, IDNumber, PhoneNumber, Email, DateOfBirth, Gender, Address, Position, Salary) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             preparedStatement.setString(1, employee.getEmployeeID());
             preparedStatement.setString(2, employee.getEmployeeName());
@@ -74,8 +74,8 @@ public class EmployeeDAO implements EmployeeDAOInterface {
             preparedStatement = connection.prepareStatement("UPDATE Employee SET EmployeeName = ?, IDNumber = ?, PhoneNumber = ?, Email = ?, DateOfBirth = ?, Gender = ?, Address = ?, Position = ?, Salary = ? WHERE EmployeeID = ?");
 
             preparedStatement.setString(1, employee.getEmployeeName());
-            preparedStatement.setString(2, employee.getPhoneNumber());
-            preparedStatement.setString(3, employee.getIDNumber());
+            preparedStatement.setString(2, employee.getIDNumber());
+            preparedStatement.setString(3, employee.getPhoneNumber());
             preparedStatement.setString(4, employee.getEmail());
             preparedStatement.setDate(5, new java.sql.Date(employee.getDateOfBirth().getTime()));
             preparedStatement.setString(6, employee.getGender());

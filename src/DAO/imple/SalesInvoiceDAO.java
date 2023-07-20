@@ -67,7 +67,7 @@ public class SalesInvoiceDAO implements SalesInvoiceDAOInterface {
         int count = 0;
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("UPDATE SalesInvoice SET  InvoiceDate = ?, CustomerID = ?, PaymentMethod = ? WHERE MaHoaDOn = ?");
+            preparedStatement = connection.prepareStatement("UPDATE SalesInvoice SET  InvoiceDate = ?, CustomerID = ?, PaymentMethod = ? WHERE InvoiceID = ?");
 
             preparedStatement.setDate(1, new java.sql.Date(salesInvoice.getInvoiceDate().getTime()));
             preparedStatement.setString(2, salesInvoice.getCustomerID());

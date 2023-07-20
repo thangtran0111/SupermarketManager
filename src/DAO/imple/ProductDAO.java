@@ -25,7 +25,7 @@ public class ProductDAO implements ProductDAOInterface {
             List<Product> productList = new ArrayList<>();
             while (resultSet.next()) {
                 productList.add(new Product(
-                        resultSet.getString("ProductName").trim(),
+                        resultSet.getString("ProductID").trim(),
                         resultSet.getString("Barcode").trim(),
                         resultSet.getString("ProductName").trim(),
                         resultSet.getInt("RetailPrice"),
@@ -77,7 +77,7 @@ public class ProductDAO implements ProductDAOInterface {
         int count = 0;
         try{
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("INSERT Product (ProductID, ProductName, RetailPrice, QuantityInStock, ProductType, HanSuDung, Description) VALUES (?, ?, ?, ?, ?, ?, ?);");
+            preparedStatement = connection.prepareStatement("INSERT Product (ProductID, Barcode, ProductName, RetailPrice, QuantityInStock, ProductType, Description) VALUES (?, ?, ?, ?, ?, ?, ?);");
 
             preparedStatement.setString(1, product.getProductID());
             preparedStatement.setString(2, product.getBarcode());
@@ -101,14 +101,14 @@ public class ProductDAO implements ProductDAOInterface {
         int count = 0;
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("UPDATE MatHang ProductName = ?, RetailPrice = ?, QuantityInStock = ?, ProductType = ?, Description = ? WHERE ProductID = ?");
+            preparedStatement = connection.prepareStatement("UPDATE Product SET ProductName = ?, RetailPrice = ?, QuantityInStock = ?, ProductType = ?, Description = ? WHERE ProductID = ?");
 
             preparedStatement.setString(1, product.getProductName());
             preparedStatement.setFloat(2, product.getRetailPrice());
             preparedStatement.setInt(3, product.getQuantityInStock());
             preparedStatement.setString(4, product.getProductType());
-            preparedStatement.setString(6, product.getDescription());
-            preparedStatement.setString(7, product.getProductID());
+            preparedStatement.setString(5, product.getDescription());
+            preparedStatement.setString(6, product.getProductID());
 
             count = preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
