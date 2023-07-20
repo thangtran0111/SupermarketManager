@@ -38,7 +38,7 @@ public class View {
     private JPanel topHomePanel;
     private JPanel midHomePanel;
     private JPanel bottomHomePanel;
-    private final String[] tableNames = new String[]{"", "Employee", "Product", "Hoá Đơn Bán Hàng", "Hoá Đơn Mặt Hàng"};
+    private final String[] tableNames = new String[]{"", "Employee", "Product", "SalesInvoice", "InvoiceProduct"};
     private final JComboBox<String> tableChooser = new JComboBox<>(tableNames);
     private JTextField findField;
     private final JTable table = new JTable();
