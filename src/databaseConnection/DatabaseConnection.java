@@ -15,7 +15,7 @@ public class DatabaseConnection {
 
     private static final String username = "LocalThang";
     private static final String passwd = "123456";
-    private static final String url = "jdbc:sqlserver://THANG\\SQLEXPRESS;databaseName=QuanLySieuThi;user=LocalThang;password=123456;encrypt=true;trustServerCertificate=true;";
+    private static final String url = "jdbc:sqlserver://THANG\\SQLEXPRESS;databaseName=ManagementSupermarket;user=LocalThang;password=123456;encrypt=true;trustServerCertificate=true;";
 
 
     public static Connection connect() throws SQLException, ClassNotFoundException {

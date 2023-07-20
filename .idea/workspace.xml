@@ -4,19 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="Translate the Account table into English">
-      <change afterPath="$PROJECT_DIR$/src/DAO/itf/SalesInvoiceDAOInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/SalesInvoice.java" afterDir="false" />
+    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="Translate the InvoiceProduct table into English">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/imple/DaoHoaDonBanHang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/SalesInvoiceDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/itf/IDaoHoaDonBanHang.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/AddProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/AddProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/DeleteProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DeleteProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/TableSelectionProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/TableSelectionProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/UpdateProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/UpdateProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/DonHang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/DonHang.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/HoaDonBanHang.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/View.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/databaseConnection/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/databaseConnection/DatabaseConnection.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +93,21 @@
       <option name="project" value="LOCAL" />
       <updated>1689873956137</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Translate the SalesInvoice table into English">
+      <created>1689874784659</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1689874784659</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Translate the InvoiceProduct table into English">
+      <created>1689875419182</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1689875419182</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -111,6 +115,8 @@
     <MESSAGE value="Translate the Products table into English" />
     <MESSAGE value="Translate the Employee table into English" />
     <MESSAGE value="Translate the Account table into English" />
-    <option name="LAST_COMMIT_MESSAGE" value="Translate the Account table into English" />
+    <MESSAGE value="Translate the SalesInvoice table into English" />
+    <MESSAGE value="Translate the InvoiceProduct table into English" />
+    <option name="LAST_COMMIT_MESSAGE" value="Translate the InvoiceProduct table into English" />
   </component>
 </project>
