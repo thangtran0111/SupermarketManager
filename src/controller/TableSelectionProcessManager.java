@@ -2,16 +2,16 @@ package controller;
 
 import DAO.imple.DaoHoaDonBanHang;
 import DAO.imple.DaoHoaDonMatHang;
-import DAO.imple.DaoMatHang;
+import DAO.imple.ProductDAO;
 import DAO.imple.DaoNhanVien;
 import DAO.itf.IDaoHoaDonBanHang;
 import DAO.itf.IDaoHoaDonMatHang;
-import DAO.itf.IDaoMatHang;
+import DAO.itf.ProductDAOInterface;
 import DAO.itf.IDaoNhanVien;
 
 import model.HoaDonBanHang;
 import model.HoaDonMatHang;
-import model.MatHang;
+import model.Product;
 import model.NhanVien;
 import view.View;
 
@@ -19,19 +19,19 @@ import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
 public class TableSelectionProcessManager {
-    private IDaoMatHang daoMatHang;
+    private ProductDAOInterface productDAO;
     private IDaoNhanVien daoNhanVien;
     private IDaoHoaDonBanHang daoHoaDonBanHang;
     private IDaoHoaDonMatHang daoHoaDonMatHang;
 
     public TableSelectionProcessManager(){
-        daoMatHang = new DaoMatHang();
+        productDAO = new ProductDAO();
         daoNhanVien = new DaoNhanVien();
         daoHoaDonBanHang = new DaoHoaDonBanHang();
         daoHoaDonMatHang = new DaoHoaDonMatHang();
     }
 
-    //TODO: thêm các bảng khác các bảng hiện có Nhân Viên, Mặt Hàng, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
+    //TODO: thêm các bảng khác các bảng hiện có Nhân Viên, Product, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
     public void processTableSelection(View view) {
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
         DefaultTableModel oldModel = (DefaultTableModel) view.getTable().getModel();
@@ -42,8 +42,8 @@ public class TableSelectionProcessManager {
             List<NhanVien> nhanVienList = daoNhanVien.read();
             view.createNhanVienManagementFrame();
         } else if (selectedTable.equals(view.getTableName(2))) {
-            List<MatHang> matHangList = daoMatHang.read();
-            view.createMatHangManagementFrame();
+            List<Product> productList = productDAO.read();
+            view.createProductManagementFrame();
         } else if(selectedTable.equals(view.getTableName(3))){
             List<HoaDonBanHang> hoaDonBanHangList = daoHoaDonBanHang.read();
             view.createHoaDonBanHangManagementFrame();
@@ -62,9 +62,9 @@ public class TableSelectionProcessManager {
                 model.addRow(new Object[]{String.valueOf(nv.getMaNhanVien()), String.valueOf(nv.getTenNhanVien()), String.valueOf(nv.getSoDienThoai()), String.valueOf(nv.getEmail()), nv.getNgaySinh(), String.valueOf(nv.getGioiTinh()), String.valueOf(nv.getDiaChi()), String.valueOf(nv.getChucVu()), nv.getLuong()});
             }
         }else if (selectedTable.equals(view.getTableName(2))) {
-                List<MatHang> matHangList = daoMatHang.read();
-                for (MatHang mh : matHangList) {
-                    model.addRow(new Object[]{String.valueOf(mh.getMaMatHang()), String.valueOf(mh.getTenMatHang()), mh.getGiaBan(), mh.getSoLuongTonKho(), String.valueOf(mh.getLoaiMatHang()), mh.getHanSuDung(), String.valueOf(mh.getMoTa())});
+                List<Product> productList = productDAO.read();
+                for (Product product : productList) {
+                    model.addRow(new Object[]{String.valueOf(product.getProductID()),String.valueOf(product.getBarcode()) ,String.valueOf(product.getProductName()), product.getRetailPrice(), product.getQuantityInStock(), String.valueOf(product.getProductType()), String.valueOf(product.getDescription())});
                 }
         }else if (selectedTable.equals(view.getTableName(3))) {
             List<HoaDonBanHang> hoaDonBanHangList = daoHoaDonBanHang.read();

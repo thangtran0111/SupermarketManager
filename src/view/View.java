@@ -3,7 +3,7 @@ package view;
 import controller.SearchProcessManager;
 import model.HoaDonBanHang;
 import model.HoaDonMatHang;
-import model.MatHang;
+import model.Product;
 import model.NhanVien;
 
 import javax.swing.*;
@@ -21,8 +21,8 @@ public class View {
     private final int PADDING = 60;
 
     //column name
-    //TODO thêm các bảng khác các bảng hiện có Mặt Hàng, Nhân Viên, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
-    private final Object[] productColumnNames = {"Mã mặt hàng", "Tên mặt hàng", "Giá bán", "Số lượng tồn kho", "Loại mặt hàng", "Hạn sử dụng", "Mô tả"};
+    //TODO thêm các bảng khác các bảng hiện có Product, Nhân Viên, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
+    private final Object[] productColumnNames = {"Product ID", "Barcode", "Product Name", "Retail Price", "Quantity In Stock", "Product Type", "Description"};
     private final Object[] employeeColumnNames = {"Mã nhân viên", "Tên nhân viên", "Số điện thoại", "Email", "Ngày sinh",  "Giới tính", "Địa chỉ", "Chức vụ", "Lương"};
     private final Object[] billColumnNames = {"Mã hoá đơn", "Ngày lập", "Mã khách hàng", "Phương thức thanh toán"};
     private final Object[] bill_ProductColumnNames = {"Mã hoá đơn", "Mã mặt hàng", "Số lượng"};
@@ -38,7 +38,7 @@ public class View {
     private JPanel topHomePanel;
     private JPanel midHomePanel;
     private JPanel bottomHomePanel;
-    private final String[] tableNames = new String[]{"", "Nhân Viên", "Mặt Hàng", "Hoá Đơn Bán Hàng", "Hoá Đơn Mặt Hàng"};
+    private final String[] tableNames = new String[]{"", "Nhân Viên", "Product", "Hoá Đơn Bán Hàng", "Hoá Đơn Mặt Hàng"};
     private final JComboBox<String> tableChooser = new JComboBox<>(tableNames);
     private JTextField findField;
     private final JTable table = new JTable();
@@ -162,7 +162,7 @@ public class View {
         homeFrame.setVisible(true);
     }
 
-    public void createMatHangManagementFrame() {
+    public void createProductManagementFrame() {
         if (midHomePanel.isAncestorOf(welcomeLabel)) {
             midHomePanel.remove(welcomeLabel);
         }
@@ -356,13 +356,13 @@ public class View {
             String title = String.valueOf(titles[i]);
             midInfoPanel.add(new JLabel(title));
         }
-        for (int i = 0; i < rowCount; i++) {
-            for(int j = 1; j < titles.length; j++){
-                if(data[i][j] == null){
+        for (Object[] datum : data) {
+            for (int j = 1; j < titles.length; j++) {
+                if (datum[j] == null) {
                     midInfoPanel.add(new JLabel());
-                }else{
-                    midInfoPanel.add(new JLabel(String.valueOf(data[i][j])));
-                    System.out.println(String.valueOf(data[i][j]));
+                } else {
+                    midInfoPanel.add(new JLabel(String.valueOf(datum[j])));
+                    System.out.println(datum[j]);
 
                 }
             }
@@ -535,17 +535,17 @@ public class View {
         deleteFrame.setVisible(true);
     }
 
-    //TODO thêm các bảng khác các bảng hiện có Mặt Hàng, Nhân Viên, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
+    //TODO thêm các bảng khác các bảng hiện có Product, Nhân Viên, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
     public Class<?> getClassByTableName(String selectedTable){
         return switch (selectedTable) {
             case "Nhân Viên" -> NhanVien.class;
-            case "Mặt Hàng" -> MatHang.class;
+            case "Product" -> Product.class;
             case "Hoá Đơn Bán Hàng" -> HoaDonBanHang.class;
             case "Hoá Đơn Mặt Hàng" -> HoaDonMatHang.class;
             default -> null;
         };
     }
-    //TODO thêm các bảng khác các bảng hiện có Mặt Hàng, Nhân Viên, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
+    //TODO thêm các bảng khác các bảng hiện có Product, Nhân Viên, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
     public <T> T createObject(String selectedTable, JTextField[] _properties) {
         Class<?> cl = getClassByTableName(selectedTable);
         if (cl == null) {
@@ -553,8 +553,8 @@ public class View {
         }
         try {
             Constructor<?> constructor = switch (selectedTable) {
-                case "Mặt Hàng" ->
-                        cl.getConstructor(String.class, String.class, float.class, int.class, String.class, Date.class, String.class);
+                case "Product" ->
+                        cl.getConstructor(String.class, String.class, String.class, Integer.class, int.class, String.class, String.class);
                 case "Nhân Viên"->
                         cl.getConstructor(String.class, String.class, String.class, String.class, Date.class, String.class, String.class, String.class, int.class);
                 case "Hoá Đơn Bán Hàng" ->
@@ -658,7 +658,7 @@ public class View {
     
     public Object[] getBill_ProductColumnNames(){ return bill_ProductColumnNames; }
 
-    //TODO thêm các bảng khác các bảng hiện có Mặt Hàng, Nhân Viên, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
+    //TODO thêm các bảng khác các bảng hiện có Product, Nhân Viên, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
     public Object[] getColumnNames(String selectedTable){
         if(selectedTable.equals(tableNames[1])){
             return getEmployeeColumnNames();

@@ -119,7 +119,7 @@ public class Controller implements ActionListener {
 
     }
 
-    public static String checkMa(String selectedTable, String ma){
+    public static String checkCode(String selectedTable, String ma){
         if(ma == null) return "Mã null";
         if(ma.length() != 5) return "Mã không đúng định dạng";
         DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
@@ -128,16 +128,7 @@ public class Controller implements ActionListener {
                 return "Mã đã tồn tại";
             }
         }
-        Pattern pattern = null;
-        //TODO: thêm các bảng còn lại các bảng hiện có Nhân Viên, Mặt Hàng, Hoá Đơn Bán Hàng
-        if(selectedTable.equals(view.getTableName(1))){
-            pattern = Pattern.compile("^NV\\d{3}");
-        }else if(selectedTable.equals(view .getTableName(2))){
-            pattern = Pattern.compile("^MH\\d{3}");
-        }else if(selectedTable.equals(view.getTableName(3))){
-            pattern = Pattern.compile("^HD\\d{3}");
-        }
-
+        Pattern pattern = Pattern.compile("^\\d{5}");
         if(!Objects.requireNonNull(pattern).matcher(ma).find()) return "Mã không đúng định dạng";
         return "Mã không tồn tại";
     }

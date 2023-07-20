@@ -2,39 +2,39 @@ package controller;
 
 import DAO.imple.DaoHoaDonBanHang;
 import DAO.imple.DaoHoaDonMatHang;
-import DAO.imple.DaoMatHang;
+import DAO.imple.ProductDAO;
 import DAO.imple.DaoNhanVien;
 import DAO.itf.IDaoHoaDonBanHang;
 import DAO.itf.IDaoHoaDonMatHang;
-import DAO.itf.IDaoMatHang;
+import DAO.itf.ProductDAOInterface;
 import DAO.itf.IDaoNhanVien;
 import view.View;
 
 public class DeleteProcessManager {
     IDaoNhanVien daoNhanVien;
-    IDaoMatHang daoMatHang;
+    ProductDAOInterface productDAO;
     IDaoHoaDonBanHang daoHoaDonBanHang;
     IDaoHoaDonMatHang daoHoaDonMatHang;
     public DeleteProcessManager(){
-        daoMatHang = new DaoMatHang();
+        productDAO = new ProductDAO();
         daoNhanVien = new DaoNhanVien();
         daoHoaDonBanHang = new DaoHoaDonBanHang();
         daoHoaDonMatHang = new DaoHoaDonMatHang();
     }
 
-    //TODO: thêm các bảng khác các bảng hiện có Nhân Viên, Mặt Hàng, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
+    //TODO: thêm các bảng khác các bảng hiện có Nhân Viên, Product, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
     public void processDelete(View view){
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
         String ma = view.getNewFieldValues()[0].getText();
-        String message = Controller.checkMa(selectedTable, view.getNewFieldValues()[0].getText());
+        String message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
         int count = 0;
         if(message.equals("Mã đã tồn tại")){
             if(selectedTable.equals(view.getTableName(1))){
-                if(!ma.equals("NV999")){
+                if(!ma.equals("99999")){
                     count = daoNhanVien.delete(ma);
                 }
             } else if(selectedTable.equals(view.getTableName(2))){
-                count = daoMatHang.delete(ma);
+                count = productDAO.delete(ma);
             }else if(selectedTable.equals(view.getTableName(3))){
                 count = daoHoaDonBanHang.delete(ma);
                 if(count > 0){
