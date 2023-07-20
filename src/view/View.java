@@ -4,7 +4,7 @@ import controller.SearchProcessManager;
 import model.HoaDonBanHang;
 import model.HoaDonMatHang;
 import model.Product;
-import model.NhanVien;
+import model.Employee;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -21,9 +21,9 @@ public class View {
     private final int PADDING = 60;
 
     //column name
-    //TODO thêm các bảng khác các bảng hiện có Product, Nhân Viên, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
+    //TODO thêm các bảng khác các bảng hiện có Product, Employee, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
     private final Object[] productColumnNames = {"Product ID", "Barcode", "Product Name", "Retail Price", "Quantity In Stock", "Product Type", "Description"};
-    private final Object[] employeeColumnNames = {"Mã nhân viên", "Tên nhân viên", "Số điện thoại", "Email", "Ngày sinh",  "Giới tính", "Địa chỉ", "Chức vụ", "Lương"};
+    private final Object[] employeeColumnNames = {"Employee ID", "EmployeeName", "Phone Number", "Email", "Date Of Birth",  "Gender", "Address", "Position", "Salary"};
     private final Object[] billColumnNames = {"Mã hoá đơn", "Ngày lập", "Mã khách hàng", "Phương thức thanh toán"};
     private final Object[] bill_ProductColumnNames = {"Mã hoá đơn", "Mã mặt hàng", "Số lượng"};
 
@@ -38,7 +38,7 @@ public class View {
     private JPanel topHomePanel;
     private JPanel midHomePanel;
     private JPanel bottomHomePanel;
-    private final String[] tableNames = new String[]{"", "Nhân Viên", "Product", "Hoá Đơn Bán Hàng", "Hoá Đơn Mặt Hàng"};
+    private final String[] tableNames = new String[]{"", "Employee", "Product", "Hoá Đơn Bán Hàng", "Hoá Đơn Mặt Hàng"};
     private final JComboBox<String> tableChooser = new JComboBox<>(tableNames);
     private JTextField findField;
     private final JTable table = new JTable();
@@ -196,7 +196,7 @@ public class View {
         homeFrame.repaint();
     }
 
-    public void createNhanVienManagementFrame() {
+    public void createEmployeeManagementFrame() {
         if (midHomePanel.isAncestorOf(welcomeLabel)) {
             midHomePanel.remove(welcomeLabel);
         }
@@ -535,33 +535,33 @@ public class View {
         deleteFrame.setVisible(true);
     }
 
-    //TODO thêm các bảng khác các bảng hiện có Product, Nhân Viên, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
+    //TODO thêm các bảng khác các bảng hiện có Product, Employee, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
     public Class<?> getClassByTableName(String selectedTable){
         return switch (selectedTable) {
-            case "Nhân Viên" -> NhanVien.class;
+            case "Employee" -> Employee.class;
             case "Product" -> Product.class;
             case "Hoá Đơn Bán Hàng" -> HoaDonBanHang.class;
             case "Hoá Đơn Mặt Hàng" -> HoaDonMatHang.class;
             default -> null;
         };
     }
-    //TODO thêm các bảng khác các bảng hiện có Product, Nhân Viên, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
+    //TODO thêm các bảng khác các bảng hiện có Product, Employee, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
     public <T> T createObject(String selectedTable, JTextField[] _properties) {
         Class<?> cl = getClassByTableName(selectedTable);
         if (cl == null) {
-            throw new IllegalArgumentException("valid table name: " + selectedTable);
+            throw new IllegalArgumentException("Invalid table name: " + selectedTable);
         }
         try {
             Constructor<?> constructor = switch (selectedTable) {
                 case "Product" ->
                         cl.getConstructor(String.class, String.class, String.class, Integer.class, int.class, String.class, String.class);
-                case "Nhân Viên"->
-                        cl.getConstructor(String.class, String.class, String.class, String.class, Date.class, String.class, String.class, String.class, int.class);
+                case "Employee"->
+                        cl.getConstructor(String.class, String.class, String.class, String.class, String.class, Date.class, String.class, String.class, String.class, int.class);
                 case "Hoá Đơn Bán Hàng" ->
                         cl.getConstructor(String.class, Date.class, String.class, String.class);
                 case "Hoá Đơn Mặt Hàng" ->
                         cl.getConstructor(String.class, String.class, Integer.class);
-                default -> throw new IllegalStateException("valid table name: " + selectedTable);
+                default -> throw new IllegalStateException("Invalid table name: " + selectedTable);
             };
             String[] properties = new String[_properties.length];
             for (int i = 0; i < _properties.length; i++) {
@@ -658,7 +658,7 @@ public class View {
     
     public Object[] getBill_ProductColumnNames(){ return bill_ProductColumnNames; }
 
-    //TODO thêm các bảng khác các bảng hiện có Product, Nhân Viên, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
+    //TODO thêm các bảng khác các bảng hiện có Product, Employee, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
     public Object[] getColumnNames(String selectedTable){
         if(selectedTable.equals(tableNames[1])){
             return getEmployeeColumnNames();

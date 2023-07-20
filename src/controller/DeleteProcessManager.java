@@ -3,26 +3,26 @@ package controller;
 import DAO.imple.DaoHoaDonBanHang;
 import DAO.imple.DaoHoaDonMatHang;
 import DAO.imple.ProductDAO;
-import DAO.imple.DaoNhanVien;
+import DAO.imple.EmployeeDAO;
 import DAO.itf.IDaoHoaDonBanHang;
 import DAO.itf.IDaoHoaDonMatHang;
 import DAO.itf.ProductDAOInterface;
-import DAO.itf.IDaoNhanVien;
+import DAO.itf.EmployeeDAOInterface;
 import view.View;
 
 public class DeleteProcessManager {
-    IDaoNhanVien daoNhanVien;
+    EmployeeDAOInterface employeeDAO;
     ProductDAOInterface productDAO;
     IDaoHoaDonBanHang daoHoaDonBanHang;
     IDaoHoaDonMatHang daoHoaDonMatHang;
     public DeleteProcessManager(){
         productDAO = new ProductDAO();
-        daoNhanVien = new DaoNhanVien();
+        employeeDAO = new EmployeeDAO();
         daoHoaDonBanHang = new DaoHoaDonBanHang();
         daoHoaDonMatHang = new DaoHoaDonMatHang();
     }
 
-    //TODO: thêm các bảng khác các bảng hiện có Nhân Viên, Product, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
+    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, Hoá Đơn Bán Hàng, Hoá Đơn Mặt Hàng
     public void processDelete(View view){
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
         String ma = view.getNewFieldValues()[0].getText();
@@ -31,7 +31,7 @@ public class DeleteProcessManager {
         if(message.equals("Mã đã tồn tại")){
             if(selectedTable.equals(view.getTableName(1))){
                 if(!ma.equals("99999")){
-                    count = daoNhanVien.delete(ma);
+                    count = employeeDAO.delete(ma);
                 }
             } else if(selectedTable.equals(view.getTableName(2))){
                 count = productDAO.delete(ma);

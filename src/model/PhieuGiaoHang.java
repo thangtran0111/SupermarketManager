@@ -7,14 +7,14 @@ public class PhieuGiaoHang {
     private LocalDateTime thoiGianGiaoHang;
     private String tinhTrangGiaoHang;
     private DonHang donHang;
-    private NhanVien nhanVienGiaoHang;
+    private Employee employeeGiaoHang;
 
-    public PhieuGiaoHang(int maPhieuGiaoHang, LocalDateTime thoiGianGiaoHang, String tinhTrangGiaoHang, DonHang donHang, NhanVien nhanVienGiaoHang) {
+    public PhieuGiaoHang(int maPhieuGiaoHang, LocalDateTime thoiGianGiaoHang, String tinhTrangGiaoHang, DonHang donHang, Employee employeeGiaoHang) {
         this.maPhieuGiaoHang = maPhieuGiaoHang;
         this.thoiGianGiaoHang = thoiGianGiaoHang;
         this.tinhTrangGiaoHang = tinhTrangGiaoHang;
         this.donHang = donHang;
-        this.nhanVienGiaoHang = nhanVienGiaoHang;
+        this.employeeGiaoHang = employeeGiaoHang;
     }
 
     public int getMaPhieuGiaoHang() {
@@ -33,8 +33,8 @@ public class PhieuGiaoHang {
         return donHang;
     }
 
-    public NhanVien getNhanVienGiaoHang() {
-        return nhanVienGiaoHang;
+    public Employee getNhanVienGiaoHang() {
+        return employeeGiaoHang;
     }
 }
 
