@@ -4,15 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="add Customer, CustomerDAO, Customer table">
-      <change afterPath="$PROJECT_DIR$/src/DAO/imple/SupplierDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DAO/itf/SupplierDAOInterface.java" afterDir="false" />
+    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="add Supplier, SupplierDAO, Supplier table">
+      <change afterPath="$PROJECT_DIR$/src/DAO/imple/DeliveryReceiptDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DAO/imple/OrderDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DAO/imple/WarehouseReceiptDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DAO/itf/DeliveryReceiptDAOInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DAO/itf/OrderDAOInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DAO/itf/WarehouseReceiptDAOInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/imple/SalesInvoiceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/SalesInvoiceDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/AddProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/AddProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/DeleteProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DeleteProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/TableSelectionProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/TableSelectionProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/UpdateProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/UpdateProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/NhaCungCap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Supplier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/DonHang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/PhieuGiaoHang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/DeliveryReceipt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/PhieuNhapKho.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/WarehouseReceipt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/SalesInvoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/SalesInvoice.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/View.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,6 +38,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectId" id="2SnPqgfbw7r6P2uX18BQlwpHWvp" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -157,7 +165,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689927194214</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="add Supplier, SupplierDAO, Supplier table">
+      <created>1689928795253</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1689928795253</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -172,6 +187,7 @@
     <MESSAGE value="Translate table name" />
     <MESSAGE value="fix DAO error" />
     <MESSAGE value="add Customer, CustomerDAO, Customer table" />
-    <option name="LAST_COMMIT_MESSAGE" value="add Customer, CustomerDAO, Customer table" />
+    <MESSAGE value="add Supplier, SupplierDAO, Supplier table" />
+    <option name="LAST_COMMIT_MESSAGE" value="add Supplier, SupplierDAO, Supplier table" />
   </component>
 </project>

@@ -53,9 +53,7 @@ public class SalesInvoiceDAO implements SalesInvoiceDAOInterface {
                         resultSet.getString("PaymentMethod").trim()));
             }
             return listSalesInvoice;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
             DatabaseConnection.close(connection, preparedStatement, resultSet);

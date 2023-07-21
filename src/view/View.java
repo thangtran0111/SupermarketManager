@@ -603,7 +603,7 @@ public class View {
         return switch (selectedTable) {
             case "Employee" -> Employee.class;
             case "Product" -> Product.class;
-            case "SalesInvoice" -> SalesInvoice.class;
+            case "SalesInvoice" -> String.class;
             case "InvoiceProduct" -> InvoiceProduct.class;
             case "Customer" -> Customer.class;
             case "Supplier" -> Supplier.class;
