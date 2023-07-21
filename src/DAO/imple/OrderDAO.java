@@ -21,11 +21,11 @@ public class OrderDAO implements OrderDAOInterface {
     public int create(Order order) {
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("INSERT INTO Orders (OrderID, SalesInvoiceID, ExpectedDeliveryTime, DeliveryAddress, Notes) VALUES (?, ?, ?, ?, ?);");
+            preparedStatement = connection.prepareStatement("INSERT INTO Orders (OrderID, InvoiceID, ExpectedDeliveryDate, DeliveryAddress, Notes) VALUES (?, ?, ?, ?, ?);");
 
             preparedStatement.setString(1, order.getOrderID());
-            preparedStatement.setString(2, order.getHoaDonBanHang());
-            preparedStatement.setString(3, order.getExpectedDeliveryTime().toString());
+            preparedStatement.setString(2, order.getInvoiceID());
+            preparedStatement.setString(3, String.valueOf(order.getExpectedDeliveryDate()));
             preparedStatement.setString(4, order.getDeliveryAddress());
             preparedStatement.setString(5, order.getNotes());
 
@@ -49,8 +49,8 @@ public class OrderDAO implements OrderDAOInterface {
             while (resultSet.next()) {
                 orderList.add(new Order(
                         resultSet.getString("OrderID").trim(),
-                        resultSet.getString("SalesInvoiceID").trim(),
-                        LocalDateTime.parse(resultSet.getString("ExpectedDeliveryTime")),
+                        resultSet.getString("InvoiceID").trim(),
+                        resultSet.getDate("ExpectedDeliveryDate"),
                         resultSet.getString("DeliveryAddress").trim(),
                         resultSet.getString("Notes").trim()));
             }
@@ -66,10 +66,10 @@ public class OrderDAO implements OrderDAOInterface {
     public int update(Order order) {
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("UPDATE Orders SET SalesInvoiceID = ?, ExpectedDeliveryTime = ?, DeliveryAddress = ?, Notes = ? WHERE OrderID = ?");
+            preparedStatement = connection.prepareStatement("UPDATE Orders SET InvoiceID = ?, ExpectedDeliveryDate = ?, DeliveryAddress = ?, Notes = ? WHERE OrderID = ?");
 
-            preparedStatement.setString(1, order.getHoaDonBanHang());
-            preparedStatement.setString(2, order.getExpectedDeliveryTime().toString());
+            preparedStatement.setString(1, order.getInvoiceID());
+            preparedStatement.setString(2, order.getExpectedDeliveryDate().toString());
             preparedStatement.setString(3, order.getDeliveryAddress());
             preparedStatement.setString(4, order.getNotes());
             preparedStatement.setString(5, order.getOrderID());

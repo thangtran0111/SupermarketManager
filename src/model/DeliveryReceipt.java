@@ -1,17 +1,17 @@
 package model;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class DeliveryReceipt {
     private String deliveryReceiptID;
-    private LocalDateTime deliveryTime;
+    private Date deliveryDate;
     private String deliveryStatus;
     private String orderID;
     private String deliveryEmployeeID;
 
-    public DeliveryReceipt(String deliveryReceiptID, LocalDateTime deliveryTime, String deliveryStatus, String orderID, String deliveryEmployeeID) {
+    public DeliveryReceipt(String deliveryReceiptID, Date deliveryDate, String deliveryStatus, String orderID, String deliveryEmployeeID) {
         this.deliveryReceiptID = deliveryReceiptID;
-        this.deliveryTime = deliveryTime;
+        this.deliveryDate = deliveryDate;
         this.deliveryStatus = deliveryStatus;
         this.orderID = orderID;
         this.deliveryEmployeeID = deliveryEmployeeID;
@@ -21,8 +21,8 @@ public class DeliveryReceipt {
         return deliveryReceiptID;
     }
 
-    public LocalDateTime getDeliveryTime() {
-        return deliveryTime;
+    public Date getDeliveryDate() {
+        return deliveryDate;
     }
 
     public String getDeliveryStatus() {

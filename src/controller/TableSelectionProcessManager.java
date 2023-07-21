@@ -2,7 +2,6 @@ package controller;
 
 import DAO.imple.*;
 import DAO.itf.*;
-
 import model.*;
 import view.View;
 
@@ -16,6 +15,9 @@ public class TableSelectionProcessManager {
     private InvoiceProductDAOInterface invoiceProductDAO;
     private CustomerDAOInterface customerDAO;
     private SupplierDAOInterface supplierDAO;
+    private OrderDAOInterface orderDAO;
+    private DeliveryReceiptDAOInterface deliveryReceiptDAO;
+    private WarehouseReceiptDAOInterface warehouseReceiptDAO;
 
     public TableSelectionProcessManager() {
         productDAO = new ProductDAO();
@@ -24,9 +26,11 @@ public class TableSelectionProcessManager {
         invoiceProductDAO = new InvoiceProductDAO();
         customerDAO = new CustomerDAO();
         supplierDAO = new SupplierDAO();
+        orderDAO = new OrderDAO();
+        deliveryReceiptDAO = new DeliveryReceiptDAO();
+        warehouseReceiptDAO = new WarehouseReceiptDAO();
     }
 
-    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, SaleInvoices, InvoiceProduct, Customer, Supplier
     public void processTableSelection(View view) {
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
         DefaultTableModel oldModel = (DefaultTableModel) view.getTable().getModel();
@@ -45,9 +49,16 @@ public class TableSelectionProcessManager {
             view.createCustomerManagementFrame();
         } else if (selectedTable.equals(view.getTableName(6))) {
             view.createSupplierManagementFrame();
+        } else if (selectedTable.equals(view.getTableName(7))) {
+            view.createOrderManagementFrame();
+        } else if (selectedTable.equals(view.getTableName(8))) {
+            view.createDeliveryReceiptManagementFrame();
+        } else if (selectedTable.equals(view.getTableName(9))) {
+            view.createWarehouseReceiptManagementFrame();
         } else {
             return;
         }
+
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
         if (selectedTable.equals(view.getTableName(1))) {
@@ -80,9 +91,23 @@ public class TableSelectionProcessManager {
             for (Supplier supplier : supplierList){
                 model.addRow(new Object[]{String.valueOf(supplier.getSupplierID()), String.valueOf(supplier.getSupplierName()), String.valueOf(supplier.getPhoneNumber()), String.valueOf(supplier.getEmail()), String.valueOf(supplier.getAddress())});
             }
+        } else if (selectedTable.equals(view.getTableName(7))) {
+            List<Order> orderList = orderDAO.read();
+            for (Order order : orderList) {
+                model.addRow(new Object[]{String.valueOf(order.getOrderID()), String.valueOf(order.getInvoiceID()), order.getExpectedDeliveryDate(), String.valueOf(order.getDeliveryAddress()), String.valueOf(order.getNotes())});
+            }
+        } else if (selectedTable.equals(view.getTableName(8))) {
+            List<DeliveryReceipt> deliveryReceiptList = deliveryReceiptDAO.read();
+            for (DeliveryReceipt deliveryReceipt : deliveryReceiptList) {
+                model.addRow(new Object[]{String.valueOf(deliveryReceipt.getDeliveryReceiptID()), deliveryReceipt.getDeliveryDate(), String.valueOf(deliveryReceipt.getDeliveryStatus()), String.valueOf(deliveryReceipt.getOrderID()), String.valueOf(deliveryReceipt.getDeliveryEmployeeID())});
+            }
+        } else if (selectedTable.equals(view.getTableName(9))) {
+            List<WarehouseReceipt> warehouseReceiptList = warehouseReceiptDAO.read();
+            for (WarehouseReceipt warehouseReceipt : warehouseReceiptList) {
+                model.addRow(new Object[]{String.valueOf(warehouseReceipt.getWarehouseReceiptID()), warehouseReceipt.getReceiptDate(), String.valueOf(warehouseReceipt.getSupplierID()), String.valueOf(warehouseReceipt.getEmployeeID())});
+            }
         }
 
         view.getTable().setModel(model);
-
     }
 }

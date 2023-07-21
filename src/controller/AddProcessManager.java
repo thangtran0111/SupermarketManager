@@ -12,6 +12,9 @@ public class AddProcessManager {
     private InvoiceProductDAOInterface invoiceProductDAO;
     private CustomerDAOInterface customerDAO;
     private SupplierDAOInterface supplierDAO;
+    private OrderDAOInterface orderDAO;
+    private DeliveryReceiptDAOInterface deliveryReceiptDAO;
+    private WarehouseReceiptDAOInterface warehouseReceiptDAO;
 
     public AddProcessManager() {
         productDAO = new ProductDAO();
@@ -20,9 +23,11 @@ public class AddProcessManager {
         invoiceProductDAO = new InvoiceProductDAO();
         customerDAO = new CustomerDAO();
         supplierDAO = new SupplierDAO();
+        orderDAO = new OrderDAO();
+        deliveryReceiptDAO = new DeliveryReceiptDAO();
+        warehouseReceiptDAO = new WarehouseReceiptDAO();
     }
 
-    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, SaleInvoices, InvoiceProduct, Customer, Supplier
     public void processAdd(View view) {
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
         String message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
@@ -46,6 +51,15 @@ public class AddProcessManager {
             } else if (selectedTable.equals(view.getTableName(6))) {
                 Supplier supplier = view.createObject(selectedTable, view.getNewFieldValues());
                 count = supplierDAO.create(supplier);
+            } else if (selectedTable.equals(view.getTableName(7))) {
+                Order order = view.createObject(selectedTable, view.getNewFieldValues());
+                count = orderDAO.create(order);
+            } else if (selectedTable.equals(view.getTableName(8))) {
+                DeliveryReceipt deliveryReceipt = view.createObject(selectedTable, view.getNewFieldValues());
+                count = deliveryReceiptDAO.create(deliveryReceipt);
+            } else if (selectedTable.equals(view.getTableName(9))) {
+                WarehouseReceipt warehouseReceipt = view.createObject(selectedTable, view.getNewFieldValues());
+                count = warehouseReceiptDAO.create(warehouseReceipt);
             }
         } else {
             view.showMessage(view.getAddFrame(), message);

@@ -26,7 +26,7 @@ public class WarehouseReceiptDAO implements WarehouseReceiptDAOInterface {
             while (resultSet.next()) {
                 WarehouseReceipt warehouseReceipt = new WarehouseReceipt(
                         resultSet.getString("WarehouseReceiptID").trim(),
-                        resultSet.getDate("ReceiptDate"),
+                        resultSet.getDate("WarehouseReceiptDate"),
                         resultSet.getString("SupplierID").trim(),
                         resultSet.getString("EmployeeID").trim()
                 );
@@ -44,7 +44,7 @@ public class WarehouseReceiptDAO implements WarehouseReceiptDAOInterface {
     public int create(WarehouseReceipt warehouseReceipt) {
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("INSERT INTO WarehouseReceipt (WarehouseReceiptID, ReceiptDate, SupplierID, EmployeeID) VALUES (?, ?, ?, ?);");
+            preparedStatement = connection.prepareStatement("INSERT INTO WarehouseReceipt (WarehouseReceiptID, WarehouseReceiptDate, SupplierID, EmployeeID) VALUES (?, ?, ?, ?);");
 
             preparedStatement.setString(1, warehouseReceipt.getWarehouseReceiptID());
             preparedStatement.setDate(2, new java.sql.Date(warehouseReceipt.getReceiptDate().getTime()));
@@ -63,7 +63,7 @@ public class WarehouseReceiptDAO implements WarehouseReceiptDAOInterface {
     public int update(WarehouseReceipt warehouseReceipt) {
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("UPDATE WarehouseReceipt SET ReceiptDate = ?, SupplierID = ?, EmployeeID = ? WHERE WarehouseReceiptID = ?");
+            preparedStatement = connection.prepareStatement("UPDATE WarehouseReceipt SET WarehouseReceiptDate = ?, SupplierID = ?, EmployeeID = ? WHERE WarehouseReceiptID = ?");
 
             preparedStatement.setDate(1, new java.sql.Date(warehouseReceipt.getReceiptDate().getTime()));
             preparedStatement.setString(2, warehouseReceipt.getSupplierID());

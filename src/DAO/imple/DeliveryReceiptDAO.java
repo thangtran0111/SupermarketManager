@@ -5,6 +5,7 @@ import databaseConnection.DatabaseConnection;
 import model.DeliveryReceipt;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +27,7 @@ public class DeliveryReceiptDAO implements DeliveryReceiptDAOInterface {
             while (resultSet.next()) {
                 DeliveryReceipt deliveryReceipt = new DeliveryReceipt(
                         resultSet.getString("DeliveryReceiptID").trim(),
-                        resultSet.getTimestamp("DeliveryTime").toLocalDateTime(),
+                        resultSet.getDate("DeliveryDate"),
                         resultSet.getString("DeliveryStatus").trim(),
                         resultSet.getString("OrderID").trim(),
                         resultSet.getString("DeliveryEmployeeID").trim()
@@ -45,10 +46,10 @@ public class DeliveryReceiptDAO implements DeliveryReceiptDAOInterface {
     public int create(DeliveryReceipt deliveryReceipt) {
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("INSERT INTO DeliveryReceipt (DeliveryReceiptID, DeliveryTime, DeliveryStatus, OrderID, DeliveryEmployeeID) VALUES (?, ?, ?, ?, ?);");
+            preparedStatement = connection.prepareStatement("INSERT INTO DeliveryReceipt (DeliveryReceiptID, DeliveryDate, DeliveryStatus, OrderID, DeliveryEmployeeID) VALUES (?, ?, ?, ?, ?);");
 
             preparedStatement.setString(1, deliveryReceipt.getDeliveryReceiptID());
-            preparedStatement.setTimestamp(2, java.sql.Timestamp.valueOf(deliveryReceipt.getDeliveryTime()));
+            preparedStatement.setDate(2, new java.sql.Date(deliveryReceipt.getDeliveryDate().getTime()));
             preparedStatement.setString(3, deliveryReceipt.getDeliveryStatus());
             preparedStatement.setString(4, deliveryReceipt.getOrderID());
             preparedStatement.setString(5, deliveryReceipt.getDeliveryEmployeeID());
@@ -65,9 +66,9 @@ public class DeliveryReceiptDAO implements DeliveryReceiptDAOInterface {
     public int update(DeliveryReceipt deliveryReceipt) {
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("UPDATE DeliveryReceipt SET DeliveryTime = ?, DeliveryStatus = ?, OrderID = ?, DeliveryEmployeeID = ? WHERE DeliveryReceiptID = ?");
+            preparedStatement = connection.prepareStatement("UPDATE DeliveryReceipt SET DeliveryDate = ?, DeliveryStatus = ?, OrderID = ?, DeliveryEmployeeID = ? WHERE DeliveryReceiptID = ?");
 
-            preparedStatement.setTimestamp(1, java.sql.Timestamp.valueOf(deliveryReceipt.getDeliveryTime()));
+            preparedStatement.setDate(1, new java.sql.Date(deliveryReceipt.getDeliveryDate().getTime()));
             preparedStatement.setString(2, deliveryReceipt.getDeliveryStatus());
             preparedStatement.setString(3, deliveryReceipt.getOrderID());
             preparedStatement.setString(4, deliveryReceipt.getDeliveryEmployeeID());

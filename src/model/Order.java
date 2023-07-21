@@ -1,18 +1,18 @@
 package model;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Order {
     private String OrderID;
-    private String salesInvoiceID;
-    private LocalDateTime expectedDeliveryTime;
+    private String invoiceID;
+    private Date expectedDeliveryDate;
     private String deliveryAddress;
     private String notes;
 
-    public Order(String OrderID, String salesInvoiceID, LocalDateTime expectedDeliveryTime, String deliveryAddress, String notes) {
+    public Order(String OrderID, String invoiceID, Date expectedDeliveryDate, String deliveryAddress, String notes) {
         this.OrderID = OrderID;
-        this.salesInvoiceID = salesInvoiceID;
-        this.expectedDeliveryTime = expectedDeliveryTime;
+        this.invoiceID = invoiceID;
+        this.expectedDeliveryDate = expectedDeliveryDate;
         this.deliveryAddress = deliveryAddress;
         this.notes = notes;
     }
@@ -21,12 +21,12 @@ public class Order {
         return OrderID;
     }
 
-    public String getHoaDonBanHang() {
-        return salesInvoiceID;
+    public String getInvoiceID() {
+        return invoiceID;
     }
 
-    public LocalDateTime getExpectedDeliveryTime() {
-        return expectedDeliveryTime;
+    public Date getExpectedDeliveryDate() {
+        return expectedDeliveryDate;
     }
 
     public String getDeliveryAddress() {

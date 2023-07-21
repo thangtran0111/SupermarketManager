@@ -18,13 +18,16 @@ public class View {
     private final int PADDING = 60;
 
     //column name
-    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SalesInvoice, InvoiceProduct, Customer, Supplier
     private final Object[] productColumnNames = {"Product ID", "Barcode", "Product Name", "Retail Price", "Quantity In Stock", "Product Type", "Description"};
     private final Object[] employeeColumnNames = {"Employee ID", "Employee Name", "ID Number", "Phone Number", "Email", "Date Of Birth", "Gender", "Address", "Position", "Salary"};
     private final Object[] salesInvoiceColumnNames = {"Invoice ID", "Invoice Date", "Customer ID", "Payment Method"};
     private final Object[] invoiceProductColumnNames = {"Invoice ID", "Product ID", "Quantity"};
     private final Object[] customerColumnNames = {"Customer ID", "Customer Name", "Date Of Birth", "Phone Number", "Email", "LoyaltyPoints"};
     private final Object[] supplierColumnNames = {"SupplierID", "Supplier Name", "Phone Number", "Email", "Address"};
+    private final Object[] orderColumnNames = {"Order ID", "Invoice ID", "Expected Delivery Date", "Delivery Address", "Notes"};
+    private final Object[] deliveryReceiptColumnNames = {"Delivery Receipt ID", "Delivery Date", "Delivery Status", "Order ID", "Delivery Employee ID"};
+    private final Object[] warehouseReceiptColumnNames = {"Warehouse Receipt ID", "Receipt Date", "Supplier ID", "Employee ID"};
+
     //login component
     private JFrame loginFrame;
     private JButton loginButton;
@@ -36,7 +39,7 @@ public class View {
     private JPanel topHomePanel;
     private JPanel midHomePanel;
     private JPanel bottomHomePanel;
-    private final String[] tableNames = new String[]{"", "Employee", "Product", "SalesInvoice", "InvoiceProduct", "Customer", "Supplier"};
+    private final String[] tableNames = new String[]{"", "Employee", "Product", "SalesInvoice", "InvoiceProduct", "Customer", "Supplier", "Order", "DeliveryReceipt", "WarehouseReceipt"};
     private final JComboBox<String> tableChooser = new JComboBox<>(tableNames);
     private JTextField findField;
     private final JTable table = new JTable();
@@ -324,6 +327,7 @@ public class View {
         homeFrame.revalidate();
         homeFrame.repaint();
     }
+
     public void createSupplierManagementFrame() {
         if (midHomePanel.isAncestorOf(welcomeLabel)) {
             midHomePanel.remove(welcomeLabel);
@@ -357,6 +361,104 @@ public class View {
         homeFrame.repaint();
     }
 
+    public void createOrderManagementFrame() {
+        if (midHomePanel.isAncestorOf(welcomeLabel)) {
+            midHomePanel.remove(welcomeLabel);
+        }
+        if (scrollPane.isAncestorOf(table)) {
+            scrollPane.remove(table);
+        }
+        if (midHomePanel.isAncestorOf(scrollPane)) {
+            midHomePanel.remove(scrollPane);
+        }
+        if (topHomePanel.isAncestorOf(billDetailButton)) {
+            topHomePanel.remove(billDetailButton);
+        }
+
+        if (topHomePanel.isAncestorOf(outOfStockButton)) {
+            topHomePanel.remove(outOfStockButton);
+        }
+        if (!findButton.isEnabled()) {
+            findButton.setEnabled(true);
+            addButton.setEnabled(true);
+            updateButton.setEnabled(true);
+            deleteButton.setEnabled(true);
+            refreshButton.setEnabled(true);
+        }
+
+        scrollPane = new JScrollPane(table);
+        scrollPane.setPreferredSize(new Dimension(homeFrame.getWidth() - PADDING, (homeFrame.getHeight() - 200)));
+        midHomePanel.add(scrollPane);
+
+        homeFrame.revalidate();
+        homeFrame.repaint();
+    }
+
+    public void createDeliveryReceiptManagementFrame() {
+        if (midHomePanel.isAncestorOf(welcomeLabel)) {
+            midHomePanel.remove(welcomeLabel);
+        }
+        if (scrollPane.isAncestorOf(table)) {
+            scrollPane.remove(table);
+        }
+        if (midHomePanel.isAncestorOf(scrollPane)) {
+            midHomePanel.remove(scrollPane);
+        }
+        if (topHomePanel.isAncestorOf(billDetailButton)) {
+            topHomePanel.remove(billDetailButton);
+        }
+
+        if (topHomePanel.isAncestorOf(outOfStockButton)) {
+            topHomePanel.remove(outOfStockButton);
+        }
+        if (!findButton.isEnabled()) {
+            findButton.setEnabled(true);
+            addButton.setEnabled(true);
+            updateButton.setEnabled(true);
+            deleteButton.setEnabled(true);
+            refreshButton.setEnabled(true);
+        }
+
+        scrollPane = new JScrollPane(table);
+        scrollPane.setPreferredSize(new Dimension(homeFrame.getWidth() - PADDING, (homeFrame.getHeight() - 200)));
+        midHomePanel.add(scrollPane);
+
+        homeFrame.revalidate();
+        homeFrame.repaint();
+    }
+
+    public void createWarehouseReceiptManagementFrame() {
+        if (midHomePanel.isAncestorOf(welcomeLabel)) {
+            midHomePanel.remove(welcomeLabel);
+        }
+        if (scrollPane.isAncestorOf(table)) {
+            scrollPane.remove(table);
+        }
+        if (midHomePanel.isAncestorOf(scrollPane)) {
+            midHomePanel.remove(scrollPane);
+        }
+        if (topHomePanel.isAncestorOf(billDetailButton)) {
+            topHomePanel.remove(billDetailButton);
+        }
+
+        if (topHomePanel.isAncestorOf(outOfStockButton)) {
+            topHomePanel.remove(outOfStockButton);
+        }
+        if (!findButton.isEnabled()) {
+            findButton.setEnabled(true);
+            addButton.setEnabled(true);
+            updateButton.setEnabled(true);
+            deleteButton.setEnabled(true);
+            refreshButton.setEnabled(true);
+        }
+
+        scrollPane = new JScrollPane(table);
+        scrollPane.setPreferredSize(new Dimension(homeFrame.getWidth() - PADDING, (homeFrame.getHeight() - 200)));
+        midHomePanel.add(scrollPane);
+
+        homeFrame.revalidate();
+        homeFrame.repaint();
+    }
 
     public void createInfoFrame(Object[] titles, Object[] data) {
         infoFrame = new JFrame("Information");
@@ -598,7 +700,6 @@ public class View {
         deleteFrame.setVisible(true);
     }
 
-    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SalesInvoice, InvoiceProduct, Customer, Supplier
     public Class<?> getClassByTableName(String selectedTable) {
         return switch (selectedTable) {
             case "Employee" -> Employee.class;
@@ -607,11 +708,13 @@ public class View {
             case "InvoiceProduct" -> InvoiceProduct.class;
             case "Customer" -> Customer.class;
             case "Supplier" -> Supplier.class;
+            case "Order" -> Order.class;
+            case "DeliveryReceipt" -> DeliveryReceipt.class;
+            case "WarehouseReceipt" -> WarehouseReceipt.class;
             default -> null;
         };
     }
 
-    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SaleInvoices, InvoiceProduct, Customer, Supplier
     public <T> T createObject(String selectedTable, JTextField[] _properties) {
         Class<?> cl = getClassByTableName(selectedTable);
         if (cl == null) {
@@ -623,12 +726,18 @@ public class View {
                         cl.getConstructor(String.class, String.class, String.class, int.class, int.class, String.class, String.class);
                 case "Employee" ->
                         cl.getConstructor(String.class, String.class, String.class, String.class, String.class, Date.class, String.class, String.class, String.class, int.class);
-                case "SalesInvoice" -> cl.getConstructor(String.class, Date.class, String.class, String.class);
-                case "InvoiceProduct" -> cl.getConstructor(String.class, String.class, int.class);
+                case "SalesInvoice", "WarehouseReceipt" ->
+                        cl.getConstructor(String.class, Date.class, String.class, String.class);
+                case "InvoiceProduct" ->
+                        cl.getConstructor(String.class, String.class, int.class);
                 case "Customer" ->
                         cl.getConstructor(String.class, String.class, Date.class, String.class, String.class, int.class);
                 case "Supplier" ->
                         cl.getConstructor(String.class, String.class, String.class, String.class, String.class);
+                case "Order" ->
+                        cl.getConstructor(String.class, String.class, Date.class, String.class, String.class);
+                case "DeliveryReceipt" ->
+                        cl.getConstructor(String.class, Date.class, String.class, String.class, String.class);
                 default -> throw new IllegalStateException("Invalid table name: " + selectedTable);
             };
             String[] properties = new String[_properties.length];
@@ -637,7 +746,6 @@ public class View {
             }
             Class<?>[] parameterTypes = constructor.getParameterTypes();
             Object[] convertedProperties = convertProperties(properties, parameterTypes);
-            System.out.println(convertedProperties.length);
             return (T) constructor.newInstance(convertedProperties);
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
                  InvocationTargetException e) {
@@ -764,22 +872,19 @@ public class View {
         return supplierColumnNames;
     }
 
-    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SaleInvoices, InvoiceProduct, Customer, Supplier
     public Object[] getColumnNames(String selectedTable) {
-        if (selectedTable.equals(tableNames[1])) {
-            return getEmployeeColumnNames();
-        } else if (selectedTable.equals(tableNames[2])) {
-            return getProductColumnNames();
-        } else if (selectedTable.equals(tableNames[3])) {
-            return getSalesInvoiceColumnNames();
-        } else if (selectedTable.equals(tableNames[4])) {
-            return getInvoiceProductColumnNames();
-        } else if (selectedTable.equals(tableNames[5])) {
-            return getCustomerColumnNames();
-        } else if (selectedTable.equals(tableNames[6])) {
-            return getSupplierColumnNames();
-        }
-        return new Object[0];
+        return switch (selectedTable) {
+            case "Employee" -> getEmployeeColumnNames();
+            case "Product" -> getProductColumnNames();
+            case "SalesInvoice" -> getSalesInvoiceColumnNames();
+            case "InvoiceProduct" -> getInvoiceProductColumnNames();
+            case "Customer" -> getCustomerColumnNames();
+            case "Supplier" -> getSupplierColumnNames();
+            case "Order" -> getOrderColumnNames();
+            case "DeliveryReceipt" -> getDeliveryReceiptColumnNames();
+            case "WarehouseReceipt" -> getWarehouseReceiptColumnNames();
+            default -> new Object[0];
+        };
     }
 
     public JTextField[] getNewFieldValues() {
@@ -842,4 +947,15 @@ public class View {
         return updateInUpdateFrameButton;
     }
 
+    public Object[] getOrderColumnNames() {
+        return orderColumnNames;
+    }
+
+    public Object[] getDeliveryReceiptColumnNames() {
+        return deliveryReceiptColumnNames;
+    }
+
+    public Object[] getWarehouseReceiptColumnNames() {
+        return warehouseReceiptColumnNames;
+    }
 }

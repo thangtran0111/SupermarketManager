@@ -11,6 +11,9 @@ public class DeleteProcessManager {
     private InvoiceProductDAOInterface invoiceProductDAO;
     private CustomerDAOInterface customerDAO;
     private SupplierDAOInterface supplierDAO;
+    private OrderDAOInterface orderDAO;
+    private DeliveryReceiptDAOInterface deliveryReceiptDAO;
+    private WarehouseReceiptDAOInterface warehouseReceiptDAO;
 
     public DeleteProcessManager() {
         productDAO = new ProductDAO();
@@ -19,9 +22,11 @@ public class DeleteProcessManager {
         invoiceProductDAO = new InvoiceProductDAO();
         customerDAO = new CustomerDAO();
         supplierDAO = new SupplierDAO();
+        orderDAO = new OrderDAO();
+        deliveryReceiptDAO = new DeliveryReceiptDAO();
+        warehouseReceiptDAO = new WarehouseReceiptDAO();
     }
 
-    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, SaleInvoices, InvoiceProduct, Customer, Supplier
     public void processDelete(View view) {
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
         String ID = view.getNewFieldValues()[0].getText();
@@ -37,7 +42,6 @@ public class DeleteProcessManager {
             } else if (selectedTable.equals(view.getTableName(3))) {
                 count = salesInvoiceDAO.delete(ID);
                 if (count > 0) {
-                    count = 0;
                     count = salesInvoiceDAO.delete(ID);
                 }
             } else if (selectedTable.equals(view.getTableName(4))) {
@@ -46,6 +50,12 @@ public class DeleteProcessManager {
                 count = customerDAO.delete(ID);
             } else if (selectedTable.equals(view.getTableName(6))) {
                 count = supplierDAO.delete(ID);
+            } else if (selectedTable.equals(view.getTableName(7))) {
+                count = orderDAO.delete(ID);
+            } else if (selectedTable.equals(view.getTableName(8))) {
+                count = deliveryReceiptDAO.delete(ID);
+            } else if (selectedTable.equals(view.getTableName(9))) {
+                count = warehouseReceiptDAO.delete(ID);
             }
         } else {
             view.showMessage(view.getAddFrame(), message);
