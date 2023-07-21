@@ -27,9 +27,6 @@ public class Employee {
         this.salary = salary;
     }
 
-    public Employee() {
-    }
-
     public String getEmployeeID() {
         return employeeID;
     }

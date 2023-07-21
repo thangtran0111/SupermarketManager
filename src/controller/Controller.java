@@ -10,12 +10,12 @@ import java.util.regex.Pattern;
 
 public class Controller implements ActionListener {
     private static View view;
-    private LoginProcessManager loginProcessManager;
-    private SearchProcessManager searchProcessManager;
-    private TableSelectionProcessManager tableSelectionProcessManager;
-    private AddProcessManager addProcessManager;
-    private DeleteProcessManager deleteProcessManager;
-    private UpdateProcessManager updateProcessManager;
+    private final LoginProcessManager loginProcessManager;
+    private final SearchProcessManager searchProcessManager;
+    private final TableSelectionProcessManager tableSelectionProcessManager;
+    private final AddProcessManager addProcessManager;
+    private final DeleteProcessManager deleteProcessManager;
+    private final UpdateProcessManager updateProcessManager;
     public Controller() {
         view = new View();
         this.loginProcessManager = new LoginProcessManager();
@@ -51,16 +51,14 @@ public class Controller implements ActionListener {
         if ("findButtonClicked".equals(actionCommand)) {
             String findText = view.getFindField().getText();
             String selectedTable = (String) view.getTableChooser().getSelectedItem();
-                if(selectedTable.equals(view.getTableName(4))){
-                    Object[][] searchObject = searchProcessManager.processSearchMultipleRows(findText, selectedTable, (DefaultTableModel) view.getTable().getModel(), view.getHomeFrame());
-                    view.createInfoFrameWithMultipleRows(view.getColumnNames(Objects.requireNonNull(view.getTableChooser().getSelectedItem()).toString()), searchObject);
+            if (selectedTable != null && selectedTable.equals(view.getTableName(4))) {
+                Object[][] searchObject = searchProcessManager.processSearchMultipleRows(findText, selectedTable, (DefaultTableModel) view.getTable().getModel(), view.getHomeFrame());
+                view.createInfoFrameWithMultipleRows(view.getColumnNames(Objects.requireNonNull(selectedTable)), searchObject);
 
-                }else {
-                    Object[] searchObject = searchProcessManager.processSearch(findText, selectedTable, (DefaultTableModel) view.getTable().getModel(), view.getHomeFrame());
-                    if (searchObject != null) {
-                        view.createInfoFrame(view.getColumnNames(Objects.requireNonNull(view.getTableChooser().getSelectedItem()).toString()), searchObject);
-                    }
-                }
+            }else if(selectedTable != null){
+                Object[] searchObject = searchProcessManager.processSearch(findText, selectedTable, (DefaultTableModel) view.getTable().getModel(), view.getHomeFrame());
+                view.createInfoFrame(view.getColumnNames(Objects.requireNonNull(selectedTable)), searchObject);
+            }
 
         }
 
@@ -119,18 +117,29 @@ public class Controller implements ActionListener {
 
     }
 
-    public static String checkCode(String selectedTable, String ma){
-        if(ma == null) return "Mã null";
-        if(ma.length() != 5) return "Mã không đúng định dạng";
-        DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
-        for(int rowIndex = 0; rowIndex < model.getRowCount(); rowIndex++){
-            if(model.getValueAt(rowIndex, 0).equals(ma)){
-                return "Mã đã tồn tại";
+    public static String checkCode(String selectedTable, String ID){
+        if(ID == null) return "NULL ID";
+        if(selectedTable.equals(view.getTableName(2))){
+            DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
+            for(int rowIndex = 0; rowIndex < model.getRowCount(); rowIndex++){
+                if(model.getValueAt(rowIndex, 0).equals(ID) ){
+                    return "This ID already exists";
+                }else if(model.getValueAt(rowIndex, 1).equals(ID)){
+                    return "This barcode already exists";
+                }
+            }
+        }else{
+            Pattern pattern = Pattern.compile("^\\d{5}");
+            if(!Objects.requireNonNull(pattern).matcher(ID).find()) return "This ID isn't in the correct format";
+            DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
+            for(int rowIndex = 0; rowIndex < model.getRowCount(); rowIndex++){
+                if(model.getValueAt(rowIndex, 0).equals(ID)){
+                    return "This ID already exists";
+                }
             }
         }
-        Pattern pattern = Pattern.compile("^\\d{5}");
-        if(!Objects.requireNonNull(pattern).matcher(ma).find()) return "Mã không đúng định dạng";
-        return "Mã không tồn tại";
+        
+        return "This ID doesn't exist";
     }
 
 }

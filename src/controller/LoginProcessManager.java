@@ -5,17 +5,17 @@ import DAO.itf.AccountDAOInterface;
 import model.Account;
 import view.View;
 
-import javax.swing.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.regex.Pattern;
 
 public class LoginProcessManager {
-    private AccountDAOInterface daoTaiKhoan;
+    private final AccountDAOInterface accountDAO;
 
-    private String encode(String input)  {
+    private String encode(String input) {
         StringBuilder hexString = new StringBuilder();
-        try{
+        try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(input.getBytes(StandardCharsets.UTF_8));
             for (byte b : hash) {
@@ -30,8 +30,9 @@ public class LoginProcessManager {
     }
 
     public LoginProcessManager() {
-        this.daoTaiKhoan = new AccountDAO();
+        this.accountDAO = new AccountDAO();
     }
+
     private String convert(char[] charArray) {
         StringBuilder str = new StringBuilder();
         for (char c : charArray) {
@@ -44,27 +45,28 @@ public class LoginProcessManager {
     }
 
     public void processLogin(View view) {
-        String userName = view.getUserTextField().getText();
-        if (userName.contains(" ")) {
-            JOptionPane.showMessageDialog(view.getLoginFrame(), "Username must not have whitespace!");
+        String username = view.getUserTextField().getText();
+        Pattern pattern = Pattern.compile("^[a-zA-Z0-9]+$");
+        if (!pattern.matcher(username).find()) {
+            View.showMessage(view.getLoginFrame(), "Username can only contain characters or numbers");
             return;
         }
         char[] passwdArray = view.getUserPasswordField().getPassword();
         String passwd = convert(passwdArray);
 
-        Account account = daoTaiKhoan.get(userName);
-        if(account == null){
-            view.showMessage(view.getLoginFrame(), "Account does not exist!");
+        Account account = accountDAO.get(username);
+        if (account == null) {
+            View.showMessage(view.getLoginFrame(), "Account does not exist!");
             view.getUserPasswordField().setText("");
             view.getUserTextField().setText("");
-        }else{
+        } else {
             String encodePasswd = encode(passwd);
-            if(encodePasswd.equals(String.valueOf(account.getPasswd()))){
-                view.showMessage(view.getLoginFrame(), "Login successfully!");
+            if (encodePasswd.equals(String.valueOf(account.getPasswd()))) {
+                View.showMessage(view.getLoginFrame(), "Login successfully!");
                 view.getLoginFrame().dispose();
                 view.createHomeFrame();
-            }else{
-                view.showMessage(view.getLoginFrame(), "Incorrect password!");
+            } else {
+                View.showMessage(view.getLoginFrame(), "Incorrect password!");
                 view.getUserPasswordField().setText("");
 
             }

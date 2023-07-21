@@ -4,16 +4,18 @@ import DAO.imple.*;
 import DAO.itf.*;
 import view.View;
 
+import java.util.Objects;
+
 public class DeleteProcessManager {
-    private EmployeeDAOInterface employeeDAO;
-    private ProductDAOInterface productDAO;
-    private SalesInvoiceDAOInterface salesInvoiceDAO;
-    private InvoiceProductDAOInterface invoiceProductDAO;
-    private CustomerDAOInterface customerDAO;
-    private SupplierDAOInterface supplierDAO;
-    private OrderDAOInterface orderDAO;
-    private DeliveryReceiptDAOInterface deliveryReceiptDAO;
-    private WarehouseReceiptDAOInterface warehouseReceiptDAO;
+    private final EmployeeDAOInterface employeeDAO;
+    private final ProductDAOInterface productDAO;
+    private final SalesInvoiceDAOInterface salesInvoiceDAO;
+    private final InvoiceProductDAOInterface invoiceProductDAO;
+    private final CustomerDAOInterface customerDAO;
+    private final SupplierDAOInterface supplierDAO;
+    private final OrderDAOInterface orderDAO;
+    private final DeliveryReceiptDAOInterface deliveryReceiptDAO;
+    private final WarehouseReceiptDAOInterface warehouseReceiptDAO;
 
     public DeleteProcessManager() {
         productDAO = new ProductDAO();
@@ -32,8 +34,8 @@ public class DeleteProcessManager {
         String ID = view.getNewFieldValues()[0].getText();
         String message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
         int count = 0;
-        if (message.equals("Mã đã tồn tại")) {
-            if (selectedTable.equals(view.getTableName(1))) {
+        if (message.equals("This ID already exists") || message.equals("This barcode already exists")) {
+            if (Objects.requireNonNull(selectedTable).equals(view.getTableName(1))) {
                 if (!ID.equals("99999")) {
                     count = employeeDAO.delete(ID);
                 }
@@ -58,14 +60,14 @@ public class DeleteProcessManager {
                 count = warehouseReceiptDAO.delete(ID);
             }
         } else {
-            view.showMessage(view.getAddFrame(), message);
+            View.showMessage(view.getAddFrame(), message);
             view.getDeleteFrame().dispose();
             view.createDeleteFrame();
         }
         if (count == 0) {
-            view.showMessage(view.getDeleteFrame(), "An error occurred!");
+            View.showMessage(view.getDeleteFrame(), "An error occurred!");
         } else {
-            view.showMessage(view.getDeleteFrame(), "Success!");
+            View.showMessage(view.getDeleteFrame(), "Success!");
         }
     }
 }

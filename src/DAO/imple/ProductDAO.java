@@ -34,9 +34,7 @@ public class ProductDAO implements ProductDAOInterface {
                         resultSet.getString("Description").trim()));
             }
             return productList;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
             DatabaseConnection.close(connection, preparedStatement, resultSet);
@@ -63,9 +61,7 @@ public class ProductDAO implements ProductDAOInterface {
                         resultSet.getString("Description").trim()));
             }
             return product;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
             DatabaseConnection.close(connection, preparedStatement, resultSet);

@@ -559,8 +559,8 @@ public class View {
         }
 
         for (int row = 0; row < model.getRowCount(); row++) {
-            int soLuongTonKho = (int) model.getValueAt(row, 3);
-            if (soLuongTonKho < 10) {
+            int quantityInStock = (int) model.getValueAt(row, 3);
+            if (quantityInStock < 10) {
                 Object[] rowData = new Object[model.getColumnCount()];
                 for (int col = 0; col < model.getColumnCount(); col++) {
                     rowData[col] = model.getValueAt(row, col);
@@ -624,15 +624,15 @@ public class View {
 
         JPanel topUpdatePanel = new JPanel();
         topUpdatePanel.setBorder(BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
-        topUpdatePanel.add(new JLabel("CẬP NHẬT", SwingConstants.CENTER));
+        topUpdatePanel.add(new JLabel("UPDATE", SwingConstants.CENTER));
         updateFrame.add(topUpdatePanel, BorderLayout.NORTH);
 
         JPanel midUpdatePanel = new JPanel(new GridLayout(rowCount, 2));
         String selectedTable = Objects.requireNonNull(tableChooser.getSelectedItem()).toString();
         Object[] oldValue;
 
-        String ma = JOptionPane.showInputDialog("Nhập mã " + selectedTable.toLowerCase() + " bạn muốn cập nhật");
-        oldValue = new SearchProcessManager().processSearch(ma, selectedTable, (DefaultTableModel) table.getModel(), updateFrame);
+        String ID = JOptionPane.showInputDialog("Enter " + selectedTable.toLowerCase() + " ID you want to update");
+        oldValue = new SearchProcessManager().processSearch(ID, selectedTable, (DefaultTableModel) table.getModel(), updateFrame);
 
         newValuesField = new JTextField[rowCount];
         for (int i = 0; i < rowCount; i++) {
@@ -674,8 +674,8 @@ public class View {
         String selectedTable = Objects.requireNonNull(tableChooser.getSelectedItem()).toString();
         Object[] oldValue;
 
-        String ma = JOptionPane.showInputDialog("Nhập mã " + selectedTable.toLowerCase() + " bạn muốn xoá");
-        oldValue = new SearchProcessManager().processSearch(ma, selectedTable, (DefaultTableModel) table.getModel(), deleteFrame);
+        String ID = JOptionPane.showInputDialog("Enter " + selectedTable.toLowerCase() + " ID you want to delete");
+        oldValue = new SearchProcessManager().processSearch(ID, selectedTable, (DefaultTableModel) table.getModel(), deleteFrame);
 
         newValuesField = new JTextField[rowCount];
         for (int i = 0; i < rowCount; i++) {

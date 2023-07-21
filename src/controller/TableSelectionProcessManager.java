@@ -7,17 +7,18 @@ import view.View;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
+import java.util.Objects;
 
 public class TableSelectionProcessManager {
-    private ProductDAOInterface productDAO;
-    private EmployeeDAOInterface employeeDAO;
-    private SalesInvoiceDAOInterface salesInvoiceDAO;
-    private InvoiceProductDAOInterface invoiceProductDAO;
-    private CustomerDAOInterface customerDAO;
-    private SupplierDAOInterface supplierDAO;
-    private OrderDAOInterface orderDAO;
-    private DeliveryReceiptDAOInterface deliveryReceiptDAO;
-    private WarehouseReceiptDAOInterface warehouseReceiptDAO;
+    private final ProductDAOInterface productDAO;
+    private final EmployeeDAOInterface employeeDAO;
+    private final SalesInvoiceDAOInterface salesInvoiceDAO;
+    private final InvoiceProductDAOInterface invoiceProductDAO;
+    private final CustomerDAOInterface customerDAO;
+    private final SupplierDAOInterface supplierDAO;
+    private final OrderDAOInterface orderDAO;
+    private final DeliveryReceiptDAOInterface deliveryReceiptDAO;
+    private final WarehouseReceiptDAOInterface warehouseReceiptDAO;
 
     public TableSelectionProcessManager() {
         productDAO = new ProductDAO();
@@ -35,7 +36,7 @@ public class TableSelectionProcessManager {
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
         DefaultTableModel oldModel = (DefaultTableModel) view.getTable().getModel();
         oldModel.setRowCount(0);
-        Object[] columnNames = view.getColumnNames(selectedTable);
+        Object[] columnNames = view.getColumnNames(Objects.requireNonNull(selectedTable));
 
         if (selectedTable.equals(view.getTableName(1))) {
             view.createEmployeeManagementFrame();
@@ -88,7 +89,7 @@ public class TableSelectionProcessManager {
             }
         } else if (selectedTable.equals(view.getTableName(6))) {
             List<Supplier> supplierList = supplierDAO.read();
-            for (Supplier supplier : supplierList){
+            for (Supplier supplier : supplierList) {
                 model.addRow(new Object[]{String.valueOf(supplier.getSupplierID()), String.valueOf(supplier.getSupplierName()), String.valueOf(supplier.getPhoneNumber()), String.valueOf(supplier.getEmail()), String.valueOf(supplier.getAddress())});
             }
         } else if (selectedTable.equals(view.getTableName(7))) {

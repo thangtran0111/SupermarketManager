@@ -8,12 +8,14 @@ import java.util.List;
 import static view.View.showMessage;
 
 public class SearchProcessManager {
-    public SearchProcessManager(){}
+    public SearchProcessManager() {
+    }
+
     public Object[] processSearch(String findText, String selectedTable, DefaultTableModel model, Component cmp) {
         String message = Controller.checkCode(selectedTable, findText);
         Object[] rowData = null;
 
-        if (message.equals("Mã đã tồn tại")) {
+        if (message.equals("This ID already exists")) {
             int rowCount = model.getRowCount();
             int columnCount = model.getColumnCount();
 
@@ -37,7 +39,7 @@ public class SearchProcessManager {
         String message = Controller.checkCode(selectedTable, findText);
         List<Object[]> dataList = new ArrayList<>();
 
-        if (message.equals("Mã đã tồn tại")) {
+        if (message.equals("This ID already exists") || message.equals("This barcode already exists")) {
             int rowCount = model.getRowCount();
             int columnCount = model.getColumnCount();
 

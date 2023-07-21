@@ -13,27 +13,8 @@ public class Account {
         this.employeeID = maNhanVien;
     }
 
-    public char[] getUsername() {
-        return username;
-    }
-
-    public void setUsername(char[] username) {
-        this.username = username;
-    }
-
     public String getPasswd() {
         return passwd;
     }
 
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
-    }
-
-    public String getEmployeeID() {
-        return employeeID;
-    }
-
-    public void setEmployeeID(String employeeID) {
-        this.employeeID = employeeID;
-    }
 }

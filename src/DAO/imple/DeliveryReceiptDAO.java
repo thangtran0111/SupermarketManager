@@ -5,7 +5,6 @@ import databaseConnection.DatabaseConnection;
 import model.DeliveryReceipt;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

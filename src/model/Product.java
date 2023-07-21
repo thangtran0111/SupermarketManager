@@ -49,33 +49,5 @@ public class Product {
         return description;
     }
 
-    // Setter methods
-    public void setProductID(String productID) {
-        this.productID = productID;
-    }
-
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public void setRetailPrice(int retailPrice) {
-        this.retailPrice = retailPrice;
-    }
-
-    public void setQuantityInStock(int quantityInStock) {
-        this.quantityInStock = quantityInStock;
-    }
-
-    public void setProductType(String productType) {
-        this.productType = productType;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
 }

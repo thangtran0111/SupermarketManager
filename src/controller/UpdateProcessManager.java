@@ -5,20 +5,18 @@ import DAO.itf.*;
 import model.*;
 import view.View;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
+import java.util.Objects;
 
 public class UpdateProcessManager {
-    private ProductDAOInterface productDAO;
-    private EmployeeDAOInterface employeeDAO;
-    private SalesInvoiceDAOInterface saleInvoicesDAO;
-    private InvoiceProductDAOInterface invoiceProductDAO;
-    private CustomerDAOInterface customerDAO;
-    private SupplierDAOInterface supplierDAO;
-    private OrderDAOInterface orderDAO;
-    private DeliveryReceiptDAOInterface deliveryReceiptDAO;
-    private WarehouseReceiptDAOInterface warehouseReceiptDAO;
+    private final ProductDAOInterface productDAO;
+    private final EmployeeDAOInterface employeeDAO;
+    private final SalesInvoiceDAOInterface saleInvoicesDAO;
+    private final InvoiceProductDAOInterface invoiceProductDAO;
+    private final CustomerDAOInterface customerDAO;
+    private final SupplierDAOInterface supplierDAO;
+    private final OrderDAOInterface orderDAO;
+    private final DeliveryReceiptDAOInterface deliveryReceiptDAO;
+    private final WarehouseReceiptDAOInterface warehouseReceiptDAO;
 
     public UpdateProcessManager() {
         productDAO = new ProductDAO();
@@ -36,8 +34,8 @@ public class UpdateProcessManager {
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
         String message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
         int count = 0;
-        if (message.equals("Mã đã tồn tại")) {
-            if (selectedTable.equals(view.getTableName(1))) {
+        if (message.equals("This ID already exists") || message.equals("This barcode already exists")) {
+            if (Objects.requireNonNull(selectedTable).equals(view.getTableName(1))) {
                 Employee employee = view.createObject(selectedTable, view.getNewFieldValues());
                 count = employeeDAO.update(employee);
             } else if (selectedTable.equals(view.getTableName(2))) {
@@ -66,13 +64,13 @@ public class UpdateProcessManager {
                 count = warehouseReceiptDAO.update(warehouseReceipt);
             }
         } else {
-            view.showMessage(view.getAddFrame(), message);
+            View.showMessage(view.getAddFrame(), message);
             view.clearNewsValue();
         }
         if (count == 0) {
-            view.showMessage(view.getUpdateFrame(), "An error occurred!");
+            View.showMessage(view.getUpdateFrame(), "An error occurred!");
         } else {
-            view.showMessage(view.getUpdateFrame(), "Success!");
+            View.showMessage(view.getUpdateFrame(), "Success!");
         }
     }
 }
