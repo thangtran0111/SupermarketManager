@@ -1,17 +1,8 @@
 package controller;
 
-import DAO.imple.SalesInvoiceDAO;
-import DAO.imple.InvoiceProductDAO;
-import DAO.imple.ProductDAO;
-import DAO.imple.EmployeeDAO;
-import DAO.itf.SalesInvoiceDAOInterface;
-import DAO.itf.InvoiceProductDAOInterface;
-import DAO.itf.ProductDAOInterface;
-import DAO.itf.EmployeeDAOInterface;
-import model.SalesInvoice;
-import model.InvoiceProduct;
-import model.Product;
-import model.Employee;
+import DAO.imple.*;
+import DAO.itf.*;
+import model.*;
 import view.View;
 
 public class AddProcessManager {
@@ -19,12 +10,15 @@ public class AddProcessManager {
     private EmployeeDAOInterface employeeDAO;
     private SalesInvoiceDAOInterface salesInvoiceDAO;
     private InvoiceProductDAOInterface invoiceProductDAO;
+    private CustomerDAOInterface customerDAO;
+
 
     public AddProcessManager(){
         productDAO = new ProductDAO();
         employeeDAO = new EmployeeDAO();
         salesInvoiceDAO = new SalesInvoiceDAO();
         invoiceProductDAO = new InvoiceProductDAO();
+        customerDAO = new CustomerDAO();
     }
 
     //TODO: thêm các bảng khác các bảng hiện có Employee, Product, SaleInvoices, InvoiceProduct
@@ -45,6 +39,9 @@ public class AddProcessManager {
             }else if(selectedTable.equals(view.getTableName(4))){
                 InvoiceProduct invoiceProduct = view.createObject(selectedTable, view.getNewFieldValues());
                 count = invoiceProductDAO.create(invoiceProduct);
+            }else if(selectedTable.equals(view.getTableName(5))){
+                Customer customer = view.createObject(selectedTable, view.getNewFieldValues());
+                count = customerDAO.create(customer);
             }
         }else{
             view.showMessage(view.getAddFrame(), message);

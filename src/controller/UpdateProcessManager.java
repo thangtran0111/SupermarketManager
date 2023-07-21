@@ -1,17 +1,8 @@
 package controller;
 
-import DAO.imple.SalesInvoiceDAO;
-import DAO.imple.InvoiceProductDAO;
-import DAO.imple.ProductDAO;
-import DAO.imple.EmployeeDAO;
-import DAO.itf.SalesInvoiceDAOInterface;
-import DAO.itf.InvoiceProductDAOInterface;
-import DAO.itf.ProductDAOInterface;
-import DAO.itf.EmployeeDAOInterface;
-import model.SalesInvoice;
-import model.InvoiceProduct;
-import model.Product;
-import model.Employee;
+import DAO.imple.*;
+import DAO.itf.*;
+import model.*;
 import view.View;
 
 public class UpdateProcessManager {
@@ -19,14 +10,16 @@ public class UpdateProcessManager {
     private EmployeeDAOInterface employeeDAO;
     private SalesInvoiceDAOInterface saleInvoicesDAO;
     private InvoiceProductDAOInterface invoiceProductDAO;
+    private CustomerDAOInterface customerDAO;
 
     public UpdateProcessManager(){
         productDAO = new ProductDAO();
         employeeDAO = new EmployeeDAO();
         saleInvoicesDAO = new SalesInvoiceDAO();
         invoiceProductDAO = new InvoiceProductDAO();
+        customerDAO = new CustomerDAO();
     }
-    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, SaleInvoices, InvoiceProduct
+    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, SaleInvoices, InvoiceProduct, Customer
     public void processUpdate(View view){
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
         String message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
@@ -42,9 +35,12 @@ public class UpdateProcessManager {
             } else if (selectedTable.equals(view.getTableName(3))) {
                 SalesInvoice salesInvoice = view.createObject(selectedTable, view.getNewFieldValues());
                 count = saleInvoicesDAO.update(salesInvoice);
-            } else if (selectedTable.equals(view.getTableName(3))) {
+            } else if (selectedTable.equals(view.getTableName(4))) {
                 InvoiceProduct invoiceProduct = view.createObject(selectedTable, view.getNewFieldValues());
                 count = invoiceProductDAO.update(invoiceProduct);
+            } else if (selectedTable.equals(view.getTableName(5))) {
+                Customer customer = view.createObject(selectedTable, view.getNewFieldValues());
+                count = customerDAO.update(customer);
             }
         }else{
             view.showMessage(view.getAddFrame(), message);
