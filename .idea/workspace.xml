@@ -4,15 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="fix DAO error">
-      <change afterPath="$PROJECT_DIR$/src/DAO/imple/CustomerDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DAO/itf/CustomerDAOInterface.java" afterDir="false" />
+    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="add Customer, CustomerDAO, Customer table">
+      <change afterPath="$PROJECT_DIR$/src/DAO/imple/SupplierDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DAO/itf/SupplierDAOInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/AddProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/AddProcessManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/DeleteProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DeleteProcessManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/TableSelectionProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/TableSelectionProcessManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/UpdateProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/UpdateProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/KhachHang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/NhaCungCap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Supplier.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/View.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -150,7 +150,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689878028753</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="add Customer, CustomerDAO, Customer table">
+      <created>1689927194214</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1689927194214</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -164,6 +171,7 @@
     <MESSAGE value="Fix error" />
     <MESSAGE value="Translate table name" />
     <MESSAGE value="fix DAO error" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix DAO error" />
+    <MESSAGE value="add Customer, CustomerDAO, Customer table" />
+    <option name="LAST_COMMIT_MESSAGE" value="add Customer, CustomerDAO, Customer table" />
   </component>
 </project>

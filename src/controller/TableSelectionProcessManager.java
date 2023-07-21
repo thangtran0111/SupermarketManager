@@ -15,6 +15,7 @@ public class TableSelectionProcessManager {
     private SalesInvoiceDAOInterface salesInvoiceDAO;
     private InvoiceProductDAOInterface invoiceProductDAO;
     private CustomerDAOInterface customerDAO;
+    private SupplierDAOInterface supplierDAO;
 
     public TableSelectionProcessManager() {
         productDAO = new ProductDAO();
@@ -22,9 +23,10 @@ public class TableSelectionProcessManager {
         salesInvoiceDAO = new SalesInvoiceDAO();
         invoiceProductDAO = new InvoiceProductDAO();
         customerDAO = new CustomerDAO();
+        supplierDAO = new SupplierDAO();
     }
 
-    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, SaleInvoices, InvoiceProduct, Customer
+    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, SaleInvoices, InvoiceProduct, Customer, Supplier
     public void processTableSelection(View view) {
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
         DefaultTableModel oldModel = (DefaultTableModel) view.getTable().getModel();
@@ -41,6 +43,8 @@ public class TableSelectionProcessManager {
             view.createInvoiceProductManagementFrame();
         } else if (selectedTable.equals(view.getTableName(5))) {
             view.createCustomerManagementFrame();
+        } else if (selectedTable.equals(view.getTableName(6))) {
+            view.createSupplierManagementFrame();
         } else {
             return;
         }
@@ -70,6 +74,11 @@ public class TableSelectionProcessManager {
             List<Customer> customerList = customerDAO.read();
             for (Customer customer : customerList) {
                 model.addRow(new Object[]{String.valueOf(customer.getCustomerID()), String.valueOf(customer.getCustomerName()), customer.getDateOfBirth(), String.valueOf(customer.getPhoneNumber()), String.valueOf(customer.getEmail()), customer.getLoyaltyPoints()});
+            }
+        } else if (selectedTable.equals(view.getTableName(6))) {
+            List<Supplier> supplierList = supplierDAO.read();
+            for (Supplier supplier : supplierList){
+                model.addRow(new Object[]{String.valueOf(supplier.getSupplierID()), String.valueOf(supplier.getSupplierName()), String.valueOf(supplier.getPhoneNumber()), String.valueOf(supplier.getEmail()), String.valueOf(supplier.getAddress())});
             }
         }
 

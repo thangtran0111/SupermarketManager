@@ -11,7 +11,7 @@ public class AddProcessManager {
     private SalesInvoiceDAOInterface salesInvoiceDAO;
     private InvoiceProductDAOInterface invoiceProductDAO;
     private CustomerDAOInterface customerDAO;
-
+    private SupplierDAOInterface supplierDAO;
 
     public AddProcessManager(){
         productDAO = new ProductDAO();
@@ -19,9 +19,10 @@ public class AddProcessManager {
         salesInvoiceDAO = new SalesInvoiceDAO();
         invoiceProductDAO = new InvoiceProductDAO();
         customerDAO = new CustomerDAO();
+        supplierDAO = new SupplierDAO();
     }
 
-    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, SaleInvoices, InvoiceProduct
+    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, SaleInvoices, InvoiceProduct, Customer, Supplier
     public void processAdd(View view){
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
         String message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
@@ -42,6 +43,9 @@ public class AddProcessManager {
             }else if(selectedTable.equals(view.getTableName(5))){
                 Customer customer = view.createObject(selectedTable, view.getNewFieldValues());
                 count = customerDAO.create(customer);
+            } else if (selectedTable.equals(view.getTableName(6))) {
+                Supplier supplier = view.createObject(selectedTable, view.getNewFieldValues());
+                count = supplierDAO.create(supplier);
             }
         }else{
             view.showMessage(view.getAddFrame(), message);

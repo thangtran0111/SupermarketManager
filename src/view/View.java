@@ -18,12 +18,13 @@ public class View {
     private final int PADDING = 60;
 
     //column name
-    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SalesInvoice, InvoiceProduct, Customer
+    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SalesInvoice, InvoiceProduct, Customer, Supplier
     private final Object[] productColumnNames = {"Product ID", "Barcode", "Product Name", "Retail Price", "Quantity In Stock", "Product Type", "Description"};
     private final Object[] employeeColumnNames = {"Employee ID", "Employee Name", "ID Number", "Phone Number", "Email", "Date Of Birth", "Gender", "Address", "Position", "Salary"};
     private final Object[] salesInvoiceColumnNames = {"Invoice ID", "Invoice Date", "Customer ID", "Payment Method"};
     private final Object[] invoiceProductColumnNames = {"Invoice ID", "Product ID", "Quantity"};
     private final Object[] customerColumnNames = {"Customer ID", "Customer Name", "Date Of Birth", "Phone Number", "Email", "LoyaltyPoints"};
+    private final Object[] supplierColumnNames = {"SupplierID", "Supplier Name", "Phone Number", "Email", "Address"};
     //login component
     private JFrame loginFrame;
     private JButton loginButton;
@@ -35,7 +36,7 @@ public class View {
     private JPanel topHomePanel;
     private JPanel midHomePanel;
     private JPanel bottomHomePanel;
-    private final String[] tableNames = new String[]{"", "Employee", "Product", "SalesInvoice", "InvoiceProduct", "Customer"};
+    private final String[] tableNames = new String[]{"", "Employee", "Product", "SalesInvoice", "InvoiceProduct", "Customer", "Supplier"};
     private final JComboBox<String> tableChooser = new JComboBox<>(tableNames);
     private JTextField findField;
     private final JTable table = new JTable();
@@ -323,6 +324,38 @@ public class View {
         homeFrame.revalidate();
         homeFrame.repaint();
     }
+    public void createSupplierManagementFrame() {
+        if (midHomePanel.isAncestorOf(welcomeLabel)) {
+            midHomePanel.remove(welcomeLabel);
+        }
+        if (scrollPane.isAncestorOf(table)) {
+            scrollPane.remove(table);
+        }
+        if (midHomePanel.isAncestorOf(scrollPane)) {
+            midHomePanel.remove(scrollPane);
+        }
+        if (topHomePanel.isAncestorOf(billDetailButton)) {
+            topHomePanel.remove(billDetailButton);
+        }
+
+        if (topHomePanel.isAncestorOf(outOfStockButton)) {
+            topHomePanel.remove(outOfStockButton);
+        }
+        if (!findButton.isEnabled()) {
+            findButton.setEnabled(true);
+            addButton.setEnabled(true);
+            updateButton.setEnabled(true);
+            deleteButton.setEnabled(true);
+            refreshButton.setEnabled(true);
+        }
+
+        scrollPane = new JScrollPane(table);
+        scrollPane.setPreferredSize(new Dimension(homeFrame.getWidth() - PADDING, (homeFrame.getHeight() - 200)));
+        midHomePanel.add(scrollPane);
+
+        homeFrame.revalidate();
+        homeFrame.repaint();
+    }
 
 
     public void createInfoFrame(Object[] titles, Object[] data) {
@@ -565,7 +598,7 @@ public class View {
         deleteFrame.setVisible(true);
     }
 
-    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SalesInvoice, InvoiceProduct, Customer
+    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SalesInvoice, InvoiceProduct, Customer, Supplier
     public Class<?> getClassByTableName(String selectedTable) {
         return switch (selectedTable) {
             case "Employee" -> Employee.class;
@@ -573,11 +606,12 @@ public class View {
             case "SalesInvoice" -> SalesInvoice.class;
             case "InvoiceProduct" -> InvoiceProduct.class;
             case "Customer" -> Customer.class;
+            case "Supplier" -> Supplier.class;
             default -> null;
         };
     }
 
-    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SaleInvoices, InvoiceProduct, Customer
+    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SaleInvoices, InvoiceProduct, Customer, Supplier
     public <T> T createObject(String selectedTable, JTextField[] _properties) {
         Class<?> cl = getClassByTableName(selectedTable);
         if (cl == null) {
@@ -593,6 +627,8 @@ public class View {
                 case "InvoiceProduct" -> cl.getConstructor(String.class, String.class, int.class);
                 case "Customer" ->
                         cl.getConstructor(String.class, String.class, Date.class, String.class, String.class, int.class);
+                case "Supplier" ->
+                        cl.getConstructor(String.class, String.class, String.class, String.class, String.class);
                 default -> throw new IllegalStateException("Invalid table name: " + selectedTable);
             };
             String[] properties = new String[_properties.length];
@@ -724,7 +760,11 @@ public class View {
         return customerColumnNames;
     }
 
-    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SaleInvoices, InvoiceProduct, Customer
+    public Object[] getSupplierColumnNames() {
+        return supplierColumnNames;
+    }
+
+    //TODO thêm các bảng khác các bảng hiện có Product, Employee, SaleInvoices, InvoiceProduct, Customer, Supplier
     public Object[] getColumnNames(String selectedTable) {
         if (selectedTable.equals(tableNames[1])) {
             return getEmployeeColumnNames();
@@ -736,6 +776,8 @@ public class View {
             return getInvoiceProductColumnNames();
         } else if (selectedTable.equals(tableNames[5])) {
             return getCustomerColumnNames();
+        } else if (selectedTable.equals(tableNames[6])) {
+            return getSupplierColumnNames();
         }
         return new Object[0];
     }

@@ -11,6 +11,7 @@ public class UpdateProcessManager {
     private SalesInvoiceDAOInterface saleInvoicesDAO;
     private InvoiceProductDAOInterface invoiceProductDAO;
     private CustomerDAOInterface customerDAO;
+    private SupplierDAOInterface supplierDAO;
 
     public UpdateProcessManager(){
         productDAO = new ProductDAO();
@@ -18,14 +19,14 @@ public class UpdateProcessManager {
         saleInvoicesDAO = new SalesInvoiceDAO();
         invoiceProductDAO = new InvoiceProductDAO();
         customerDAO = new CustomerDAO();
+        supplierDAO = new SupplierDAO();
     }
-    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, SaleInvoices, InvoiceProduct, Customer
+    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, SaleInvoices, InvoiceProduct, Customer, Supplier
     public void processUpdate(View view){
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
         String message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
         int count = 0;
         if(message.equals("Mã đã tồn tại")){
-            System.out.println("2");
             if(selectedTable.equals(view.getTableName(1))){
                 Employee employee = view.createObject(selectedTable, view.getNewFieldValues());
                 count = employeeDAO.update(employee);
@@ -41,6 +42,9 @@ public class UpdateProcessManager {
             } else if (selectedTable.equals(view.getTableName(5))) {
                 Customer customer = view.createObject(selectedTable, view.getNewFieldValues());
                 count = customerDAO.update(customer);
+            } else if(selectedTable.equals(view.getTableName(6))){
+                Supplier supplier = view.createObject(selectedTable, view.getNewFieldValues());
+                count = supplierDAO.update(supplier);
             }
         }else{
             view.showMessage(view.getAddFrame(), message);

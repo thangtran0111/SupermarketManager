@@ -5,12 +5,12 @@ import DAO.itf.*;
 import view.View;
 
 public class DeleteProcessManager {
-    EmployeeDAOInterface employeeDAO;
-    ProductDAOInterface productDAO;
-    SalesInvoiceDAOInterface salesInvoiceDAO;
-    InvoiceProductDAOInterface invoiceProductDAO;
-
+    private EmployeeDAOInterface employeeDAO;
+    private ProductDAOInterface productDAO;
+    private SalesInvoiceDAOInterface salesInvoiceDAO;
+    private InvoiceProductDAOInterface invoiceProductDAO;
     private CustomerDAOInterface customerDAO;
+    private SupplierDAOInterface supplierDAO;
 
     public DeleteProcessManager() {
         productDAO = new ProductDAO();
@@ -18,31 +18,34 @@ public class DeleteProcessManager {
         salesInvoiceDAO = new SalesInvoiceDAO();
         invoiceProductDAO = new InvoiceProductDAO();
         customerDAO = new CustomerDAO();
+        supplierDAO = new SupplierDAO();
     }
 
-    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, SaleInvoices, InvoiceProduct, Customer
+    //TODO: thêm các bảng khác các bảng hiện có Employee, Product, SaleInvoices, InvoiceProduct, Customer, Supplier
     public void processDelete(View view) {
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
-        String ma = view.getNewFieldValues()[0].getText();
+        String ID = view.getNewFieldValues()[0].getText();
         String message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
         int count = 0;
         if (message.equals("Mã đã tồn tại")) {
             if (selectedTable.equals(view.getTableName(1))) {
-                if (!ma.equals("99999")) {
-                    count = employeeDAO.delete(ma);
+                if (!ID.equals("99999")) {
+                    count = employeeDAO.delete(ID);
                 }
             } else if (selectedTable.equals(view.getTableName(2))) {
-                count = productDAO.delete(ma);
+                count = productDAO.delete(ID);
             } else if (selectedTable.equals(view.getTableName(3))) {
-                count = salesInvoiceDAO.delete(ma);
+                count = salesInvoiceDAO.delete(ID);
                 if (count > 0) {
                     count = 0;
-                    count = salesInvoiceDAO.delete(ma);
+                    count = salesInvoiceDAO.delete(ID);
                 }
             } else if (selectedTable.equals(view.getTableName(4))) {
-                count = invoiceProductDAO.delete(ma, view.getNewFieldValues()[1].getText());
+                count = invoiceProductDAO.delete(ID, view.getNewFieldValues()[1].getText());
             } else if (selectedTable.equals(view.getTableName(5))) {
-                count = customerDAO.delete(ma);
+                count = customerDAO.delete(ID);
+            } else if (selectedTable.equals(view.getTableName(6))) {
+                count = supplierDAO.delete(ID);
             }
         } else {
             view.showMessage(view.getAddFrame(), message);
