@@ -26,7 +26,7 @@ public class View {
     private final Object[] supplierColumnNames = {"SupplierID", "Supplier Name", "Phone Number", "Email", "Address"};
     private final Object[] orderColumnNames = {"Order ID", "Invoice ID", "Expected Delivery Date", "Delivery Address", "Notes"};
     private final Object[] deliveryReceiptColumnNames = {"Delivery Receipt ID", "Delivery Date", "Delivery Status", "Order ID", "Delivery Employee ID"};
-    private final Object[] warehouseReceiptColumnNames = {"Warehouse Receipt ID", "Receipt Date", "Supplier ID", "Employee ID"};
+    private final Object[] warehouseReceiptColumnNames = {"Warehouse Receipt ID", "Warehouse Receipt Date", "Warehouse Receipt Status",  "Supplier ID", "Employee ID"};
 
     //login component
     private JFrame loginFrame;
@@ -726,8 +726,10 @@ public class View {
                         cl.getConstructor(String.class, String.class, String.class, int.class, int.class, String.class, String.class);
                 case "Employee" ->
                         cl.getConstructor(String.class, String.class, String.class, String.class, String.class, Date.class, String.class, String.class, String.class, int.class);
-                case "SalesInvoice", "WarehouseReceipt" ->
+                case "SalesInvoice" ->
                         cl.getConstructor(String.class, Date.class, String.class, String.class);
+                case "WarehouseReceipt", "DeliveryReceipt" ->
+                        cl.getConstructor(String.class, Date.class, String.class, String.class, String.class);
                 case "InvoiceProduct" ->
                         cl.getConstructor(String.class, String.class, int.class);
                 case "Customer" ->
@@ -736,8 +738,6 @@ public class View {
                         cl.getConstructor(String.class, String.class, String.class, String.class, String.class);
                 case "Order" ->
                         cl.getConstructor(String.class, String.class, Date.class, String.class, String.class);
-                case "DeliveryReceipt" ->
-                        cl.getConstructor(String.class, Date.class, String.class, String.class, String.class);
                 default -> throw new IllegalStateException("Invalid table name: " + selectedTable);
             };
             String[] properties = new String[_properties.length];

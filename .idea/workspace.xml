@@ -4,24 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="fix bugs">
+    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="Translate into English">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/imple/DeliveryReceiptDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/DeliveryReceiptDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/imple/InvoiceProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/InvoiceProductDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/imple/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/ProductDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/AddProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/AddProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/DeleteProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DeleteProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/LoginProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/LoginProcessManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/imple/WarehouseReceiptDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/WarehouseReceiptDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/SearchProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/SearchProcessManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/TableSelectionProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/TableSelectionProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/UpdateProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/UpdateProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/databaseConnection/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/databaseConnection/DatabaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/InvoiceProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/InvoiceProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Supplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Supplier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/WarehouseReceipt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/WarehouseReceipt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/View.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,6 +27,19 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="848a4269-5a25-4373-ba66-b6e946ee8817" />
+        <option name="url" value="https://github.com/thangtran0111/SupermarketManager.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />

@@ -27,6 +27,7 @@ public class WarehouseReceiptDAO implements WarehouseReceiptDAOInterface {
                 WarehouseReceipt warehouseReceipt = new WarehouseReceipt(
                         resultSet.getString("WarehouseReceiptID").trim(),
                         resultSet.getDate("WarehouseReceiptDate"),
+                        resultSet.getString("WarehouseReceiptStatus").trim(),
                         resultSet.getString("SupplierID").trim(),
                         resultSet.getString("EmployeeID").trim()
                 );
@@ -44,12 +45,13 @@ public class WarehouseReceiptDAO implements WarehouseReceiptDAOInterface {
     public int create(WarehouseReceipt warehouseReceipt) {
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("INSERT INTO WarehouseReceipt (WarehouseReceiptID, WarehouseReceiptDate, SupplierID, EmployeeID) VALUES (?, ?, ?, ?);");
+            preparedStatement = connection.prepareStatement("INSERT INTO WarehouseReceipt (WarehouseReceiptID, WarehouseReceiptDate, WarehouseReceiptStatus, SupplierID, EmployeeID) VALUES (?, ?, ?, ?, ?);");
 
             preparedStatement.setString(1, warehouseReceipt.getWarehouseReceiptID());
-            preparedStatement.setDate(2, new java.sql.Date(warehouseReceipt.getReceiptDate().getTime()));
-            preparedStatement.setString(3, warehouseReceipt.getSupplierID());
-            preparedStatement.setString(4, warehouseReceipt.getEmployeeID());
+            preparedStatement.setDate(2, new java.sql.Date(warehouseReceipt.getWarehouReceiptDate().getTime()));
+            preparedStatement.setString(3, warehouseReceipt.getWarehouseReceiptStatus());
+            preparedStatement.setString(4, warehouseReceipt.getSupplierID());
+            preparedStatement.setString(5, warehouseReceipt.getEmployeeID());
 
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
@@ -63,12 +65,13 @@ public class WarehouseReceiptDAO implements WarehouseReceiptDAOInterface {
     public int update(WarehouseReceipt warehouseReceipt) {
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("UPDATE WarehouseReceipt SET WarehouseReceiptDate = ?, SupplierID = ?, EmployeeID = ? WHERE WarehouseReceiptID = ?");
+            preparedStatement = connection.prepareStatement("UPDATE WarehouseReceipt SET WarehouseReceiptDate = ?, WarehouseReceiptStatus = ?, SupplierID = ?, EmployeeID = ? WHERE WarehouseReceiptID = ?");
 
-            preparedStatement.setDate(1, new java.sql.Date(warehouseReceipt.getReceiptDate().getTime()));
-            preparedStatement.setString(2, warehouseReceipt.getSupplierID());
-            preparedStatement.setString(3, warehouseReceipt.getEmployeeID());
-            preparedStatement.setString(4, warehouseReceipt.getWarehouseReceiptID());
+            preparedStatement.setDate(1, new java.sql.Date(warehouseReceipt.getWarehouReceiptDate().getTime()));
+            preparedStatement.setString(2, warehouseReceipt.getWarehouseReceiptStatus());
+            preparedStatement.setString(3, warehouseReceipt.getSupplierID());
+            preparedStatement.setString(4, warehouseReceipt.getEmployeeID());
+            preparedStatement.setString(5, warehouseReceipt.getWarehouseReceiptID());
 
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {

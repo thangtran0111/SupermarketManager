@@ -28,7 +28,20 @@ public class SearchProcessManager {
                     break;
                 }
             }
-        } else {
+        }else if(message.equals("This barcode already exists")){
+            int rowCount = model.getRowCount();
+            int columnCount = model.getColumnCount();
+
+            for (int i = 0; i < rowCount; i++) {
+                if (model.getValueAt(i, 1).equals(findText)) {
+                    rowData = new Object[columnCount];
+                    for (int j = 0; j < columnCount; j++) {
+                        rowData[j] = model.getValueAt(i, j);
+                    }
+                    break;
+                }
+            }
+        }else {
             showMessage(cmp, message);
         }
 

@@ -3,13 +3,16 @@ import java.util.Date;
 
 public class WarehouseReceipt {
     private String warehouseReceiptID;
-    private Date receiptDate;
+    private Date warehouReceiptDate;
+
+    private String warehouseReceiptStatus;
     private String supplierID;
     private String employeeID;
 
-    public WarehouseReceipt(String warehouseReceiptID, Date receiptDate, String supplierID, String employeeID) {
+    public WarehouseReceipt(String warehouseReceiptID, Date warehouReceiptDate, String warehouseReceiptStatus, String supplierID, String employeeID) {
         this.warehouseReceiptID = warehouseReceiptID;
-        this.receiptDate = receiptDate;
+        this.warehouReceiptDate = warehouReceiptDate;
+        this.warehouseReceiptStatus = warehouseReceiptStatus;
         this.supplierID = supplierID;
         this.employeeID = employeeID;
     }
@@ -18,8 +21,8 @@ public class WarehouseReceipt {
         return warehouseReceiptID;
     }
 
-    public Date getReceiptDate() {
-        return receiptDate;
+    public Date getWarehouReceiptDate() {
+        return warehouReceiptDate;
     }
 
     public String getSupplierID() {
@@ -28,5 +31,9 @@ public class WarehouseReceipt {
 
     public String getEmployeeID() {
         return employeeID;
+    }
+
+    public String getWarehouseReceiptStatus() {
+        return warehouseReceiptStatus;
     }
 }

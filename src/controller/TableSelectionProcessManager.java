@@ -105,7 +105,7 @@ public class TableSelectionProcessManager {
         } else if (selectedTable.equals(view.getTableName(9))) {
             List<WarehouseReceipt> warehouseReceiptList = warehouseReceiptDAO.read();
             for (WarehouseReceipt warehouseReceipt : warehouseReceiptList) {
-                model.addRow(new Object[]{String.valueOf(warehouseReceipt.getWarehouseReceiptID()), warehouseReceipt.getReceiptDate(), String.valueOf(warehouseReceipt.getSupplierID()), String.valueOf(warehouseReceipt.getEmployeeID())});
+                model.addRow(new Object[]{String.valueOf(warehouseReceipt.getWarehouseReceiptID()), warehouseReceipt.getWarehouReceiptDate(), String.valueOf(warehouseReceipt.getWarehouseReceiptStatus()), String.valueOf(warehouseReceipt.getSupplierID()), String.valueOf(warehouseReceipt.getEmployeeID())});
             }
         }
 
