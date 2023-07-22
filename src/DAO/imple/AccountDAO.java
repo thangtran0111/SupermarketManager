@@ -16,6 +16,7 @@ public class AccountDAO implements AccountDAOInterface {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
+
     @Override
     public boolean update() {
         return false;
@@ -32,13 +33,13 @@ public class AccountDAO implements AccountDAOInterface {
     }
 
     @Override
-    public Account get(String userName) {
+    public Account get(String username) {
         Account account;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("SELECT * FROM Account WHERE Username = ?");
 
-            preparedStatement.setString(1, userName);
+            preparedStatement.setString(1, username);
             resultSet = preparedStatement.executeQuery();
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -49,11 +50,49 @@ public class AccountDAO implements AccountDAOInterface {
 
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
         return account;
     }
+
+    @Override
+    public boolean exist(String username) {
+        boolean hadFound = false;
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("SELECT * FROM Account WHERE Username = ?");
+
+            preparedStatement.setString(1, username);
+            hadFound = preparedStatement.executeQuery().next();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }
+        return hadFound;
+    }
+
+    @Override
+    public boolean exist(String username, String passwd) {
+        boolean hadFound = false;
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("SELECT * FROM Account WHERE Username = ? AND Passwd = ?");
+
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, passwd);
+            hadFound = preparedStatement.executeQuery().next();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }
+        return hadFound;
+    }
+
 
     @Override
     public List<Account> read() {

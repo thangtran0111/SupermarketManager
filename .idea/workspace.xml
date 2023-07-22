@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="add Enum MessageCode">
+    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="add setupManagementFrame(), addActionListener() function to minimize code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/imple/AccountDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/AccountDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/itf/AccountDAOInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/itf/AccountDAOInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/LoginProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/LoginProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/View.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,7 +204,14 @@
       <option name="project" value="LOCAL" />
       <updated>1690009738732</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="add setupManagementFrame(), addActionListener() function to minimize code">
+      <created>1690014989539</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1690014989539</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -224,6 +231,7 @@
     <MESSAGE value="fix bugs" />
     <MESSAGE value="add status attribute, fix bugs" />
     <MESSAGE value="add Enum MessageCode" />
-    <option name="LAST_COMMIT_MESSAGE" value="add Enum MessageCode" />
+    <MESSAGE value="add setupManagementFrame(), addActionListener() function to minimize code" />
+    <option name="LAST_COMMIT_MESSAGE" value="add setupManagementFrame(), addActionListener() function to minimize code" />
   </component>
 </project>

@@ -54,14 +54,13 @@ public class LoginProcessManager {
         char[] passwdArray = view.getUserPasswordField().getPassword();
         String passwd = convert(passwdArray);
 
-        Account account = accountDAO.get(username);
-        if (account == null) {
+        if (!accountDAO.exist(username)) {
             View.showMessage(view.getLoginFrame(), "Account does not exist!");
             view.getUserPasswordField().setText("");
             view.getUserTextField().setText("");
         } else {
             String encodePasswd = encode(passwd);
-            if (encodePasswd.equals(String.valueOf(account.getPasswd()))) {
+            if (accountDAO.exist(username, encodePasswd)) {
                 View.showMessage(view.getLoginFrame(), "Login successfully!");
                 view.getLoginFrame().dispose();
                 view.createFrame();
