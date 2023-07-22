@@ -64,7 +64,7 @@ public class LoginProcessManager {
             if (encodePasswd.equals(String.valueOf(account.getPasswd()))) {
                 View.showMessage(view.getLoginFrame(), "Login successfully!");
                 view.getLoginFrame().dispose();
-                view.createHomeFrame();
+                view.createFrame();
             } else {
                 View.showMessage(view.getLoginFrame(), "Incorrect password!");
                 view.getUserPasswordField().setText("");

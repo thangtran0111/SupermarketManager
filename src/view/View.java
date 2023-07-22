@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-public class View {
+public class View extends JFrame{
     private final int PADDING = 60;
 
     //column name
@@ -26,7 +26,7 @@ public class View {
     private final Object[] supplierColumnNames = {"SupplierID", "Supplier Name", "Phone Number", "Email", "Address"};
     private final Object[] orderColumnNames = {"Order ID", "Invoice ID", "Expected Delivery Date", "Delivery Address", "Notes"};
     private final Object[] deliveryReceiptColumnNames = {"Delivery Receipt ID", "Delivery Date", "Delivery Status", "Order ID", "Delivery Employee ID"};
-    private final Object[] warehouseReceiptColumnNames = {"Warehouse Receipt ID", "Warehouse Receipt Date", "Warehouse Receipt Status",  "Supplier ID", "Employee ID"};
+    private final Object[] warehouseReceiptColumnNames = {"Warehouse Receipt ID", "Warehouse Receipt Date", "Warehouse Receipt Status", "Supplier ID", "Employee ID"};
 
     //login component
     private JFrame loginFrame;
@@ -34,11 +34,10 @@ public class View {
     private JTextField userTextField;
     private JPasswordField userPasswordField;
 
-    //home component
-    private JFrame homeFrame;
-    private JPanel topHomePanel;
-    private JPanel midHomePanel;
-    private JPanel bottomHomePanel;
+    // component
+    private JPanel topPanel;
+    private JPanel midPanel;
+    private JPanel bottomPanel;
     private final String[] tableNames = new String[]{"", "Employee", "Product", "SalesInvoice", "InvoiceProduct", "Customer", "Supplier", "Order", "DeliveryReceipt", "WarehouseReceipt"};
     private final JComboBox<String> tableChooser = new JComboBox<>(tableNames);
     private JTextField findField;
@@ -91,8 +90,8 @@ public class View {
         userPasswordField = new JPasswordField("AccountTest");
 
         JPanel centerPanel = new JPanel(new GridLayout(6, 1, 0, 5));
-        JPanel topHomePanel = new JPanel();
-        JPanel bottomHomePanel = new JPanel();
+        JPanel topPanel = new JPanel();
+        JPanel bottomPanel = new JPanel();
         JPanel rightPanel = new JPanel();
         JPanel leftPanel = new JPanel();
 
@@ -103,8 +102,8 @@ public class View {
         centerPanel.add(userPasswordField);
         centerPanel.add(loginButton);
 
-        loginFrame.add(topHomePanel, BorderLayout.SOUTH);
-        loginFrame.add(bottomHomePanel, BorderLayout.NORTH);
+        loginFrame.add(topPanel, BorderLayout.SOUTH);
+        loginFrame.add(bottomPanel, BorderLayout.NORTH);
         loginFrame.add(rightPanel, BorderLayout.WEST);
         loginFrame.add(leftPanel, BorderLayout.EAST);
         loginFrame.add(centerPanel, BorderLayout.CENTER);
@@ -114,23 +113,24 @@ public class View {
         loginFrame.setVisible(true);
     }
 
-    public void createHomeFrame() {
-        homeFrame = new JFrame("Supermarket management");
-        homeFrame.setSize(1200, 675);
-        homeFrame.setLayout(new FlowLayout());
-        homeFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/resource/supermarkets.png"))).getImage());
+    public void createFrame() {
+        new JFrame();
+        setTitle("Supermarket management");
+        setSize(1200, 675);
+        setLayout(new FlowLayout());
+        setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/resource/supermarkets.png"))).getImage());
 
-        topHomePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        topHomePanel.setPreferredSize(new Dimension(homeFrame.getWidth() - PADDING, PADDING));
+        topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        topPanel.setPreferredSize(new Dimension(getWidth() - PADDING, PADDING));
 
-        midHomePanel = new JPanel(new FlowLayout());
-        midHomePanel.setPreferredSize(new Dimension(homeFrame.getWidth() - PADDING, (homeFrame.getHeight() - 200)));
+        midPanel = new JPanel(new FlowLayout());
+        midPanel.setPreferredSize(new Dimension(getWidth() - PADDING, (getHeight() - 200)));
 
-        bottomHomePanel = new JPanel();
-        bottomHomePanel.setPreferredSize(new Dimension(homeFrame.getWidth() - PADDING, PADDING));
+        bottomPanel = new JPanel();
+        bottomPanel.setPreferredSize(new Dimension(getWidth() - PADDING, PADDING));
 
         findField = new JTextField(10);
-        welcomeLabel.setPreferredSize(midHomePanel.getPreferredSize());
+        welcomeLabel.setPreferredSize(midPanel.getPreferredSize());
         findButton.setActionCommand("findButtonClicked");
         addButton.setActionCommand("addButtonClicked");
         updateButton.setActionCommand(("updateButtonClicked"));
@@ -143,321 +143,155 @@ public class View {
         deleteButton.setEnabled(false);
         refreshButton.setEnabled(false);
 
-        topHomePanel.add(tableChooser);
-        topHomePanel.add(findField);
-        topHomePanel.add(findButton);
-        topHomePanel.add(refreshButton);
-        midHomePanel.add(welcomeLabel);
+        topPanel.add(tableChooser);
+        topPanel.add(findField);
+        topPanel.add(findButton);
+        topPanel.add(refreshButton);
+        midPanel.add(welcomeLabel);
 
-        bottomHomePanel.add(addButton);
-        bottomHomePanel.add(updateButton);
-        bottomHomePanel.add(deleteButton);
+        bottomPanel.add(addButton);
+        bottomPanel.add(updateButton);
+        bottomPanel.add(deleteButton);
 
 
-        homeFrame.add(topHomePanel);
-        homeFrame.add(midHomePanel);
-        homeFrame.add(bottomHomePanel);
+        add(topPanel);
+        add(midPanel);
+        add(bottomPanel);
 
-        homeFrame.setLocationRelativeTo(null);
-        homeFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        homeFrame.setVisible(true);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+
+    public void setupManagementFrame() {
+        if (midPanel.isAncestorOf(welcomeLabel)) {
+            midPanel.remove(welcomeLabel);
+        }
+        if (scrollPane.isAncestorOf(table)) {
+            scrollPane.remove(table);
+        }
+        if (midPanel.isAncestorOf(scrollPane)) {
+            midPanel.remove(scrollPane);
+        }
+        if (topPanel.isAncestorOf(billDetailButton)) {
+            topPanel.remove(billDetailButton);
+        }
+
+        if (topPanel.isAncestorOf(outOfStockButton)) {
+            topPanel.remove(outOfStockButton);
+        }
+        if (!findButton.isEnabled()) {
+            findButton.setEnabled(true);
+            addButton.setEnabled(true);
+            updateButton.setEnabled(true);
+            deleteButton.setEnabled(true);
+            refreshButton.setEnabled(true);
+        }
     }
 
     public void createProductManagementFrame() {
-        if (midHomePanel.isAncestorOf(welcomeLabel)) {
-            midHomePanel.remove(welcomeLabel);
-        }
-        if (scrollPane.isAncestorOf(table)) {
-            scrollPane.remove(table);
-        }
-        if (midHomePanel.isAncestorOf(scrollPane)) {
-            midHomePanel.remove(scrollPane);
-        }
-        if (topHomePanel.isAncestorOf(billDetailButton)) {
-            topHomePanel.remove(billDetailButton);
-        }
+        setupManagementFrame();
 
-        if (!findButton.isEnabled()) {
-            findButton.setEnabled(true);
-            addButton.setEnabled(true);
-            updateButton.setEnabled(true);
-            deleteButton.setEnabled(true);
-            refreshButton.setEnabled(true);
-        }
-        if (!topHomePanel.isAncestorOf(outOfStockButton)) {
-            outOfStockButton.setActionCommand("outOfStockButtonClicked");
-            topHomePanel.add(outOfStockButton);
-        }
+        outOfStockButton.setActionCommand("outOfStockButtonClicked");
+        topPanel.add(outOfStockButton);
 
         scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(homeFrame.getWidth() - PADDING, (homeFrame.getHeight() - 200)));
-        midHomePanel.add(scrollPane);
+        scrollPane.setPreferredSize(new Dimension(getWidth() - PADDING, (getHeight() - 200)));
+        midPanel.add(scrollPane);
 
-        homeFrame.revalidate();
-        homeFrame.repaint();
+        revalidate();
+        repaint();
     }
 
     public void createEmployeeManagementFrame() {
-        if (midHomePanel.isAncestorOf(welcomeLabel)) {
-            midHomePanel.remove(welcomeLabel);
-        }
-        if (scrollPane.isAncestorOf(table)) {
-            scrollPane.remove(table);
-        }
-        if (midHomePanel.isAncestorOf(scrollPane)) {
-            midHomePanel.remove(scrollPane);
-        }
-        if (topHomePanel.isAncestorOf(outOfStockButton)) {
-            topHomePanel.remove(outOfStockButton);
-        }
-        if (topHomePanel.isAncestorOf(billDetailButton)) {
-            topHomePanel.remove(billDetailButton);
-        }
-        if (!findButton.isEnabled()) {
-            findButton.setEnabled(true);
-            addButton.setEnabled(true);
-            updateButton.setEnabled(true);
-            deleteButton.setEnabled(true);
-            refreshButton.setEnabled(true);
-        }
-
+        setupManagementFrame();
 
         scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(homeFrame.getWidth() - PADDING, (homeFrame.getHeight() - 200)));
-        midHomePanel.add(scrollPane);
+        scrollPane.setPreferredSize(new Dimension(getWidth() - PADDING, (getHeight() - 200)));
+        midPanel.add(scrollPane);
 
-        homeFrame.revalidate();
-        homeFrame.repaint();
+        revalidate();
+        repaint();
     }
 
     public void createSaleInvoicesManagementFrame() {
-        if (midHomePanel.isAncestorOf(welcomeLabel)) {
-            midHomePanel.remove(welcomeLabel);
-        }
-        if (scrollPane.isAncestorOf(table)) {
-            scrollPane.remove(table);
-        }
-        if (midHomePanel.isAncestorOf(scrollPane)) {
-            midHomePanel.remove(scrollPane);
-        }
-        if (topHomePanel.isAncestorOf(outOfStockButton)) {
-            topHomePanel.remove(outOfStockButton);
-        }
-        if (!findButton.isEnabled()) {
-            findButton.setEnabled(true);
-            addButton.setEnabled(true);
-            updateButton.setEnabled(true);
-            deleteButton.setEnabled(true);
-            refreshButton.setEnabled(true);
-        }
+        setupManagementFrame();
 
         billDetailButton.setActionCommand("billDetailButtonClicked");
-        topHomePanel.add(billDetailButton);
+        topPanel.add(billDetailButton);
 
         scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(homeFrame.getWidth() - PADDING, (homeFrame.getHeight() - 200)));
-        midHomePanel.add(scrollPane);
+        scrollPane.setPreferredSize(new Dimension(getWidth() - PADDING, (getHeight() - 200)));
+        midPanel.add(scrollPane);
 
-        homeFrame.revalidate();
-        homeFrame.repaint();
+        revalidate();
+        repaint();
     }
 
     public void createInvoiceProductManagementFrame() {
-        if (midHomePanel.isAncestorOf(welcomeLabel)) {
-            midHomePanel.remove(welcomeLabel);
-        }
-        if (scrollPane.isAncestorOf(table)) {
-            scrollPane.remove(table);
-        }
-        if (midHomePanel.isAncestorOf(scrollPane)) {
-            midHomePanel.remove(scrollPane);
-        }
-        if (topHomePanel.isAncestorOf(billDetailButton)) {
-            topHomePanel.remove(billDetailButton);
-        }
-
-        if (topHomePanel.isAncestorOf(outOfStockButton)) {
-            topHomePanel.remove(outOfStockButton);
-        }
-        if (!findButton.isEnabled()) {
-            findButton.setEnabled(true);
-            addButton.setEnabled(true);
-            updateButton.setEnabled(true);
-            deleteButton.setEnabled(true);
-            refreshButton.setEnabled(true);
-        }
+        setupManagementFrame();
 
         scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(homeFrame.getWidth() - PADDING, (homeFrame.getHeight() - 200)));
-        midHomePanel.add(scrollPane);
+        scrollPane.setPreferredSize(new Dimension(getWidth() - PADDING, (getHeight() - 200)));
+        midPanel.add(scrollPane);
 
-        homeFrame.revalidate();
-        homeFrame.repaint();
+        revalidate();
+        repaint();
     }
 
     public void createCustomerManagementFrame() {
-        if (midHomePanel.isAncestorOf(welcomeLabel)) {
-            midHomePanel.remove(welcomeLabel);
-        }
-        if (scrollPane.isAncestorOf(table)) {
-            scrollPane.remove(table);
-        }
-        if (midHomePanel.isAncestorOf(scrollPane)) {
-            midHomePanel.remove(scrollPane);
-        }
-        if (topHomePanel.isAncestorOf(billDetailButton)) {
-            topHomePanel.remove(billDetailButton);
-        }
-
-        if (topHomePanel.isAncestorOf(outOfStockButton)) {
-            topHomePanel.remove(outOfStockButton);
-        }
-        if (!findButton.isEnabled()) {
-            findButton.setEnabled(true);
-            addButton.setEnabled(true);
-            updateButton.setEnabled(true);
-            deleteButton.setEnabled(true);
-            refreshButton.setEnabled(true);
-        }
+        setupManagementFrame();
 
         scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(homeFrame.getWidth() - PADDING, (homeFrame.getHeight() - 200)));
-        midHomePanel.add(scrollPane);
+        scrollPane.setPreferredSize(new Dimension(getWidth() - PADDING, (getHeight() - 200)));
+        midPanel.add(scrollPane);
 
-        homeFrame.revalidate();
-        homeFrame.repaint();
+        revalidate();
+        repaint();
     }
 
     public void createSupplierManagementFrame() {
-        if (midHomePanel.isAncestorOf(welcomeLabel)) {
-            midHomePanel.remove(welcomeLabel);
-        }
-        if (scrollPane.isAncestorOf(table)) {
-            scrollPane.remove(table);
-        }
-        if (midHomePanel.isAncestorOf(scrollPane)) {
-            midHomePanel.remove(scrollPane);
-        }
-        if (topHomePanel.isAncestorOf(billDetailButton)) {
-            topHomePanel.remove(billDetailButton);
-        }
-
-        if (topHomePanel.isAncestorOf(outOfStockButton)) {
-            topHomePanel.remove(outOfStockButton);
-        }
-        if (!findButton.isEnabled()) {
-            findButton.setEnabled(true);
-            addButton.setEnabled(true);
-            updateButton.setEnabled(true);
-            deleteButton.setEnabled(true);
-            refreshButton.setEnabled(true);
-        }
+        setupManagementFrame();
 
         scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(homeFrame.getWidth() - PADDING, (homeFrame.getHeight() - 200)));
-        midHomePanel.add(scrollPane);
+        scrollPane.setPreferredSize(new Dimension(getWidth() - PADDING, (getHeight() - 200)));
+        midPanel.add(scrollPane);
 
-        homeFrame.revalidate();
-        homeFrame.repaint();
+        revalidate();
+        repaint();
     }
 
     public void createOrderManagementFrame() {
-        if (midHomePanel.isAncestorOf(welcomeLabel)) {
-            midHomePanel.remove(welcomeLabel);
-        }
-        if (scrollPane.isAncestorOf(table)) {
-            scrollPane.remove(table);
-        }
-        if (midHomePanel.isAncestorOf(scrollPane)) {
-            midHomePanel.remove(scrollPane);
-        }
-        if (topHomePanel.isAncestorOf(billDetailButton)) {
-            topHomePanel.remove(billDetailButton);
-        }
-
-        if (topHomePanel.isAncestorOf(outOfStockButton)) {
-            topHomePanel.remove(outOfStockButton);
-        }
-        if (!findButton.isEnabled()) {
-            findButton.setEnabled(true);
-            addButton.setEnabled(true);
-            updateButton.setEnabled(true);
-            deleteButton.setEnabled(true);
-            refreshButton.setEnabled(true);
-        }
+        setupManagementFrame();
 
         scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(homeFrame.getWidth() - PADDING, (homeFrame.getHeight() - 200)));
-        midHomePanel.add(scrollPane);
+        scrollPane.setPreferredSize(new Dimension(getWidth() - PADDING, (getHeight() - 200)));
+        midPanel.add(scrollPane);
 
-        homeFrame.revalidate();
-        homeFrame.repaint();
+        revalidate();
+        repaint();
     }
 
     public void createDeliveryReceiptManagementFrame() {
-        if (midHomePanel.isAncestorOf(welcomeLabel)) {
-            midHomePanel.remove(welcomeLabel);
-        }
-        if (scrollPane.isAncestorOf(table)) {
-            scrollPane.remove(table);
-        }
-        if (midHomePanel.isAncestorOf(scrollPane)) {
-            midHomePanel.remove(scrollPane);
-        }
-        if (topHomePanel.isAncestorOf(billDetailButton)) {
-            topHomePanel.remove(billDetailButton);
-        }
-
-        if (topHomePanel.isAncestorOf(outOfStockButton)) {
-            topHomePanel.remove(outOfStockButton);
-        }
-        if (!findButton.isEnabled()) {
-            findButton.setEnabled(true);
-            addButton.setEnabled(true);
-            updateButton.setEnabled(true);
-            deleteButton.setEnabled(true);
-            refreshButton.setEnabled(true);
-        }
+        setupManagementFrame();
 
         scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(homeFrame.getWidth() - PADDING, (homeFrame.getHeight() - 200)));
-        midHomePanel.add(scrollPane);
+        scrollPane.setPreferredSize(new Dimension(getWidth() - PADDING, (getHeight() - 200)));
+        midPanel.add(scrollPane);
 
-        homeFrame.revalidate();
-        homeFrame.repaint();
+        revalidate();
+        repaint();
     }
 
     public void createWarehouseReceiptManagementFrame() {
-        if (midHomePanel.isAncestorOf(welcomeLabel)) {
-            midHomePanel.remove(welcomeLabel);
-        }
-        if (scrollPane.isAncestorOf(table)) {
-            scrollPane.remove(table);
-        }
-        if (midHomePanel.isAncestorOf(scrollPane)) {
-            midHomePanel.remove(scrollPane);
-        }
-        if (topHomePanel.isAncestorOf(billDetailButton)) {
-            topHomePanel.remove(billDetailButton);
-        }
-
-        if (topHomePanel.isAncestorOf(outOfStockButton)) {
-            topHomePanel.remove(outOfStockButton);
-        }
-        if (!findButton.isEnabled()) {
-            findButton.setEnabled(true);
-            addButton.setEnabled(true);
-            updateButton.setEnabled(true);
-            deleteButton.setEnabled(true);
-            refreshButton.setEnabled(true);
-        }
+        setupManagementFrame();
 
         scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(homeFrame.getWidth() - PADDING, (homeFrame.getHeight() - 200)));
-        midHomePanel.add(scrollPane);
+        scrollPane.setPreferredSize(new Dimension(getWidth() - PADDING, (getHeight() - 200)));
+        midPanel.add(scrollPane);
 
-        homeFrame.revalidate();
-        homeFrame.repaint();
+        revalidate();
+        repaint();
     }
 
     public void createInfoFrame(Object[] titles, Object[] data) {
@@ -571,13 +405,13 @@ public class View {
 
         table.setModel(filteredModel);
         scrollPane.setViewportView(table);
-        if (midHomePanel.isAncestorOf(scrollPane)) {
-            midHomePanel.remove(scrollPane);
+        if (midPanel.isAncestorOf(scrollPane)) {
+            midPanel.remove(scrollPane);
         }
 
-        midHomePanel.add(scrollPane);
-        midHomePanel.revalidate();
-        midHomePanel.repaint();
+        midPanel.add(scrollPane);
+        midPanel.revalidate();
+        midPanel.repaint();
     }
 
     public void createAddFrame() {
@@ -726,18 +560,15 @@ public class View {
                         cl.getConstructor(String.class, String.class, String.class, int.class, int.class, String.class, String.class);
                 case "Employee" ->
                         cl.getConstructor(String.class, String.class, String.class, String.class, String.class, Date.class, String.class, String.class, String.class, int.class);
-                case "SalesInvoice" ->
-                        cl.getConstructor(String.class, Date.class, String.class, String.class);
+                case "SalesInvoice" -> cl.getConstructor(String.class, Date.class, String.class, String.class);
                 case "WarehouseReceipt", "DeliveryReceipt" ->
                         cl.getConstructor(String.class, Date.class, String.class, String.class, String.class);
-                case "InvoiceProduct" ->
-                        cl.getConstructor(String.class, String.class, int.class);
+                case "InvoiceProduct" -> cl.getConstructor(String.class, String.class, int.class);
                 case "Customer" ->
                         cl.getConstructor(String.class, String.class, Date.class, String.class, String.class, int.class);
                 case "Supplier" ->
                         cl.getConstructor(String.class, String.class, String.class, String.class, String.class);
-                case "Order" ->
-                        cl.getConstructor(String.class, String.class, Date.class, String.class, String.class);
+                case "Order" -> cl.getConstructor(String.class, String.class, Date.class, String.class, String.class);
                 default -> throw new IllegalStateException("Invalid table name: " + selectedTable);
             };
             String[] properties = new String[_properties.length];
@@ -795,8 +626,8 @@ public class View {
         return userPasswordField;
     }
 
-    public JFrame getHomeFrame() {
-        return homeFrame;
+    public JFrame getFrame() {
+        return this;
     }
 
 
@@ -820,16 +651,16 @@ public class View {
         return tableChooser;
     }
 
-    public JPanel getTopHomePanel() {
-        return topHomePanel;
+    public JPanel getTopPanel() {
+        return topPanel;
     }
 
-    public JPanel getMidHomePanel() {
-        return midHomePanel;
+    public JPanel getMidPanel() {
+        return midPanel;
     }
 
-    public JPanel getBottomHomePanel() {
-        return bottomHomePanel;
+    public JPanel getBottomPanel() {
+        return bottomPanel;
     }
 
     public JFrame getInfoFrame() {

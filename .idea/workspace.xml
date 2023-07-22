@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="add status attribute, fix bugs">
-      <change afterPath="$PROJECT_DIR$/src/controller/MessageCode.java" afterDir="false" />
+    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="add Enum MessageCode">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/AddProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/AddProcessManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/DeleteProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DeleteProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/SearchProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/SearchProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/UpdateProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/UpdateProcessManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/LoginProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/LoginProcessManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/View.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +19,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -200,7 +197,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689959117241</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="add Enum MessageCode">
+      <created>1690009738732</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1690009738732</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -219,6 +223,7 @@
     <MESSAGE value="add Order, DeliveryReceipt, WarehouseReceipt" />
     <MESSAGE value="fix bugs" />
     <MESSAGE value="add status attribute, fix bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="add status attribute, fix bugs" />
+    <MESSAGE value="add Enum MessageCode" />
+    <option name="LAST_COMMIT_MESSAGE" value="add Enum MessageCode" />
   </component>
 </project>
