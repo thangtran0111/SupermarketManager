@@ -104,7 +104,7 @@ public class SalesInvoiceDAO implements SalesInvoiceDAOInterface {
         SalesInvoice salesInvoice = null;
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("SELECT * FROM SalesInvoice WHERE SaleInvoiceID = ?;");
+            preparedStatement = connection.prepareStatement("SELECT * FROM SalesInvoice WHERE InvoiceID = ?;");
             preparedStatement.setString(1, salesInvoiceID);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {

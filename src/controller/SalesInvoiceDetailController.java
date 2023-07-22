@@ -10,14 +10,16 @@ import model.InvoiceProduct;
 import model.Product;
 import model.SalesInvoice;
 import model.SalesInvoiceDetail;
+import view.View;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SalesInvoiceDetailController {
-    private SalesInvoiceDAOInterface salesInvoiceDAO;
-    private InvoiceProductDAOInterface invoiceProductDAO;
-    private ProductDAOInterface productDAO;
+    private final SalesInvoiceDAOInterface salesInvoiceDAO;
+    private final InvoiceProductDAOInterface invoiceProductDAO;
+    private final ProductDAOInterface productDAO;
 
     SalesInvoiceDetailController(){
         salesInvoiceDAO = new SalesInvoiceDAO();
@@ -25,6 +27,15 @@ public class SalesInvoiceDetailController {
         productDAO = new ProductDAO();
     }
 
+    void process(View view){
+        String ID = JOptionPane.showInputDialog("Enter sales invoice id you want to see details: ");
+        MessageCode message = Controller.checkCode(view.getTableChooser().getSelectedItem().toString(), ID);
+        if(message.equals(MessageCode.ID_ALREADY_EXISTS)){
+            view.createSalesInvoiceDetailFrame(getSalesInvoiceDetail(ID));
+        }else{
+            View.showMessage(view.getSalesInvoiceDetailFrame(), message.getMessage());
+        }
+    }
     SalesInvoiceDetail getSalesInvoiceDetail(String salesInvoicesID){
         SalesInvoice salesInvoice = salesInvoiceDAO.get(salesInvoicesID);
         if(salesInvoice == null){

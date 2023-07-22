@@ -1,5 +1,7 @@
 package view;
 
+import controller.Controller;
+import controller.MessageCode;
 import controller.SearchProcessManager;
 import model.*;
 
@@ -49,7 +51,6 @@ public class View extends JFrame{
 
     //function component
     private final JButton outOfStockButton = new JButton("Out of stock");
-    private final JButton billDetailButton = new JButton("Detail");
     private JFrame addFrame;
     private final JButton addButton = new JButton("Add");
     private final JButton addInAddFrameButton = new JButton("Add");
@@ -68,6 +69,10 @@ public class View extends JFrame{
     private JFrame infoFrame;
     private final JButton closeInfoFrameButton = new JButton("Close");
 
+    // sales invoice detail component
+    private final JFrame salesInvoiceDetailFrame = new JFrame("Detail");
+    private final JButton getSalesInvoiceDetailButton = new JButton("Detail");
+    private final JButton closeSaleInvoiceDetailFrameButton = new JButton("Close");
 
     public View() {
         createLogFrame();
@@ -173,8 +178,8 @@ public class View extends JFrame{
         if (midPanel.isAncestorOf(scrollPane)) {
             midPanel.remove(scrollPane);
         }
-        if (topPanel.isAncestorOf(billDetailButton)) {
-            topPanel.remove(billDetailButton);
+        if (topPanel.isAncestorOf(getSalesInvoiceDetailButton)) {
+            topPanel.remove(getSalesInvoiceDetailButton);
         }
 
         if (topPanel.isAncestorOf(outOfStockButton)) {
@@ -217,8 +222,8 @@ public class View extends JFrame{
     public void createSaleInvoicesManagementFrame() {
         setupManagementFrame();
 
-        billDetailButton.setActionCommand("billDetailButtonClicked");
-        topPanel.add(billDetailButton);
+        getSalesInvoiceDetailButton.setActionCommand("getSalesInvoiceDetailButtonClicked");
+        topPanel.add(getSalesInvoiceDetailButton);
 
         scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(getWidth() - PADDING, (getHeight() - 200)));
@@ -412,6 +417,63 @@ public class View extends JFrame{
         midPanel.add(scrollPane);
         midPanel.revalidate();
         midPanel.repaint();
+    }
+
+    public void createSalesInvoiceDetailFrame(SalesInvoiceDetail salesInvoiceDetail){
+        salesInvoiceDetailFrame.setSize(1200, 675);
+        salesInvoiceDetailFrame.setLayout(new FlowLayout());
+        salesInvoiceDetailFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/resource/info.png"))).getImage());
+
+        JPanel topSIDPanel = new JPanel(new GridLayout(2, 1));
+        topSIDPanel.setPreferredSize(new Dimension(getWidth() - PADDING, PADDING * 2));
+
+        JPanel midSIDPanel = new JPanel();
+        midSIDPanel.setPreferredSize(new Dimension(getWidth() - PADDING, (getHeight() - PADDING * 4)));
+
+        JPanel bottomSIDPanel = new JPanel();
+        bottomSIDPanel.setPreferredSize(new Dimension(getWidth() - PADDING, PADDING));
+
+        topSIDPanel.add(new JLabel("INVOICE " + salesInvoiceDetail.getSalesInvoice().getInvoiceID(), SwingConstants.CENTER));
+        JPanel insideTopSIDPanel = new JPanel(new GridLayout(1, 2));
+        insideTopSIDPanel.add(new JLabel(String.valueOf(salesInvoiceDetail.getSalesInvoice().getInvoiceDate()), SwingConstants.CENTER));
+        insideTopSIDPanel.add(new JLabel("Payment method: " + salesInvoiceDetail.getSalesInvoice().getPaymentMethod(), SwingConstants.CENTER));
+        topSIDPanel.add(insideTopSIDPanel);
+
+        int rowCount = salesInvoiceDetail.getProductList().size();
+        JPanel detailPanel = new JPanel(new GridLayout(rowCount + 1, 4, 5, 10));
+        detailPanel.add(new JLabel("Product Name"));
+        detailPanel.add(new JLabel("Price"));
+        detailPanel.add(new JLabel("Quantity"));
+        detailPanel.add(new JLabel("Amount"));
+        int totalAmount = 0;
+        int i = 0;
+        for (; i < rowCount; i++) {
+            Product product = salesInvoiceDetail.getProductList().get(i);
+            InvoiceProduct invoiceProduct = salesInvoiceDetail.getInvoiceProductList().get(i);
+            int amount = product.getRetailPrice() * invoiceProduct.getQuantity();
+            totalAmount += amount;
+            detailPanel.add(new JLabel(product.getProductName()));
+            detailPanel.add(new JLabel(String.valueOf(product.getRetailPrice())));
+            detailPanel.add(new JLabel(String.valueOf(invoiceProduct.getQuantity())));
+            detailPanel.add(new JLabel(String.valueOf(amount)));
+        }
+        //detailPanel.add(new JLabel("Total amount: ", SwingConstants.CENTER), i + 1, 2);
+        //detailPanel.add(new JLabel(String.valueOf(totalAmount), SwingConstants.CENTER), i + 1, 3);
+
+        JScrollPane SIDScrollPane = new JScrollPane(detailPanel);
+        SIDScrollPane.setBorder(null);
+        midSIDPanel.add(SIDScrollPane);
+
+        closeSaleInvoiceDetailFrameButton.setActionCommand("closeSaleInvoiceDetailFrameButtonClicked");
+        bottomSIDPanel.add(closeSaleInvoiceDetailFrameButton);
+
+        salesInvoiceDetailFrame.add(topSIDPanel);
+        salesInvoiceDetailFrame.add(midSIDPanel);
+        salesInvoiceDetailFrame.add(bottomSIDPanel);
+
+        salesInvoiceDetailFrame.setLocationRelativeTo(null);
+        salesInvoiceDetailFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        salesInvoiceDetailFrame.setVisible(true);
     }
 
     public void createAddFrame() {
@@ -789,4 +851,9 @@ public class View extends JFrame{
     public Object[] getWarehouseReceiptColumnNames() {
         return warehouseReceiptColumnNames;
     }
+
+    public JFrame getSalesInvoiceDetailFrame(){ return salesInvoiceDetailFrame; }
+    public JButton getGetSalesInvoiceDetailButton(){ return getSalesInvoiceDetailButton; }
+
+    public JButton getCloseSaleInvoiceDetailFrameButton(){ return closeSaleInvoiceDetailFrameButton; }
 }

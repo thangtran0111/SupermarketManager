@@ -16,6 +16,8 @@ public class Controller implements ActionListener {
     private final DeleteProcessManager deleteProcessManager;
     private final UpdateProcessManager updateProcessManager;
 
+    private final SalesInvoiceDetailController salesInvoiceDetailController;
+
     public Controller() {
         view = new View();
         this.loginProcessManager = new LoginProcessManager();
@@ -24,6 +26,7 @@ public class Controller implements ActionListener {
         this.tableSelectionProcessManager = new TableSelectionProcessManager();
         this.deleteProcessManager = new DeleteProcessManager();
         this.updateProcessManager = new UpdateProcessManager();
+        this.salesInvoiceDetailController = new SalesInvoiceDetailController();
         addActionListener();
     }
 
@@ -79,7 +82,6 @@ public class Controller implements ActionListener {
             view.createUpdateFrame();
         }
 
-
         if ("deleteButtonClicked".equals(actionCommand)) {
             view.createDeleteFrame();
         }
@@ -94,6 +96,14 @@ public class Controller implements ActionListener {
 
         if ("refreshButtonClicked".equals(actionCommand)) {
             tableSelectionProcessManager.processTableSelection(view);
+        }
+
+        if("getSalesInvoiceDetailButtonClicked".equals(actionCommand)){
+            salesInvoiceDetailController.process(view);
+        }
+
+        if("closeSaleInvoiceDetailFrameButtonClicked".equals(actionCommand)){
+            view.getSalesInvoiceDetailFrame().dispose();
         }
 
         if (e.getSource() == view.getTableChooser()) {
@@ -142,5 +152,7 @@ public class Controller implements ActionListener {
         view.getDeleteInDeleteFrameButton().addActionListener(this);
         view.getCloseDeleteFrameButton().addActionListener(this);
         view.getRefreshButton().addActionListener(this);
+        view.getGetSalesInvoiceDetailButton().addActionListener(this);
+        view.getCloseSaleInvoiceDetailFrameButton().addActionListener(this);
     }
 }

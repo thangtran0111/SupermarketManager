@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/controller/SaleInvoiceDetailController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/SalesInvoiceDetail.java" afterDir="false" />
+    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="add SalesInvoiceDetail model and DAO">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/imple/InvoiceProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/InvoiceProductDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAO/imple/SalesInvoiceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/SalesInvoiceDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/itf/InvoiceProductDAOInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/itf/InvoiceProductDAOInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/itf/SalesInvoiceDAOInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/itf/SalesInvoiceDAOInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/SalesInvoiceDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/SalesInvoiceDetailController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/View.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,7 +219,21 @@
       <option name="project" value="LOCAL" />
       <updated>1690015976315</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="add get(String) function">
+      <created>1690040124314</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1690040124314</updated>
+    </task>
+    <task id="LOCAL-00021" summary="add SalesInvoiceDetail model and DAO">
+      <created>1690040184596</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1690040184596</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -243,6 +255,8 @@
     <MESSAGE value="add Enum MessageCode" />
     <MESSAGE value="add setupManagementFrame(), addActionListener() function to minimize code" />
     <MESSAGE value="change how LoginProcessManager works" />
-    <option name="LAST_COMMIT_MESSAGE" value="change how LoginProcessManager works" />
+    <MESSAGE value="add get(String) function" />
+    <MESSAGE value="add SalesInvoiceDetail model and DAO" />
+    <option name="LAST_COMMIT_MESSAGE" value="add SalesInvoiceDetail model and DAO" />
   </component>
 </project>
