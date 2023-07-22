@@ -38,18 +38,18 @@ public class InvoiceProductDAO implements InvoiceProductDAOInterface {
 
     @Override
     public List<InvoiceProduct> read() {
+        List<InvoiceProduct> invoiceProductList = new ArrayList<>();
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("SELECT * FROM InvoiceProduct;");
             resultSet = preparedStatement.executeQuery();
-            List<InvoiceProduct> listInvoiceProduct = new ArrayList<>();
             while (resultSet.next()) {
-                listInvoiceProduct.add(new InvoiceProduct(
+                invoiceProductList.add(new InvoiceProduct(
                         resultSet.getString("InvoiceID").trim(),
                         resultSet.getString("ProductID").trim(),
                         resultSet.getInt("Quantity")));
             }
-            return listInvoiceProduct;
+            return invoiceProductList;
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
@@ -116,4 +116,25 @@ public class InvoiceProductDAO implements InvoiceProductDAOInterface {
         return count;
     }
 
+    @Override
+    public List<InvoiceProduct> get(String salesInvoiceID) {
+        List<InvoiceProduct> invoiceProductList = new ArrayList<>();
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("SELECT * FROM InvoiceProduct WHERE InvoiceID = ?;");
+            preparedStatement.setString(1, salesInvoiceID);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                invoiceProductList.add(new InvoiceProduct(
+                        resultSet.getString("InvoiceID").trim(),
+                        resultSet.getString("ProductID").trim(),
+                        resultSet.getInt("Quantity")));
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }
+        return invoiceProductList;
+    }
 }

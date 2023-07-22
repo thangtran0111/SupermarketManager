@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="add setupManagementFrame(), addActionListener() function to minimize code">
+    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/controller/SaleInvoiceDetailController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/SalesInvoiceDetail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/imple/AccountDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/AccountDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/itf/AccountDAOInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/itf/AccountDAOInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/LoginProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/LoginProcessManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/imple/InvoiceProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/InvoiceProductDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/imple/SalesInvoiceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/SalesInvoiceDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/itf/InvoiceProductDAOInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/itf/InvoiceProductDAOInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/itf/SalesInvoiceDAOInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/itf/SalesInvoiceDAOInterface.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,7 +214,14 @@
       <option name="project" value="LOCAL" />
       <updated>1690014989539</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="change how LoginProcessManager works">
+      <created>1690015976315</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1690015976315</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -232,6 +242,7 @@
     <MESSAGE value="add status attribute, fix bugs" />
     <MESSAGE value="add Enum MessageCode" />
     <MESSAGE value="add setupManagementFrame(), addActionListener() function to minimize code" />
-    <option name="LAST_COMMIT_MESSAGE" value="add setupManagementFrame(), addActionListener() function to minimize code" />
+    <MESSAGE value="change how LoginProcessManager works" />
+    <option name="LAST_COMMIT_MESSAGE" value="change how LoginProcessManager works" />
   </component>
 </project>

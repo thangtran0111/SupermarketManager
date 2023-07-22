@@ -9,4 +9,6 @@ public interface SalesInvoiceDAOInterface {
     List<SalesInvoice> read();
     int update(SalesInvoice salesInvoice);
     int delete(String saleInvoiceID);
+
+    SalesInvoice get(String salesInvoiceID);
 }

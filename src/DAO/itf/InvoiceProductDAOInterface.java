@@ -10,5 +10,6 @@ public interface InvoiceProductDAOInterface {
     int update(InvoiceProduct invoiceProduct);
     int delete(String invoiceID, String productID);
     int delete(String invoiceID);
+    List<InvoiceProduct> get(String salesInvoiceID);
 }
 

@@ -98,4 +98,27 @@ public class SalesInvoiceDAO implements SalesInvoiceDAOInterface {
         }
         return count;
     }
+
+    @Override
+    public SalesInvoice get(String salesInvoiceID) {
+        SalesInvoice salesInvoice = null;
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("SELECT * FROM SalesInvoice WHERE SaleInvoiceID = ?;");
+            preparedStatement.setString(1, salesInvoiceID);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                salesInvoice =new SalesInvoice(
+                        resultSet.getString("InvoiceID").trim(),
+                        resultSet.getDate("InvoiceDate"),
+                        resultSet.getString("CustomerID").trim(),
+                        resultSet.getString("PaymentMethod").trim());
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }
+        return salesInvoice;
+    }
 }
