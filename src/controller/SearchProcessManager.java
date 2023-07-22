@@ -12,10 +12,10 @@ public class SearchProcessManager {
     }
 
     public Object[] processSearch(String findText, String selectedTable, DefaultTableModel model, Component cmp) {
-        String message = Controller.checkCode(selectedTable, findText);
+        MessageCode message = Controller.checkCode(selectedTable, findText);
         Object[] rowData = null;
 
-        if (message.equals("This ID already exists")) {
+        if (message.equals(MessageCode.ID_ALREADY_EXISTS)) {
             int rowCount = model.getRowCount();
             int columnCount = model.getColumnCount();
 
@@ -28,7 +28,7 @@ public class SearchProcessManager {
                     break;
                 }
             }
-        }else if(message.equals("This barcode already exists")){
+        }else if(message.equals(MessageCode.BARCODE_ALREADY_EXISTS)){
             int rowCount = model.getRowCount();
             int columnCount = model.getColumnCount();
 
@@ -42,22 +42,22 @@ public class SearchProcessManager {
                 }
             }
         }else {
-            showMessage(cmp, message);
+            showMessage(cmp, message.getMessage());
         }
 
         return rowData;
     }
 
-    public Object[][] processSearchMultipleRows(String findText, String selectedTable, DefaultTableModel model, Component cmp) {
-        String message = Controller.checkCode(selectedTable, findText);
+    public Object[][] processSearchMultipleRows(String searchCode, String selectedTable, DefaultTableModel model, Component cmp) {
+        MessageCode message = Controller.checkCode(selectedTable, searchCode);
         List<Object[]> dataList = new ArrayList<>();
 
-        if (message.equals("This ID already exists") || message.equals("This barcode already exists")) {
+        if (message.equals(MessageCode.ID_ALREADY_EXISTS) || message.equals(MessageCode.BARCODE_ALREADY_EXISTS)) {
             int rowCount = model.getRowCount();
             int columnCount = model.getColumnCount();
 
             for (int i = 0; i < rowCount; i++) {
-                if (model.getValueAt(i, 0).equals(findText)) {
+                if (model.getValueAt(i, 0).equals(searchCode)) {
                     Object[] rowData = new Object[columnCount];
                     for (int j = 0; j < columnCount; j++) {
                         rowData[j] = model.getValueAt(i, j);
@@ -66,7 +66,7 @@ public class SearchProcessManager {
                 }
             }
         } else {
-            showMessage(cmp, message);
+            showMessage(cmp, message.getMessage());
         }
 
         Object[][] data = new Object[dataList.size()][];

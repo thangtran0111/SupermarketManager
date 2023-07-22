@@ -6,7 +6,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 public class Controller implements ActionListener {
     private static View view;
@@ -116,30 +115,28 @@ public class Controller implements ActionListener {
         }
 
     }
-
-    public static String checkCode(String selectedTable, String ID){
-        if(ID == null) return "NULL ID";
+    public static MessageCode checkCode(String selectedTable, String ID){
+        if(ID == null) return MessageCode.NULL_ID;
         if(selectedTable.equals(view.getTableName(2))){
             DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
             for(int rowIndex = 0; rowIndex < model.getRowCount(); rowIndex++){
                 if(model.getValueAt(rowIndex, 0).equals(ID) ){
-                    return "This ID already exists";
+                    return MessageCode.ID_ALREADY_EXISTS;
                 }else if(model.getValueAt(rowIndex, 1).equals(ID)){
-                    return "This barcode already exists";
+                    return MessageCode.BARCODE_ALREADY_EXISTS;
                 }
             }
         }else{
-            Pattern pattern = Pattern.compile("^\\d{5}");
-            if(!Objects.requireNonNull(pattern).matcher(ID).find()) return "This ID isn't in the correct format";
+            if(!ID.matches("^\\d{5}")) return MessageCode.ID_FORMAT_INCORRECT;
             DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
             for(int rowIndex = 0; rowIndex < model.getRowCount(); rowIndex++){
                 if(model.getValueAt(rowIndex, 0).equals(ID)){
-                    return "This ID already exists";
+                    return MessageCode.ID_ALREADY_EXISTS;
                 }
             }
         }
-        
-        return "This ID doesn't exist";
+
+        return MessageCode.ID_NOT_EXIST;
     }
 
 }

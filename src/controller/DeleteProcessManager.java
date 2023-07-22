@@ -32,9 +32,9 @@ public class DeleteProcessManager {
     public void processDelete(View view) {
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
         String ID = view.getNewFieldValues()[0].getText();
-        String message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
+        MessageCode message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
         int count = 0;
-        if (message.equals("This ID already exists") || message.equals("This barcode already exists")) {
+        if (message.equals(MessageCode.ID_ALREADY_EXISTS) || message.equals(MessageCode.BARCODE_ALREADY_EXISTS)) {
             if (Objects.requireNonNull(selectedTable).equals(view.getTableName(1))) {
                 if (!ID.equals("99999")) {
                     count = employeeDAO.delete(ID);
@@ -60,14 +60,14 @@ public class DeleteProcessManager {
                 count = warehouseReceiptDAO.delete(ID);
             }
         } else {
-            View.showMessage(view.getAddFrame(), message);
+            View.showMessage(view.getAddFrame(), message.getMessage());
             view.getDeleteFrame().dispose();
             view.createDeleteFrame();
         }
         if (count == 0) {
-            View.showMessage(view.getDeleteFrame(), "An error occurred!");
+            View.showMessage(view.getDeleteFrame(), MessageCode.ERROR_OCCURRED.getMessage());
         } else {
-            View.showMessage(view.getDeleteFrame(), "Success!");
+            View.showMessage(view.getDeleteFrame(), MessageCode.SUCCESS.getMessage());
         }
     }
 }

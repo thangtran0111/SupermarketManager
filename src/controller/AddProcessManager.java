@@ -32,9 +32,9 @@ public class AddProcessManager {
 
     public void processAdd(View view) {
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
-        String message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
+        MessageCode message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
         int count = 0;
-        if (message.equals("This ID doesn't exist")) {
+        if (message.equals(MessageCode.ID_NOT_EXIST)) {
             if (Objects.requireNonNull(selectedTable).equals(view.getTableName(1))) {
                 Employee nv = view.createObject(selectedTable, view.getNewFieldValues());
                 count = employeeDAO.create(nv);
@@ -64,13 +64,13 @@ public class AddProcessManager {
                 count = warehouseReceiptDAO.create(warehouseReceipt);
             }
         } else {
-            View.showMessage(view.getAddFrame(), message);
+            View.showMessage(view.getAddFrame(), message.getMessage());
             view.clearNewsValue();
         }
         if (count == 0) {
-            View.showMessage(view.getAddFrame(), "An error occurred!");
+            View.showMessage(view.getAddFrame(), MessageCode.ERROR_OCCURRED.getMessage());
         } else {
-            View.showMessage(view.getDeleteFrame(), "Success!");
+            View.showMessage(view.getDeleteFrame(), MessageCode.SUCCESS.getMessage());
         }
     }
 }

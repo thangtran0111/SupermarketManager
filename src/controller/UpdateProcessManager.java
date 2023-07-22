@@ -32,9 +32,9 @@ public class UpdateProcessManager {
 
     public void processUpdate(View view) {
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
-        String message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
+        MessageCode message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
         int count = 0;
-        if (message.equals("This ID already exists") || message.equals("This barcode already exists")) {
+        if (message.equals(MessageCode.ID_ALREADY_EXISTS) || message.equals(MessageCode.BARCODE_ALREADY_EXISTS)) {
             if (Objects.requireNonNull(selectedTable).equals(view.getTableName(1))) {
                 Employee employee = view.createObject(selectedTable, view.getNewFieldValues());
                 count = employeeDAO.update(employee);
@@ -64,13 +64,13 @@ public class UpdateProcessManager {
                 count = warehouseReceiptDAO.update(warehouseReceipt);
             }
         } else {
-            View.showMessage(view.getAddFrame(), message);
+            View.showMessage(view.getAddFrame(), message.getMessage());
             view.clearNewsValue();
         }
         if (count == 0) {
-            View.showMessage(view.getUpdateFrame(), "An error occurred!");
+            View.showMessage(view.getUpdateFrame(), MessageCode.ERROR_OCCURRED.getMessage());
         } else {
-            View.showMessage(view.getUpdateFrame(), "Success!");
+            View.showMessage(view.getUpdateFrame(), MessageCode.SUCCESS.getMessage());
         }
     }
 }
