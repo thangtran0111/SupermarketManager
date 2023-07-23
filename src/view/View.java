@@ -1,7 +1,6 @@
 package view;
 
-import controller.Controller;
-import controller.MessageCode;
+
 import controller.SearchProcessManager;
 import model.*;
 
@@ -16,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-public class View extends JFrame{
+public class View extends JFrame {
     private final int PADDING = 60;
 
     //column name
@@ -90,9 +89,12 @@ public class View extends JFrame{
 
         loginButton = new JButton("LOG IN");
         loginButton.setActionCommand("loginButtonClicked");
+        loginButton.setFocusable(true);
 
         userTextField = new JTextField("AccountTest");
+        userTextField.setFocusable(false);
         userPasswordField = new JPasswordField("AccountTest");
+        userPasswordField.setFocusable(false);
 
         JPanel centerPanel = new JPanel(new GridLayout(6, 1, 0, 5));
         JPanel topPanel = new JPanel();
@@ -112,6 +114,7 @@ public class View extends JFrame{
         loginFrame.add(rightPanel, BorderLayout.WEST);
         loginFrame.add(leftPanel, BorderLayout.EAST);
         loginFrame.add(centerPanel, BorderLayout.CENTER);
+
 
         loginFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         loginFrame.setLocationRelativeTo(null);
@@ -419,62 +422,108 @@ public class View extends JFrame{
         midPanel.repaint();
     }
 
-    public void createSalesInvoiceDetailFrame(SalesInvoiceDetail salesInvoiceDetail){
-        salesInvoiceDetailFrame.setSize(1200, 675);
-        salesInvoiceDetailFrame.setLayout(new FlowLayout());
+
+    public void createSalesInvoiceDetailFrame(SalesInvoiceDetail salesInvoiceDetail) {
+        JFrame salesInvoiceDetailFrame = new JFrame("Sales Invoice Detail");
+        salesInvoiceDetailFrame.setLayout(new BorderLayout());
         salesInvoiceDetailFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/resource/info.png"))).getImage());
 
-        JPanel topSIDPanel = new JPanel(new GridLayout(2, 1));
-        topSIDPanel.setPreferredSize(new Dimension(getWidth() - PADDING, PADDING * 2));
-
-        JPanel midSIDPanel = new JPanel();
-        midSIDPanel.setPreferredSize(new Dimension(getWidth() - PADDING, (getHeight() - PADDING * 4)));
-
-        JPanel bottomSIDPanel = new JPanel();
-        bottomSIDPanel.setPreferredSize(new Dimension(getWidth() - PADDING, PADDING));
+        JPanel topSIDPanel = new JPanel(new GridLayout(3, 1, 5, 5));
+        topSIDPanel.setBorder(BorderFactory.createEmptyBorder(PADDING / 2, PADDING / 2, PADDING / 2, PADDING / 2));
 
         topSIDPanel.add(new JLabel("INVOICE " + salesInvoiceDetail.getSalesInvoice().getInvoiceID(), SwingConstants.CENTER));
+        topSIDPanel.add(new JLabel("Customer: " + salesInvoiceDetail.getCustomer().getCustomerName(), SwingConstants.LEFT));
         JPanel insideTopSIDPanel = new JPanel(new GridLayout(1, 2));
-        insideTopSIDPanel.add(new JLabel(String.valueOf(salesInvoiceDetail.getSalesInvoice().getInvoiceDate()), SwingConstants.CENTER));
-        insideTopSIDPanel.add(new JLabel("Payment method: " + salesInvoiceDetail.getSalesInvoice().getPaymentMethod(), SwingConstants.CENTER));
+        insideTopSIDPanel.add(new JLabel("Date: " + salesInvoiceDetail.getSalesInvoice().getInvoiceDate(), SwingConstants.LEFT));
+        insideTopSIDPanel.add(new JLabel("Payment method: " + salesInvoiceDetail.getSalesInvoice().getPaymentMethod(), SwingConstants.RIGHT));
         topSIDPanel.add(insideTopSIDPanel);
 
-        int rowCount = salesInvoiceDetail.getProductList().size();
-        JPanel detailPanel = new JPanel(new GridLayout(rowCount + 1, 4, 5, 10));
-        detailPanel.add(new JLabel("Product Name"));
-        detailPanel.add(new JLabel("Price"));
-        detailPanel.add(new JLabel("Quantity"));
-        detailPanel.add(new JLabel("Amount"));
-        int totalAmount = 0;
-        int i = 0;
-        for (; i < rowCount; i++) {
+        int rowDataCount = salesInvoiceDetail.getProductList().size();
+        JPanel detailPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 80;
+        gridBagConstraints.gridwidth = 2;
+        detailPanel.add(new JLabel("Product Name", SwingConstants.LEFT), gridBagConstraints);
+
+        gridBagConstraints.gridwidth = 1;
+
+        gridBagConstraints.gridx = 2;
+        detailPanel.add(new JLabel("Price", SwingConstants.RIGHT), gridBagConstraints);
+
+        gridBagConstraints.gridx = 3;
+        detailPanel.add(new JLabel("Quantity", SwingConstants.RIGHT), gridBagConstraints);
+
+        gridBagConstraints.gridx = 4;
+        detailPanel.add(new JLabel("Amount", SwingConstants.RIGHT), gridBagConstraints);
+
+        for(int i = 0; i < rowDataCount; i++){
             Product product = salesInvoiceDetail.getProductList().get(i);
             InvoiceProduct invoiceProduct = salesInvoiceDetail.getInvoiceProductList().get(i);
             int amount = product.getRetailPrice() * invoiceProduct.getQuantity();
-            totalAmount += amount;
-            detailPanel.add(new JLabel(product.getProductName()));
-            detailPanel.add(new JLabel(String.valueOf(product.getRetailPrice())));
-            detailPanel.add(new JLabel(String.valueOf(invoiceProduct.getQuantity())));
-            detailPanel.add(new JLabel(String.valueOf(amount)));
+
+            gridBagConstraints.gridy++;
+            gridBagConstraints.gridx = 0;
+            gridBagConstraints.gridwidth = 2;
+            detailPanel.add(new JLabel(product.getProductName(), SwingConstants.LEFT), gridBagConstraints);
+
+            gridBagConstraints.gridwidth = 1;
+
+            gridBagConstraints.gridx = 2;
+            detailPanel.add(new JLabel(String.valueOf(product.getRetailPrice()), SwingConstants.RIGHT), gridBagConstraints);
+
+            gridBagConstraints.gridx = 3;
+            detailPanel.add(new JLabel(String.valueOf(invoiceProduct.getQuantity()), SwingConstants.RIGHT), gridBagConstraints);
+
+            gridBagConstraints.gridx = 4;
+            detailPanel.add(new JLabel(String.valueOf(amount), SwingConstants.RIGHT), gridBagConstraints);
         }
-        //detailPanel.add(new JLabel("Total amount: ", SwingConstants.CENTER), i + 1, 2);
-        //detailPanel.add(new JLabel(String.valueOf(totalAmount), SwingConstants.CENTER), i + 1, 3);
+
+        gridBagConstraints.gridy += 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.anchor = GridBagConstraints.LINE_END;
+        detailPanel.add(new JLabel("TOTAL AMOUNT: " + salesInvoiceDetail.getTotalAmount(), SwingConstants.RIGHT), gridBagConstraints);
+
+        gridBagConstraints.gridy++;
+        detailPanel.add(new JLabel("Loyalty points are added: " + Customer.getIncreaseLoyaltyPoints(salesInvoiceDetail.getTotalAmount()), SwingConstants.RIGHT), gridBagConstraints);
 
         JScrollPane SIDScrollPane = new JScrollPane(detailPanel);
-        SIDScrollPane.setBorder(null);
-        midSIDPanel.add(SIDScrollPane);
+        SIDScrollPane.setBorder(BorderFactory.createEmptyBorder());
+        SIDScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        SIDScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
+        JPanel midSIDPanel = new JPanel(new GridBagLayout());
+        midSIDPanel.setBorder(BorderFactory.createEmptyBorder(0, PADDING / 2, 0, PADDING / 2));
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        midSIDPanel.add(SIDScrollPane, gridBagConstraints);
+
+        JPanel bottomSIDPanel = new JPanel();
+        bottomSIDPanel.setBorder(BorderFactory.createEmptyBorder(PADDING / 3, PADDING / 2, PADDING / 3, PADDING / 2));
+
+        //TODO: BUTTON DOESN'T WORK
         closeSaleInvoiceDetailFrameButton.setActionCommand("closeSaleInvoiceDetailFrameButtonClicked");
         bottomSIDPanel.add(closeSaleInvoiceDetailFrameButton);
 
-        salesInvoiceDetailFrame.add(topSIDPanel);
-        salesInvoiceDetailFrame.add(midSIDPanel);
-        salesInvoiceDetailFrame.add(bottomSIDPanel);
+        salesInvoiceDetailFrame.add(topSIDPanel, BorderLayout.NORTH);
+        salesInvoiceDetailFrame.add(midSIDPanel, BorderLayout.CENTER);
+        salesInvoiceDetailFrame.add(bottomSIDPanel, BorderLayout.SOUTH);
 
+        salesInvoiceDetailFrame.pack();
         salesInvoiceDetailFrame.setLocationRelativeTo(null);
-        salesInvoiceDetailFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        salesInvoiceDetailFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         salesInvoiceDetailFrame.setVisible(true);
     }
+
 
     public void createAddFrame() {
         addFrame = new JFrame("Add");
@@ -852,8 +901,15 @@ public class View extends JFrame{
         return warehouseReceiptColumnNames;
     }
 
-    public JFrame getSalesInvoiceDetailFrame(){ return salesInvoiceDetailFrame; }
-    public JButton getGetSalesInvoiceDetailButton(){ return getSalesInvoiceDetailButton; }
+    public JFrame getSalesInvoiceDetailFrame() {
+        return salesInvoiceDetailFrame;
+    }
 
-    public JButton getCloseSaleInvoiceDetailFrameButton(){ return closeSaleInvoiceDetailFrameButton; }
+    public JButton getGetSalesInvoiceDetailButton() {
+        return getSalesInvoiceDetailButton;
+    }
+
+    public JButton getCloseSaleInvoiceDetailFrameButton() {
+        return closeSaleInvoiceDetailFrameButton;
+    }
 }
