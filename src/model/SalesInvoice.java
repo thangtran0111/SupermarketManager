@@ -16,6 +16,10 @@ public class SalesInvoice {
         this.paymentMethod = paymentMethod;
     }
 
+    public SalesInvoice() {
+
+    }
+
     public String getInvoiceID() {
         return invoiceID;
     }

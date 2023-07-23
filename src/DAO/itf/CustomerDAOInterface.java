@@ -9,4 +9,5 @@ public interface CustomerDAOInterface {
     int create(Customer customer);
     int update(Customer customer);
     int delete(String customerID);
+    Customer get(String _customerID);
 }

@@ -104,4 +104,29 @@ public class CustomerDAO implements CustomerDAOInterface {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public Customer get(String _customerID) {
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("SELECT * FROM Customer;");
+            resultSet = preparedStatement.executeQuery();
+            Customer customer = null;
+            if (resultSet.next()) {
+                String customerID = resultSet.getString("CustomerID").trim();
+                String customerName = resultSet.getString("CustomerName").trim();
+                java.util.Date dateOfBirth = resultSet.getDate("DateOfBirth");
+                String phoneNumber = resultSet.getString("PhoneNumber").trim();
+                String email = resultSet.getString("Email").trim();
+                int loyaltyPoints = resultSet.getInt("LoyaltyPoints");
+
+                customer = new Customer(customerID, customerName, dateOfBirth, phoneNumber, email, loyaltyPoints);
+            }
+            return customer;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }
+    }
 }

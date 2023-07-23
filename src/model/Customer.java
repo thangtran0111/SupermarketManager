@@ -9,6 +9,7 @@ public class Customer {
     private String phoneNumber;
     private String email;
     private int loyaltyPoints;
+    private final static double LOYALTY_POINTS_RATIO = 1.0/100000;
 
     public Customer(String customerID, String customerName, Date dateOfBirth, String phoneNumber, String email, int loyaltyPoints) {
         this.customerID = customerID;
@@ -17,6 +18,10 @@ public class Customer {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.loyaltyPoints = loyaltyPoints;
+    }
+
+    public Customer() {
+
     }
 
     public String getCustomerID() {
@@ -42,5 +47,16 @@ public class Customer {
     public int getLoyaltyPoints() {
         return loyaltyPoints;
     }
+
+
+    public static int getIncreaseLoyaltyPoints(int money) {
+        double loyaltyPoints = money * LOYALTY_POINTS_RATIO;
+        return (int) Math.round(loyaltyPoints);
+    }
+
+    public void increaseLoyaltyPoints(int money){
+        loyaltyPoints +=  getIncreaseLoyaltyPoints(money);
+    }
+
 }
 

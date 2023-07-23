@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="add SalesInvoiceDetail model and DAO">
+    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="add SalesInvoiceDetailController and fix SalesInvoiceDAO">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/imple/SalesInvoiceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/SalesInvoiceDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/imple/CustomerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/CustomerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/itf/CustomerDAOInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/itf/CustomerDAOInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/SalesInvoiceDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/SalesInvoiceDetailController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/SalesInvoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/SalesInvoice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/SalesInvoiceDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/SalesInvoiceDetail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/View.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -233,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1690040184596</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="add SalesInvoiceDetailController and fix SalesInvoiceDAO">
+      <created>1690047162590</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1690047162590</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -257,6 +267,7 @@
     <MESSAGE value="change how LoginProcessManager works" />
     <MESSAGE value="add get(String) function" />
     <MESSAGE value="add SalesInvoiceDetail model and DAO" />
-    <option name="LAST_COMMIT_MESSAGE" value="add SalesInvoiceDetail model and DAO" />
+    <MESSAGE value="add SalesInvoiceDetailController and fix SalesInvoiceDAO" />
+    <option name="LAST_COMMIT_MESSAGE" value="add SalesInvoiceDetailController and fix SalesInvoiceDAO" />
   </component>
 </project>
