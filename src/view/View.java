@@ -29,7 +29,7 @@ public class View extends JFrame {
     private final Object[] supplierColumnNames = {"SupplierID", "Supplier Name", "Phone Number", "Email", "Address"};
     private final Object[] orderColumnNames = {"Order ID", "Invoice ID", "Expected Delivery Date", "Delivery Address", "Notes"};
     private final Object[] deliveryReceiptColumnNames = {"Delivery Receipt ID", "Delivery Date", "Delivery Status", "Order ID", "Delivery Employee ID"};
-    private final Object[] warehouseReceiptColumnNames = {"Warehouse Receipt ID", "Warehouse Receipt Date", "Warehouse Receipt Status", "Supplier ID", "Employee ID"};
+    private final Object[] supplyRequestColumnNames = {"Supply Request ID", "Supply Request Date", "Supply Request Status", "Receive Date", "Supplier ID", "Employee ID"};
 
     //login component
     private JFrame loginFrame;
@@ -41,7 +41,7 @@ public class View extends JFrame {
     private JPanel topPanel;
     private JPanel midPanel;
     private JPanel bottomPanel;
-    private final String[] tableNames = new String[]{"", "Employee", "Product", "SalesInvoice", "InvoiceProduct", "Customer", "Supplier", "Order", "DeliveryReceipt", "WarehouseReceipt"};
+    private final String[] tableNames = new String[]{"", "Employee", "Product", "SalesInvoice", "InvoiceProduct", "Customer", "Supplier", "Order", "DeliveryReceipt", "SupplyRequest"};
     private final JComboBox<String> tableChooser = new JComboBox<>(tableNames);
     private JTextField findField;
     private final JTable table = new JTable();
@@ -293,7 +293,7 @@ public class View extends JFrame {
         repaint();
     }
 
-    public void createWarehouseReceiptManagementFrame() {
+    public void createSupplyRequestManagementFrame() {
         setupManagementFrame();
 
         scrollPane = new JScrollPane(table);
@@ -674,7 +674,7 @@ public class View extends JFrame {
             case "Supplier" -> Supplier.class;
             case "Order" -> Order.class;
             case "DeliveryReceipt" -> DeliveryReceipt.class;
-            case "WarehouseReceipt" -> WarehouseReceipt.class;
+            case "SupplyRequest" -> SupplyRequest.class;
             default -> null;
         };
     }
@@ -686,18 +686,14 @@ public class View extends JFrame {
         }
         try {
             Constructor<?> constructor = switch (selectedTable) {
-                case "Product" ->
-                        cl.getConstructor(String.class, String.class, String.class, int.class, int.class, String.class, String.class);
-                case "Employee" ->
-                        cl.getConstructor(String.class, String.class, String.class, String.class, String.class, Date.class, String.class, String.class, String.class, int.class);
+                case "Product" -> cl.getConstructor(String.class, String.class, String.class, int.class, int.class, String.class, String.class);
+                case "Employee" -> cl.getConstructor(String.class, String.class, String.class, String.class, String.class, Date.class, String.class, String.class, String.class, int.class);
                 case "SalesInvoice" -> cl.getConstructor(String.class, Date.class, String.class, String.class);
-                case "WarehouseReceipt", "DeliveryReceipt" ->
-                        cl.getConstructor(String.class, Date.class, String.class, String.class, String.class);
+                case "SupplyRequest" -> cl.getConstructor(String.class, Date.class, String.class, Date.class, String.class, String.class);
+                case "DeliveryReceipt" -> cl.getConstructor(String.class, Date.class, String.class, String.class, String.class);
                 case "InvoiceProduct" -> cl.getConstructor(String.class, String.class, int.class);
-                case "Customer" ->
-                        cl.getConstructor(String.class, String.class, Date.class, String.class, String.class, int.class);
-                case "Supplier" ->
-                        cl.getConstructor(String.class, String.class, String.class, String.class, String.class);
+                case "Customer" -> cl.getConstructor(String.class, String.class, Date.class, String.class, String.class, int.class);
+                case "Supplier" -> cl.getConstructor(String.class, String.class, String.class, String.class, String.class);
                 case "Order" -> cl.getConstructor(String.class, String.class, Date.class, String.class, String.class);
                 default -> throw new IllegalStateException("Invalid table name: " + selectedTable);
             };
@@ -843,7 +839,7 @@ public class View extends JFrame {
             case "Supplier" -> getSupplierColumnNames();
             case "Order" -> getOrderColumnNames();
             case "DeliveryReceipt" -> getDeliveryReceiptColumnNames();
-            case "WarehouseReceipt" -> getWarehouseReceiptColumnNames();
+            case "SupplyRequest" -> getSupplyRequestColumnNames();
             default -> new Object[0];
         };
     }
@@ -916,8 +912,8 @@ public class View extends JFrame {
         return deliveryReceiptColumnNames;
     }
 
-    public Object[] getWarehouseReceiptColumnNames() {
-        return warehouseReceiptColumnNames;
+    public Object[] getSupplyRequestColumnNames() {
+        return supplyRequestColumnNames;
     }
 
     public JFrame getSalesInvoiceDetailFrame() {

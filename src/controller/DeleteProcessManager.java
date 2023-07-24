@@ -15,7 +15,7 @@ public class DeleteProcessManager {
     private final SupplierDAOInterface supplierDAO;
     private final OrderDAOInterface orderDAO;
     private final DeliveryReceiptDAOInterface deliveryReceiptDAO;
-    private final WarehouseReceiptDAOInterface warehouseReceiptDAO;
+    private final SupplyRequestDAOInterface warehouseReceiptDAO;
 
     public DeleteProcessManager() {
         productDAO = new ProductDAO();
@@ -26,7 +26,7 @@ public class DeleteProcessManager {
         supplierDAO = new SupplierDAO();
         orderDAO = new OrderDAO();
         deliveryReceiptDAO = new DeliveryReceiptDAO();
-        warehouseReceiptDAO = new WarehouseReceiptDAO();
+        warehouseReceiptDAO = new SupplyRequestDAO();
     }
 
     public void processDelete(View view) {

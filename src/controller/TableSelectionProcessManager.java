@@ -18,7 +18,7 @@ public class TableSelectionProcessManager {
     private final SupplierDAOInterface supplierDAO;
     private final OrderDAOInterface orderDAO;
     private final DeliveryReceiptDAOInterface deliveryReceiptDAO;
-    private final WarehouseReceiptDAOInterface warehouseReceiptDAO;
+    private final SupplyRequestDAOInterface warehouseReceiptDAO;
 
     public TableSelectionProcessManager() {
         productDAO = new ProductDAO();
@@ -29,7 +29,7 @@ public class TableSelectionProcessManager {
         supplierDAO = new SupplierDAO();
         orderDAO = new OrderDAO();
         deliveryReceiptDAO = new DeliveryReceiptDAO();
-        warehouseReceiptDAO = new WarehouseReceiptDAO();
+        warehouseReceiptDAO = new SupplyRequestDAO();
     }
 
     public void processTableSelection(View view) {
@@ -55,7 +55,7 @@ public class TableSelectionProcessManager {
         } else if (selectedTable.equals(view.getTableName(8))) {
             view.createDeliveryReceiptManagementFrame();
         } else if (selectedTable.equals(view.getTableName(9))) {
-            view.createWarehouseReceiptManagementFrame();
+            view.createSupplyRequestManagementFrame();
         } else {
             return;
         }
@@ -103,9 +103,9 @@ public class TableSelectionProcessManager {
                 model.addRow(new Object[]{String.valueOf(deliveryReceipt.getDeliveryReceiptID()), deliveryReceipt.getDeliveryDate(), String.valueOf(deliveryReceipt.getDeliveryStatus()), String.valueOf(deliveryReceipt.getOrderID()), String.valueOf(deliveryReceipt.getDeliveryEmployeeID())});
             }
         } else if (selectedTable.equals(view.getTableName(9))) {
-            List<WarehouseReceipt> warehouseReceiptList = warehouseReceiptDAO.read();
-            for (WarehouseReceipt warehouseReceipt : warehouseReceiptList) {
-                model.addRow(new Object[]{String.valueOf(warehouseReceipt.getWarehouseReceiptID()), warehouseReceipt.getWarehouReceiptDate(), String.valueOf(warehouseReceipt.getWarehouseReceiptStatus()), String.valueOf(warehouseReceipt.getSupplierID()), String.valueOf(warehouseReceipt.getEmployeeID())});
+            List<SupplyRequest> supplyRequestList = warehouseReceiptDAO.read();
+            for (SupplyRequest supplyRequest : supplyRequestList) {
+                model.addRow(new Object[]{String.valueOf(supplyRequest.getSupplyRequestID()), supplyRequest.getSupplyRequestDate(), String.valueOf(supplyRequest.getSupplyRequestStatus()), supplyRequest.getReceiveDate(), String.valueOf(supplyRequest.getSupplierID()), String.valueOf(supplyRequest.getEmployeeID())});
             }
         }
 

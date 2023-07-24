@@ -4,8 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="change GridLayout to GridBagLayout in salesInvoiceDetailFrame">
+    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="change GridLayout to GridBagLayout in InfoFrame">
+      <change afterPath="$PROJECT_DIR$/src/DAO/itf/SupplyRequestDAOInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/imple/WarehouseReceiptDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/SupplyRequestDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/itf/WarehouseReceiptDAOInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/AddProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/AddProcessManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/DeleteProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DeleteProcessManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/TableSelectionProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/TableSelectionProcessManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/UpdateProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/UpdateProcessManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/WarehouseReceipt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/SupplyRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/View.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -251,7 +259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1690132882657</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="change GridLayout to GridBagLayout in InfoFrame">
+      <created>1690187283456</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1690187283456</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -278,6 +293,7 @@
     <MESSAGE value="add SalesInvoiceDetailController and fix SalesInvoiceDAO" />
     <MESSAGE value="add Customer and totalAmount attributes" />
     <MESSAGE value="change GridLayout to GridBagLayout in salesInvoiceDetailFrame" />
-    <option name="LAST_COMMIT_MESSAGE" value="change GridLayout to GridBagLayout in salesInvoiceDetailFrame" />
+    <MESSAGE value="change GridLayout to GridBagLayout in InfoFrame" />
+    <option name="LAST_COMMIT_MESSAGE" value="change GridLayout to GridBagLayout in InfoFrame" />
   </component>
 </project>

@@ -16,7 +16,7 @@ public class AddProcessManager {
     private final SupplierDAOInterface supplierDAO;
     private final OrderDAOInterface orderDAO;
     private final DeliveryReceiptDAOInterface deliveryReceiptDAO;
-    private final WarehouseReceiptDAOInterface warehouseReceiptDAO;
+    private final SupplyRequestDAOInterface warehouseReceiptDAO;
 
     public AddProcessManager() {
         productDAO = new ProductDAO();
@@ -27,7 +27,7 @@ public class AddProcessManager {
         supplierDAO = new SupplierDAO();
         orderDAO = new OrderDAO();
         deliveryReceiptDAO = new DeliveryReceiptDAO();
-        warehouseReceiptDAO = new WarehouseReceiptDAO();
+        warehouseReceiptDAO = new SupplyRequestDAO();
     }
 
     public void processAdd(View view) {
@@ -60,8 +60,8 @@ public class AddProcessManager {
                 DeliveryReceipt deliveryReceipt = view.createObject(selectedTable, view.getNewFieldValues());
                 count = deliveryReceiptDAO.create(deliveryReceipt);
             } else if (selectedTable.equals(view.getTableName(9))) {
-                WarehouseReceipt warehouseReceipt = view.createObject(selectedTable, view.getNewFieldValues());
-                count = warehouseReceiptDAO.create(warehouseReceipt);
+                SupplyRequest supplyRequest = view.createObject(selectedTable, view.getNewFieldValues());
+                count = warehouseReceiptDAO.create(supplyRequest);
             }
         } else {
             View.showMessage(view.getAddFrame(), message.getMessage());
