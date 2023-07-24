@@ -4,17 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="rename WarehouseReceipt to SupplyRequest and add receiveDate attribute">
-      <change afterPath="$PROJECT_DIR$/src/DAO/imple/ProductRequestDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DAO/itf/ProductRequestDAOInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/ProductRequest.java" afterDir="false" />
+    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="add table ProductRequest">
+      <change afterPath="$PROJECT_DIR$/src/controller/SupplyRequestDetailController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/SupplyRequestDetail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/AddProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/AddProcessManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/imple/EmployeeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/EmployeeDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/imple/ProductRequestDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/ProductRequestDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/imple/SupplierDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/SupplierDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/imple/SupplyRequestDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/SupplyRequestDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/itf/EmployeeDAOInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/itf/EmployeeDAOInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/itf/ProductRequestDAOInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/itf/ProductRequestDAOInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/itf/SupplierDAOInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/itf/SupplierDAOInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/itf/SupplyRequestDAOInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/itf/SupplyRequestDAOInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/DeleteProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DeleteProcessManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/SalesInvoiceDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/SalesInvoiceDetailController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/TableSelectionProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/TableSelectionProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/UpdateProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/UpdateProcessManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Supplier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Supplier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/SupplyRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/SupplyRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/View.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -274,11 +280,17 @@
       <option name="project" value="LOCAL" />
       <updated>1690189609648</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="add table ProductRequest">
+      <created>1690210605356</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1690210605356</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="commit" />
     <MESSAGE value="Translate the Products table into English" />
     <MESSAGE value="Translate the Employee table into English" />
     <MESSAGE value="Translate the Account table into English" />
@@ -303,6 +315,7 @@
     <MESSAGE value="change GridLayout to GridBagLayout in salesInvoiceDetailFrame" />
     <MESSAGE value="change GridLayout to GridBagLayout in InfoFrame" />
     <MESSAGE value="rename WarehouseReceipt to SupplyRequest and add receiveDate attribute" />
-    <option name="LAST_COMMIT_MESSAGE" value="rename WarehouseReceipt to SupplyRequest and add receiveDate attribute" />
+    <MESSAGE value="add table ProductRequest" />
+    <option name="LAST_COMMIT_MESSAGE" value="add table ProductRequest" />
   </component>
 </project>

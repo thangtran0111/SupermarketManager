@@ -61,21 +61,21 @@ public class ProductRequestDAO implements ProductRequestDAOInterface {
     }
 
     @Override
-    public ProductRequest get(String supplyRequestID) {
+    public List<ProductRequest> get(String supplyRequestID) {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("SELECT * FROM ProductRequest WHERE SupplyRequestID = ?;");
             preparedStatement.setString(1, supplyRequestID);
             resultSet = preparedStatement.executeQuery();
-            ProductRequest productRequest = null;
+            List<ProductRequest> productRequestList = new ArrayList<>();
             while (resultSet.next()) {
-                productRequest = new ProductRequest(
+                productRequestList .add(new ProductRequest(
                         resultSet.getString("ProductID").trim(),
                         resultSet.getString("SupplyRequestID").trim(),
                         resultSet.getInt("QuantityReceived"),
-                        resultSet.getInt("UnitPrice"));
+                        resultSet.getInt("UnitPrice")));
             }
-            return productRequest;
+            return productRequestList;
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {

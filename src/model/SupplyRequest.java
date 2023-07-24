@@ -18,6 +18,10 @@ public class SupplyRequest {
         this.employeeID = employeeID;
     }
 
+    public SupplyRequest() {
+
+    }
+
     public String getSupplyRequestID() {
         return supplyRequestID;
     }

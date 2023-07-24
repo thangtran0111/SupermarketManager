@@ -70,10 +70,10 @@ public class View extends JFrame {
     private JFrame infoFrame;
     private final JButton closeInfoFrameButton = new JButton("Close");
 
-    // sales invoice detail component
-    private final JFrame salesInvoiceDetailFrame = new JFrame("Detail");
-    private final JButton getSalesInvoiceDetailButton = new JButton("Detail");
-    private final JButton closeSaleInvoiceDetailFrameButton = new JButton("Close");
+    // sales detail component
+    private JFrame detailFrame = new JFrame("Detail");
+    private final JButton getDetailButton = new JButton("Detail");
+    private final JButton closeDetailFrame = new JButton("Close");
 
     public View() {
         createLogFrame();
@@ -183,8 +183,8 @@ public class View extends JFrame {
         if (midPanel.isAncestorOf(scrollPane)) {
             midPanel.remove(scrollPane);
         }
-        if (topPanel.isAncestorOf(getSalesInvoiceDetailButton)) {
-            topPanel.remove(getSalesInvoiceDetailButton);
+        if (topPanel.isAncestorOf(getDetailButton)) {
+            topPanel.remove(getDetailButton);
         }
 
         if (topPanel.isAncestorOf(outOfStockButton)) {
@@ -227,8 +227,8 @@ public class View extends JFrame {
     public void createSaleInvoicesManagementFrame() {
         setupManagementFrame();
 
-        getSalesInvoiceDetailButton.setActionCommand("getSalesInvoiceDetailButtonClicked");
-        topPanel.add(getSalesInvoiceDetailButton);
+        getDetailButton.setActionCommand("getSalesInvoiceDetailButtonClicked");
+        topPanel.add(getDetailButton);
 
         scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(getWidth() - PADDING, (getHeight() - 200)));
@@ -241,8 +241,8 @@ public class View extends JFrame {
     public void createInvoiceProductManagementFrame() {
         setupManagementFrame();
 
-        getSalesInvoiceDetailButton.setActionCommand("getSalesInvoiceDetailButtonClicked");
-        topPanel.add(getSalesInvoiceDetailButton);
+        getDetailButton.setActionCommand("getSalesInvoiceDetailButtonClicked");
+        topPanel.add(getDetailButton);
 
         scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(getWidth() - PADDING, (getHeight() - 200)));
@@ -299,6 +299,9 @@ public class View extends JFrame {
     public void createSupplyRequestManagementFrame() {
         setupManagementFrame();
 
+        getDetailButton.setActionCommand("getSupplyRequestDetailButtonClicked");
+        topPanel.add(getDetailButton);
+
         scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(getWidth() - PADDING, (getHeight() - 200)));
         midPanel.add(scrollPane);
@@ -309,6 +312,9 @@ public class View extends JFrame {
 
     public void createProductRequestManagementFrame() {
         setupManagementFrame();
+
+        getDetailButton.setActionCommand("getSupplyRequestDetailButtonClicked");
+        topPanel.add(getDetailButton);
 
         scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(getWidth() - PADDING, (getHeight() - 200)));
@@ -336,7 +342,7 @@ public class View extends JFrame {
         gridBagConstraints.weightx = 1;
         gridBagConstraints.weighty = 1;
         gridBagConstraints.ipadx = PADDING;
-        gridBagConstraints.ipady = PADDING / 2;
+        gridBagConstraints.ipady = HALF_BORDER;
         for (int i = 0; i < rowCount; i++) {
             gridBagConstraints.gridx = 0;
             gridBagConstraints.gridy++;
@@ -374,7 +380,7 @@ public class View extends JFrame {
 
         JPanel topInfoPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         topInfoPanel.setBorder(new EmptyBorder(BORDER, BORDER, BORDER, BORDER));
-        topInfoPanel.add(new JLabel("INFORMATION " + tableChooser.getSelectedItem().toString().toUpperCase() + ": " + data[0][0]));
+        topInfoPanel.add(new JLabel("INFORMATION " + Objects.requireNonNull(tableChooser.getSelectedItem()).toString().toUpperCase() + ": " + data[0][0]));
 
         JPanel midInfoPanel = new JPanel(new GridBagLayout());
         midInfoPanel.setBorder(BorderFactory.createEmptyBorder(NO_BORDER, BORDER, NO_BORDER, BORDER));
@@ -384,7 +390,7 @@ public class View extends JFrame {
         gridBagConstraints.weightx = 1;
         gridBagConstraints.weighty = 1;
         gridBagConstraints.ipadx = PADDING;
-        gridBagConstraints.ipady = PADDING / 2;
+        gridBagConstraints.ipady = HALF_BORDER;
 
         for (int i = 1; i < titles.length; i++) {
             gridBagConstraints.gridx = i - 1;
@@ -456,12 +462,12 @@ public class View extends JFrame {
 
 
     public void createSalesInvoiceDetailFrame(SalesInvoiceDetail salesInvoiceDetail) {
-        JFrame salesInvoiceDetailFrame = new JFrame("Sales Invoice Detail");
-        salesInvoiceDetailFrame.setLayout(new BorderLayout());
-        salesInvoiceDetailFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/resource/info.png"))).getImage());
+        detailFrame = new JFrame("Detail");
+        detailFrame.setLayout(new BorderLayout());
+        detailFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/resource/info.png"))).getImage());
 
         JPanel topSIDPanel = new JPanel(new GridLayout(3, 1, 5, 5));
-        topSIDPanel.setBorder(BorderFactory.createEmptyBorder(PADDING / 2, PADDING / 2, PADDING / 2, PADDING / 2));
+        topSIDPanel.setBorder(BorderFactory.createEmptyBorder(HALF_BORDER, HALF_BORDER, HALF_BORDER, HALF_BORDER));
 
         topSIDPanel.add(new JLabel("INVOICE " + salesInvoiceDetail.getSalesInvoice().getInvoiceID(), SwingConstants.CENTER));
         topSIDPanel.add(new JLabel("Customer: " + salesInvoiceDetail.getCustomer().getCustomerName(), SwingConstants.LEFT));
@@ -479,6 +485,7 @@ public class View extends JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.ipadx = 80;
+        gridBagConstraints.ipady = 80;
         gridBagConstraints.gridwidth = 2;
         detailPanel.add(new JLabel("Product Name", SwingConstants.LEFT), gridBagConstraints);
 
@@ -530,7 +537,7 @@ public class View extends JFrame {
         SIDScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         JPanel midSIDPanel = new JPanel(new GridBagLayout());
-        midSIDPanel.setBorder(BorderFactory.createEmptyBorder(0, PADDING / 2, 0, PADDING / 2));
+        midSIDPanel.setBorder(BorderFactory.createEmptyBorder(NO_BORDER, HALF_BORDER, NO_BORDER, HALF_BORDER));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -540,22 +547,119 @@ public class View extends JFrame {
         midSIDPanel.add(SIDScrollPane, gridBagConstraints);
 
         JPanel bottomSIDPanel = new JPanel();
-        bottomSIDPanel.setBorder(BorderFactory.createEmptyBorder(PADDING / 3, PADDING / 2, PADDING / 3, PADDING / 2));
+        bottomSIDPanel.setBorder(BorderFactory.createEmptyBorder(PADDING / 3, HALF_BORDER, PADDING / 3, HALF_BORDER));
 
-        //TODO: BUTTON DOESN'T WORK
-        closeSaleInvoiceDetailFrameButton.setActionCommand("closeSaleInvoiceDetailFrameButtonClicked");
-        bottomSIDPanel.add(closeSaleInvoiceDetailFrameButton);
+        closeDetailFrame.setActionCommand("closeDetailFrameButtonClicked");
+        bottomSIDPanel.add(closeDetailFrame);
 
-        salesInvoiceDetailFrame.add(topSIDPanel, BorderLayout.NORTH);
-        salesInvoiceDetailFrame.add(midSIDPanel, BorderLayout.CENTER);
-        salesInvoiceDetailFrame.add(bottomSIDPanel, BorderLayout.SOUTH);
+        detailFrame.add(topSIDPanel, BorderLayout.NORTH);
+        detailFrame.add(midSIDPanel, BorderLayout.CENTER);
+        detailFrame.add(bottomSIDPanel, BorderLayout.SOUTH);
 
-        salesInvoiceDetailFrame.pack();
-        salesInvoiceDetailFrame.setLocationRelativeTo(null);
-        salesInvoiceDetailFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        salesInvoiceDetailFrame.setVisible(true);
+        detailFrame.pack();
+        detailFrame.setLocationRelativeTo(null);
+        detailFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        detailFrame.setVisible(true);
     }
 
+    public void createSupplyRequestDetailFrame(SupplyRequestDetail supplyRequestDetail){
+        detailFrame = new JFrame("Detail");
+        detailFrame.setLayout(new BorderLayout());
+        detailFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/resource/info.png"))).getImage());
+
+        JPanel topSRDPanel = new JPanel(new GridLayout(3, 1, 5, 5));
+        topSRDPanel.setBorder(BorderFactory.createEmptyBorder(HALF_BORDER, HALF_BORDER, HALF_BORDER, HALF_BORDER));
+
+        topSRDPanel.add(new JLabel("SUPPLY REQUEST: " + supplyRequestDetail.getSupplyRequest().getSupplyRequestID(), SwingConstants.CENTER));
+        JPanel insideTopSRDPanel = new JPanel(new GridLayout(2, 2));
+        insideTopSRDPanel.add(new JLabel("Supplier: " + supplyRequestDetail.getSupplier().getSupplierName(), SwingConstants.LEFT));
+        insideTopSRDPanel.add(new JLabel("Employee: " + supplyRequestDetail.getEmployee().getEmployeeName(), SwingConstants.LEFT));
+        insideTopSRDPanel.add(new JLabel("Date: " + supplyRequestDetail.getSupplyRequest().getSupplyRequestDate(), SwingConstants.LEFT));
+        insideTopSRDPanel.add(new JLabel("Status: " + supplyRequestDetail.getSupplyRequest().getSupplyRequestStatus(), SwingConstants.LEFT));
+        topSRDPanel.add(insideTopSRDPanel);
+
+        int rowDataCount = supplyRequestDetail.getProductList().size();
+        JPanel detailPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 80;
+        gridBagConstraints.ipady = 20;
+        gridBagConstraints.gridwidth = 2;
+        detailPanel.add(new JLabel("Product Name", SwingConstants.LEFT), gridBagConstraints);
+
+        gridBagConstraints.gridwidth = 1;
+
+        gridBagConstraints.gridx = 2;
+        detailPanel.add(new JLabel("Unit Price", SwingConstants.RIGHT), gridBagConstraints);
+
+        gridBagConstraints.gridx = 3;
+        detailPanel.add(new JLabel("Quantity Received", SwingConstants.RIGHT), gridBagConstraints);
+
+        gridBagConstraints.gridx = 4;
+        detailPanel.add(new JLabel("Total", SwingConstants.RIGHT), gridBagConstraints);
+
+        for (int i = 0; i < rowDataCount; i++) {
+            Product product = supplyRequestDetail.getProductList().get(i);
+            ProductRequest productRequest = supplyRequestDetail.getProductRequestList().get(i);
+            int amount = productRequest.getQuantityReceived() * productRequest.getUnitPrice();
+
+            gridBagConstraints.gridy++;
+            gridBagConstraints.gridx = 0;
+            gridBagConstraints.gridwidth = 2;
+            detailPanel.add(new JLabel(product.getProductName(), SwingConstants.LEFT), gridBagConstraints);
+
+            gridBagConstraints.gridwidth = 1;
+
+            gridBagConstraints.gridx = 2;
+            detailPanel.add(new JLabel(String.valueOf(productRequest.getUnitPrice()), SwingConstants.RIGHT), gridBagConstraints);
+
+            gridBagConstraints.gridx = 3;
+            detailPanel.add(new JLabel(String.valueOf(productRequest.getQuantityReceived()), SwingConstants.RIGHT), gridBagConstraints);
+
+            gridBagConstraints.gridx = 4;
+            detailPanel.add(new JLabel(String.valueOf(amount), SwingConstants.RIGHT), gridBagConstraints);
+        }
+
+        gridBagConstraints.gridy += 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.anchor = GridBagConstraints.LINE_END;
+        detailPanel.add(new JLabel("TOTAL: " + supplyRequestDetail.getTotal(), SwingConstants.RIGHT), gridBagConstraints);
+
+        JScrollPane SRDScrollPane = new JScrollPane(detailPanel);
+        SRDScrollPane.setBorder(BorderFactory.createEmptyBorder());
+        SRDScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        SRDScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        JPanel midSRDPanel = new JPanel(new GridBagLayout());
+        midSRDPanel.setBorder(BorderFactory.createEmptyBorder(NO_BORDER, HALF_BORDER, NO_BORDER, HALF_BORDER));
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        midSRDPanel.add(SRDScrollPane, gridBagConstraints);
+
+        JPanel bottomSRDPanel = new JPanel();
+        bottomSRDPanel.setBorder(BorderFactory.createEmptyBorder(PADDING / 3, HALF_BORDER, PADDING / 3, HALF_BORDER));
+
+        closeDetailFrame.setActionCommand("closeDetailFrameButtonClicked");
+        bottomSRDPanel.add(closeDetailFrame);
+
+        detailFrame.add(topSRDPanel, BorderLayout.NORTH);
+        detailFrame.add(midSRDPanel, BorderLayout.CENTER);
+        detailFrame.add(bottomSRDPanel, BorderLayout.SOUTH);
+
+        detailFrame.pack();
+        detailFrame.setLocationRelativeTo(null);
+        detailFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        detailFrame.setVisible(true);
+    }
 
     public void createAddFrame() {
         addFrame = new JFrame("Add");
@@ -943,15 +1047,15 @@ public class View extends JFrame {
         return supplyRequestColumnNames;
     }
 
-    public JFrame getSalesInvoiceDetailFrame() {
-        return salesInvoiceDetailFrame;
+    public JFrame getDetailFrame() {
+        return detailFrame;
     }
 
-    public JButton getGetSalesInvoiceDetailButton() {
-        return getSalesInvoiceDetailButton;
+    public JButton getGetDetailButton() {
+        return getDetailButton;
     }
 
-    public JButton getCloseSaleInvoiceDetailFrameButton() {
-        return closeSaleInvoiceDetailFrameButton;
+    public JButton getCloseDetailFrame() {
+        return closeDetailFrame;
     }
 }

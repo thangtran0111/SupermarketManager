@@ -30,7 +30,6 @@ public class SalesInvoiceDetailController {
     }
 
     void process(View view){
-        if(view.getTableChooser().getSelectedItem().equals(view.getTableName(0))) return;
         String ID = JOptionPane.showInputDialog("Enter sales invoice id you want to see details: ");
         MessageCode message = Controller.checkCode(Objects.requireNonNull(view.getTableChooser().getSelectedItem()).toString(), ID);
         if(message.equals(MessageCode.ID_ALREADY_EXISTS)){
@@ -41,7 +40,7 @@ public class SalesInvoiceDetailController {
             }
             view.createSalesInvoiceDetailFrame(salesInvoiceDetail);
         }else{
-            View.showMessage(view.getSalesInvoiceDetailFrame(), message.getMessage());
+            View.showMessage(view.getDetailFrame(), message.getMessage());
         }
     }
     SalesInvoiceDetail getSalesInvoiceDetail(String salesInvoicesID){

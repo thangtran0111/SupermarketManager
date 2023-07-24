@@ -131,4 +131,29 @@ public class SupplyRequestDAO implements SupplyRequestDAOInterface {
             DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
     }
+
+    @Override
+    public SupplyRequest get(String supplyRequestID) {
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("SELECT * FROM SupplyRequest;");
+            resultSet = preparedStatement.executeQuery();
+            SupplyRequest supplyRequest = null;
+            while (resultSet.next()) {
+                supplyRequest = new SupplyRequest(
+                        resultSet.getString("SupplyRequestID").trim(),
+                        resultSet.getDate("SupplyRequestDate"),
+                        resultSet.getString("SupplyRequestStatus").trim(),
+                        resultSet.getDate("ReceiveDate".trim()),
+                        resultSet.getString("SupplierID").trim(),
+                        resultSet.getString("EmployeeID").trim()
+                );
+            }
+            return supplyRequest;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }
+    }
 }

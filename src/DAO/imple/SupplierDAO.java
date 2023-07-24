@@ -100,4 +100,27 @@ public class SupplierDAO implements SupplierDAOInterface {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public Supplier get(String supplierID) {
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("SELECT * FROM Supplier WHERE SupplierID = ?;");
+            preparedStatement.setString(1, supplierID);
+            resultSet = preparedStatement.executeQuery();
+            Supplier supplier = new Supplier();
+            if (resultSet.next()) {
+                supplier = new Supplier(
+                        resultSet.getString("SupplierID").trim(),
+                        resultSet.getString("SupplierName").trim(),
+                        resultSet.getString("PhoneNumber").trim(),
+                        resultSet.getString("Email").trim(),
+                        resultSet.getString("Address").trim());
+            }
+            return supplier;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }    }
 }

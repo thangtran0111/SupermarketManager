@@ -15,6 +15,10 @@ public class Supplier {
         this.address = address;
     }
 
+    public Supplier() {
+
+    }
+
     public String getSupplierID() {
         return supplierID;
     }

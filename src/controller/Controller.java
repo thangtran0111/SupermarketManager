@@ -15,8 +15,8 @@ public class Controller implements ActionListener {
     private final AddProcessManager addProcessManager;
     private final DeleteProcessManager deleteProcessManager;
     private final UpdateProcessManager updateProcessManager;
-
     private final SalesInvoiceDetailController salesInvoiceDetailController;
+    private final SupplyRequestDetailController supplyRequestDetailController;
 
     public Controller() {
         view = new View();
@@ -27,6 +27,7 @@ public class Controller implements ActionListener {
         this.deleteProcessManager = new DeleteProcessManager();
         this.updateProcessManager = new UpdateProcessManager();
         this.salesInvoiceDetailController = new SalesInvoiceDetailController();
+        this.supplyRequestDetailController = new SupplyRequestDetailController();
         addActionListener();
     }
 
@@ -39,12 +40,12 @@ public class Controller implements ActionListener {
         if ("findButtonClicked".equals(actionCommand)) {
             String findText = view.getFindField().getText();
             String selectedTable = (String) view.getTableChooser().getSelectedItem();
-            if(selectedTable.equals(view.getTableName(0))) return;
-            if (selectedTable != null && selectedTable.equals(view.getTableName(4)) || selectedTable.equals(view.getTableName(10))) {
+            if(Objects.requireNonNull(selectedTable).equals(view.getTableName(0))) return;
+            if (selectedTable.equals(view.getTableName(4)) || selectedTable.equals(view.getTableName(10))) {
                 Object[][] searchObject = searchProcessManager.processSearchMultipleRows(findText, selectedTable, (DefaultTableModel) view.getTable().getModel(), view.getFrame());
                 view.createInfoFrameWithMultipleRows(view.getColumnNames(Objects.requireNonNull(selectedTable)), searchObject);
 
-            } else if (selectedTable != null) {
+            } else {
                 Object[] searchObject = searchProcessManager.processSearch(findText, selectedTable, (DefaultTableModel) view.getTable().getModel(), view.getFrame());
                 view.createInfoFrame(view.getColumnNames(Objects.requireNonNull(selectedTable)), searchObject);
             }
@@ -103,8 +104,12 @@ public class Controller implements ActionListener {
             salesInvoiceDetailController.process(view);
         }
 
-        if("closeSaleInvoiceDetailFrameButtonClicked".equals(actionCommand)){
-            view.getSalesInvoiceDetailFrame().dispose();
+        if("getSupplyRequestDetailButtonClicked".equals(actionCommand)){
+            supplyRequestDetailController.process(view);
+        }
+
+        if("closeDetailFrameButtonClicked".equals(actionCommand)){
+            view.getDetailFrame().dispose();
         }
 
         if (e.getSource() == view.getTableChooser()) {
@@ -153,7 +158,7 @@ public class Controller implements ActionListener {
         view.getDeleteInDeleteFrameButton().addActionListener(this);
         view.getCloseDeleteFrameButton().addActionListener(this);
         view.getRefreshButton().addActionListener(this);
-        view.getGetSalesInvoiceDetailButton().addActionListener(this);
-        view.getCloseSaleInvoiceDetailFrameButton().addActionListener(this);
+        view.getGetDetailButton().addActionListener(this);
+        view.getCloseDetailFrame().addActionListener(this);
     }
 }

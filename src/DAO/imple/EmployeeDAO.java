@@ -112,5 +112,32 @@ public class EmployeeDAO implements EmployeeDAOInterface {
         return count;
     }
 
+    @Override
+    public Employee get(String employeeID) {
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("SELECT * FROM Employee;");
+            resultSet = preparedStatement.executeQuery();
+            Employee employee = null;
+            while (resultSet.next()) {
+                employee = new Employee(resultSet.getString("EmployeeID").trim(),
+                        resultSet.getString("EmployeeName").trim(),
+                        resultSet.getString("IDNumber").trim(),
+                        resultSet.getString("PhoneNumber").trim(),
+                        resultSet.getString("Email").trim(),
+                        resultSet.getDate("DateOfBirth"),
+                        resultSet.getString("Gender").trim(),
+                        resultSet.getString("Address").trim(),
+                        resultSet.getString("Position").trim(),
+                        resultSet.getInt("Salary"));
+            }
+            return employee;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }
+    }
+
 
 }
