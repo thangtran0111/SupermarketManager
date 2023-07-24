@@ -17,7 +17,9 @@ import java.util.Objects;
 
 public class View extends JFrame {
     private final int PADDING = 60;
-
+    private final int BORDER = 20;
+    private final int NO_BORDER = 0;
+    private final int HALF_BORDER = BORDER / 2;
     //column name
     private final Object[] productColumnNames = {"Product ID", "Barcode", "Product Name", "Retail Price", "Quantity In Stock", "Product Type", "Description"};
     private final Object[] employeeColumnNames = {"Employee ID", "Employee Name", "ID Number", "Phone Number", "Email", "Date Of Birth", "Gender", "Address", "Position", "Salary"};
@@ -310,31 +312,40 @@ public class View extends JFrame {
         int rowCount = titles.length;
 
         JPanel topInfoPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        topInfoPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        topInfoPanel.setBorder(new EmptyBorder(BORDER, BORDER, BORDER, BORDER));
         topInfoPanel.add(new JLabel("INFORMATION"));
 
-        JPanel midInfoPanel = new JPanel(new GridLayout(rowCount, 2, 5, 5));
-        midInfoPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+        JPanel insideMidInfoPanel = new JPanel(new GridBagLayout());
+        insideMidInfoPanel.setBorder(new EmptyBorder(BORDER, BORDER, BORDER, BORDER));
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1;
+        gridBagConstraints.weighty = 1;
+        gridBagConstraints.ipadx = PADDING;
+        gridBagConstraints.ipady = PADDING / 2;
+        for(int i = 0; i < rowCount; i++){
+            gridBagConstraints.gridx = 0;
+            gridBagConstraints.gridy++;
+            insideMidInfoPanel.add(new JLabel(String.valueOf(titles[i]), SwingConstants.LEFT), gridBagConstraints);
 
-        JPanel bottomInfoPanel = new JPanel();
-        bottomInfoPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-
-        for (int i = 0; i < rowCount; i++) {
-            String title = String.valueOf(titles[i]);
-            midInfoPanel.add(new JLabel(title));
+            gridBagConstraints.gridx = 1;
+            gridBagConstraints.gridwidth = 2;
             if (data[i] == null) {
-                midInfoPanel.add(new JLabel());
+                insideMidInfoPanel.add(new JLabel(), gridBagConstraints);
             } else {
-                midInfoPanel.add(new JLabel(data[i].toString()));
+                insideMidInfoPanel.add(new JLabel(data[i].toString()), gridBagConstraints);
             }
         }
+
+        JPanel bottomInfoPanel = new JPanel();
+        bottomInfoPanel.setBorder(new EmptyBorder(BORDER, BORDER, BORDER, BORDER));
 
         closeInfoFrameButton.setActionCommand("closeInfoFrameButtonClicked");
 
         bottomInfoPanel.add(closeInfoFrameButton);
 
         infoFrame.add(topInfoPanel, BorderLayout.NORTH);
-        infoFrame.add(midInfoPanel, BorderLayout.CENTER);
+        infoFrame.add(insideMidInfoPanel, BorderLayout.CENTER);
         infoFrame.add(bottomInfoPanel, BorderLayout.SOUTH);
 
         infoFrame.pack();
@@ -347,33 +358,41 @@ public class View extends JFrame {
         infoFrame.setLayout(new BorderLayout());
         infoFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/resource/info.png"))).getImage());
 
-        int rowCount = data.length;
-        int columnCount = titles.length - 1;
-
         JPanel topInfoPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        topInfoPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        topInfoPanel.add(new JLabel("INFORMATION" + data[0][0]));
+        topInfoPanel.setBorder(new EmptyBorder(BORDER, BORDER, BORDER, BORDER));
+        topInfoPanel.add(new JLabel("INFORMATION " + data[0][0]));
 
-        JPanel midInfoPanel = new JPanel(new GridLayout(rowCount + 1, columnCount, 5, 5));
-        midInfoPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-        JPanel bottomInfoPanel = new JPanel();
-        bottomInfoPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        JPanel midInfoPanel = new JPanel(new GridBagLayout());
+        midInfoPanel.setBorder(BorderFactory.createEmptyBorder(NO_BORDER, BORDER, NO_BORDER, BORDER));
+
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1;
+        gridBagConstraints.weighty = 1;
+        gridBagConstraints.ipadx = PADDING;
+        gridBagConstraints.ipady = PADDING / 2;
 
         for (int i = 1; i < titles.length; i++) {
-            String title = String.valueOf(titles[i]);
-            midInfoPanel.add(new JLabel(title));
+            gridBagConstraints.gridx = i - 1;
+            gridBagConstraints.gridy = 0;
+            midInfoPanel.add(new JLabel(String.valueOf(titles[i])), gridBagConstraints);
         }
         for (Object[] datum : data) {
+            gridBagConstraints.gridy++;
             for (int j = 1; j < titles.length; j++) {
+                gridBagConstraints.gridx = j - 1;
                 if (datum[j] == null) {
-                    midInfoPanel.add(new JLabel());
+                    midInfoPanel.add(new JLabel(), gridBagConstraints);
                 } else {
-                    midInfoPanel.add(new JLabel(String.valueOf(datum[j])));
-                    System.out.println(datum[j]);
-
+                    midInfoPanel.add(new JLabel(String.valueOf(datum[j])), gridBagConstraints);
                 }
             }
         }
+
+        JPanel bottomInfoPanel = new JPanel();
+        bottomInfoPanel.setBorder(new EmptyBorder(BORDER, BORDER, BORDER, BORDER));
+
+
 
         closeInfoFrameButton.setActionCommand("closeInfoFrameButtonClicked");
 

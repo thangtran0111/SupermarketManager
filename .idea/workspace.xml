@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="add SalesInvoiceDetailController and fix SalesInvoiceDAO">
+    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="change GridLayout to GridBagLayout in salesInvoiceDetailFrame">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/imple/CustomerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/CustomerDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/itf/CustomerDAOInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/itf/CustomerDAOInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/SalesInvoiceDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/SalesInvoiceDetailController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/SalesInvoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/SalesInvoice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/SalesInvoiceDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/SalesInvoiceDetail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/View.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -243,7 +237,21 @@
       <option name="project" value="LOCAL" />
       <updated>1690047162590</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="add Customer and totalAmount attributes">
+      <created>1690132824118</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1690132824118</updated>
+    </task>
+    <task id="LOCAL-00024" summary="change GridLayout to GridBagLayout in salesInvoiceDetailFrame">
+      <created>1690132882657</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1690132882657</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -268,6 +276,8 @@
     <MESSAGE value="add get(String) function" />
     <MESSAGE value="add SalesInvoiceDetail model and DAO" />
     <MESSAGE value="add SalesInvoiceDetailController and fix SalesInvoiceDAO" />
-    <option name="LAST_COMMIT_MESSAGE" value="add SalesInvoiceDetailController and fix SalesInvoiceDAO" />
+    <MESSAGE value="add Customer and totalAmount attributes" />
+    <MESSAGE value="change GridLayout to GridBagLayout in salesInvoiceDetailFrame" />
+    <option name="LAST_COMMIT_MESSAGE" value="change GridLayout to GridBagLayout in salesInvoiceDetailFrame" />
   </component>
 </project>
