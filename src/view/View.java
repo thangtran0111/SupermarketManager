@@ -28,7 +28,7 @@ public class View extends JFrame {
     private final Object[] customerColumnNames = {"Customer ID", "Customer Name", "Date Of Birth", "Phone Number", "Email", "LoyaltyPoints"};
     private final Object[] supplierColumnNames = {"SupplierID", "Supplier Name", "Phone Number", "Email", "Address"};
     private final Object[] orderColumnNames = {"Order ID", "Invoice ID", "Expected Delivery Date", "Delivery Address", "Notes"};
-    private final Object[] deliveryReceiptColumnNames = {"Delivery Receipt ID", "Delivery Date", "Delivery Status", "Order ID", "Delivery Employee ID"};
+    private final Object[] deliveryReceiptColumnNames = {"Delivery Receipt ID", "Delivery Date", "Delivery Status", "Delivery Fee", "Order ID", "Delivery Employee ID"};
     private final Object[] supplyRequestColumnNames = {"Supply Request ID", "Supply Request Date", "Supply Request Status", "Receive Date", "Supplier ID", "Employee ID"};
     private final Object[] productRequestColumnNames = {"Supply Request ID", "Product ID", "Quantity Received", "Unit Price"};
     //login component
@@ -812,7 +812,7 @@ public class View extends JFrame {
                 case "SupplyRequest" ->
                         _class.getConstructor(String.class, Date.class, String.class, Date.class, String.class, String.class);
                 case "DeliveryReceipt" ->
-                        _class.getConstructor(String.class, Date.class, String.class, String.class, String.class);
+                        _class.getConstructor(String.class, Date.class, String.class, int.class, String.class, String.class);
                 case "InvoiceProduct" -> _class.getConstructor(String.class, String.class, int.class);
                 case "Customer" ->
                         _class.getConstructor(String.class, String.class, Date.class, String.class, String.class, int.class);

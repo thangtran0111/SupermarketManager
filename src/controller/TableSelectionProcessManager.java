@@ -107,7 +107,7 @@ public class TableSelectionProcessManager {
         } else if (selectedTable.equals(view.getTableName(8))) {
             List<DeliveryReceipt> deliveryReceiptList = deliveryReceiptDAO.read();
             for (DeliveryReceipt deliveryReceipt : deliveryReceiptList) {
-                model.addRow(new Object[]{String.valueOf(deliveryReceipt.getDeliveryReceiptID()), deliveryReceipt.getDeliveryDate(), String.valueOf(deliveryReceipt.getDeliveryStatus()), String.valueOf(deliveryReceipt.getOrderID()), String.valueOf(deliveryReceipt.getDeliveryEmployeeID())});
+                model.addRow(new Object[]{String.valueOf(deliveryReceipt.getDeliveryReceiptID()), deliveryReceipt.getDeliveryDate(), String.valueOf(deliveryReceipt.getDeliveryStatus()), deliveryReceipt.getDeliveryFee(), String.valueOf(deliveryReceipt.getOrderID()), String.valueOf(deliveryReceipt.getDeliveryEmployeeID())});
             }
         } else if (selectedTable.equals(view.getTableName(9))) {
             List<SupplyRequest> supplyRequestList = supplyRequestDAO.read();

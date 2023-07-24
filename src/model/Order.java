@@ -17,6 +17,10 @@ public class Order {
         this.notes = notes;
     }
 
+    public Order() {
+
+    }
+
     public String getOrderID() {
         return OrderID;
     }
