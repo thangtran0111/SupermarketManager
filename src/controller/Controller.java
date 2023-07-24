@@ -17,6 +17,7 @@ public class Controller implements ActionListener {
     private final UpdateProcessManager updateProcessManager;
     private final SalesInvoiceDetailController salesInvoiceDetailController;
     private final SupplyRequestDetailController supplyRequestDetailController;
+    private final DeliveryReceiptDetailController deliveryReceiptDetailController;
 
     public Controller() {
         view = new View();
@@ -28,6 +29,7 @@ public class Controller implements ActionListener {
         this.updateProcessManager = new UpdateProcessManager();
         this.salesInvoiceDetailController = new SalesInvoiceDetailController();
         this.supplyRequestDetailController = new SupplyRequestDetailController();
+        this.deliveryReceiptDetailController = new DeliveryReceiptDetailController();
         addActionListener();
     }
 
@@ -108,6 +110,9 @@ public class Controller implements ActionListener {
             supplyRequestDetailController.process(view);
         }
 
+        if("getDeliveryReceiptDetailButtonClicked".equals(actionCommand)){
+            deliveryReceiptDetailController.process(view);
+        }
         if("closeDetailFrameButtonClicked".equals(actionCommand)){
             view.getDetailFrame().dispose();
         }

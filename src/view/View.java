@@ -13,6 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class View extends JFrame {
@@ -287,6 +288,9 @@ public class View extends JFrame {
 
     public void createDeliveryReceiptManagementFrame() {
         setupManagementFrame();
+
+        getDetailButton.setActionCommand("getDeliveryReceiptDetailButtonClicked");
+        topPanel.add(getDetailButton);
 
         scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(getWidth() - PADDING, (getHeight() - 200)));
@@ -630,6 +634,110 @@ public class View extends JFrame {
         gridBagConstraints.anchor = GridBagConstraints.LINE_END;
         detailPanel.add(new JLabel("TOTAL: " + supplyRequestDetail.getTotal(), SwingConstants.RIGHT), gridBagConstraints);
 
+        JScrollPane SRDScrollPane = new JScrollPane(detailPanel);
+        SRDScrollPane.setBorder(BorderFactory.createEmptyBorder());
+        SRDScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        SRDScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        JPanel midSRDPanel = new JPanel(new GridBagLayout());
+        midSRDPanel.setBorder(BorderFactory.createEmptyBorder(NO_BORDER, HALF_BORDER, NO_BORDER, HALF_BORDER));
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        midSRDPanel.add(SRDScrollPane, gridBagConstraints);
+
+        JPanel bottomSRDPanel = new JPanel();
+        bottomSRDPanel.setBorder(BorderFactory.createEmptyBorder(PADDING / 3, HALF_BORDER, PADDING / 3, HALF_BORDER));
+
+        closeDetailFrame.setActionCommand("closeDetailFrameButtonClicked");
+        bottomSRDPanel.add(closeDetailFrame);
+
+        detailFrame.add(topSRDPanel, BorderLayout.NORTH);
+        detailFrame.add(midSRDPanel, BorderLayout.CENTER);
+        detailFrame.add(bottomSRDPanel, BorderLayout.SOUTH);
+
+        detailFrame.pack();
+        detailFrame.setLocationRelativeTo(null);
+        detailFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        detailFrame.setVisible(true);
+    }
+
+    public void createDeliveryReceiptDetailFrame(DeliveryReceiptDetail deliveryReceiptDetail){
+        detailFrame = new JFrame("Detail");
+        detailFrame.setLayout(new BorderLayout());
+        detailFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/resource/info.png"))).getImage());
+
+        JPanel topSRDPanel = new JPanel(new GridLayout(2, 1, 5, 5));
+        topSRDPanel.setBorder(BorderFactory.createEmptyBorder(HALF_BORDER, HALF_BORDER, HALF_BORDER, HALF_BORDER));
+
+        topSRDPanel.add(new JLabel("DELIVERY RECEIPT: " + deliveryReceiptDetail.getDeliveryReceipt().getDeliveryReceiptID(), SwingConstants.CENTER));
+        JPanel insideTopSRDPanel = new JPanel(new GridLayout(3, 2, 5, 5));
+        insideTopSRDPanel.add(new JLabel("Customer: " + deliveryReceiptDetail.getSalesInvoiceDetail().getCustomer().getCustomerName(), SwingConstants.LEFT));
+        insideTopSRDPanel.add(new JLabel("Delivery Employee: " + deliveryReceiptDetail.getEmployee().getEmployeeName(), SwingConstants.LEFT));
+        insideTopSRDPanel.add(new JLabel("Delivery Address: " + deliveryReceiptDetail.getOrder().getDeliveryAddress(), SwingConstants.LEFT));
+        insideTopSRDPanel.add(new JLabel("Phone number: " + deliveryReceiptDetail.getSalesInvoiceDetail().getCustomer().getPhoneNumber(), SwingConstants.LEFT));
+        insideTopSRDPanel.add(new JLabel("Date: " + deliveryReceiptDetail.getDeliveryReceipt().getDeliveryDate(), SwingConstants.LEFT));
+        insideTopSRDPanel.add(new JLabel("Status: " + deliveryReceiptDetail.getDeliveryReceipt().getDeliveryStatus(), SwingConstants.LEFT));
+
+        topSRDPanel.add(insideTopSRDPanel);
+
+        SalesInvoiceDetail salesInvoiceDetail = deliveryReceiptDetail.getSalesInvoiceDetail();
+
+        int rowDataCount = salesInvoiceDetail.getProductList().size();
+        JPanel detailPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 80;
+        gridBagConstraints.ipady = 20;
+        gridBagConstraints.gridwidth = 2;
+        detailPanel.add(new JLabel("Product Name", SwingConstants.LEFT), gridBagConstraints);
+
+        gridBagConstraints.gridwidth = 1;
+
+        gridBagConstraints.gridx = 2;
+        detailPanel.add(new JLabel("Price", SwingConstants.RIGHT), gridBagConstraints);
+
+        gridBagConstraints.gridx = 3;
+        detailPanel.add(new JLabel("Quantity", SwingConstants.RIGHT), gridBagConstraints);
+
+        gridBagConstraints.gridx = 4;
+        detailPanel.add(new JLabel("Amount", SwingConstants.RIGHT), gridBagConstraints);
+
+        for (int i = 0; i < rowDataCount; i++) {
+            Product product = salesInvoiceDetail.getProductList().get(i);
+            InvoiceProduct invoiceProduct = salesInvoiceDetail.getInvoiceProductList().get(i);
+            int amount = invoiceProduct.getQuantity() * product.getRetailPrice();
+            gridBagConstraints.gridy++;
+            gridBagConstraints.gridx = 0;
+            gridBagConstraints.gridwidth = 2;
+            detailPanel.add(new JLabel(product.getProductName(), SwingConstants.LEFT), gridBagConstraints);
+
+            gridBagConstraints.gridwidth = 1;
+
+            gridBagConstraints.gridx = 2;
+            detailPanel.add(new JLabel(String.valueOf(product.getRetailPrice()), SwingConstants.RIGHT), gridBagConstraints);
+
+            gridBagConstraints.gridx = 3;
+            detailPanel.add(new JLabel(String.valueOf(invoiceProduct.getQuantity()), SwingConstants.RIGHT), gridBagConstraints);
+
+            gridBagConstraints.gridx = 4;
+            detailPanel.add(new JLabel(String.valueOf(amount), SwingConstants.RIGHT), gridBagConstraints);
+        }
+
+        gridBagConstraints.gridy++;
+        gridBagConstraints.gridx = 4;
+        detailPanel.add(new JLabel("Delivery fee: " + deliveryReceiptDetail.getDeliveryReceipt().getDeliveryFee(), SwingConstants.LEFT), gridBagConstraints);
+        gridBagConstraints.gridy++;
+        detailPanel.add(new JLabel("TOTAL AMOUNT: " + salesInvoiceDetail.getTotalAmount(), SwingConstants.LEFT), gridBagConstraints);
+        gridBagConstraints.gridy++;
+        detailPanel.add(new JLabel("TOTAL: " + (salesInvoiceDetail.getTotalAmount() + deliveryReceiptDetail.getDeliveryReceipt().getDeliveryFee()), SwingConstants.LEFT), gridBagConstraints);
         JScrollPane SRDScrollPane = new JScrollPane(detailPanel);
         SRDScrollPane.setBorder(BorderFactory.createEmptyBorder());
         SRDScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);

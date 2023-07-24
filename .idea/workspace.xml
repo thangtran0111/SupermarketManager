@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="add SupplyRequestDetail and related functions">
-      <change afterPath="$PROJECT_DIR$/src/model/DeliveryReceiveDetail.java" afterDir="false" />
+    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="add DeliveryFee attribute and fix bug">
+      <change afterPath="$PROJECT_DIR$/src/controller/DeliveryReceiptDetailController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/DeliveryReceiptDetail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAO/imple/DeliveryReceiptDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/DeliveryReceiptDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/DeliveryReceipt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/DeliveryReceipt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/imple/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/OrderDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/itf/DeliveryReceiptDAOInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/itf/DeliveryReceiptDAOInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/itf/OrderDAOInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/itf/OrderDAOInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/View.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -283,11 +286,17 @@
       <option name="project" value="LOCAL" />
       <updated>1690215025396</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="add DeliveryFee attribute and fix bug">
+      <created>1690216041964</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1690216041964</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Translate the Employee table into English" />
     <MESSAGE value="Translate the Account table into English" />
     <MESSAGE value="Translate the SalesInvoice table into English" />
     <MESSAGE value="Translate the InvoiceProduct table into English" />
@@ -312,6 +321,7 @@
     <MESSAGE value="rename WarehouseReceipt to SupplyRequest and add receiveDate attribute" />
     <MESSAGE value="add table ProductRequest" />
     <MESSAGE value="add SupplyRequestDetail and related functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="add SupplyRequestDetail and related functions" />
+    <MESSAGE value="add DeliveryFee attribute and fix bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="add DeliveryFee attribute and fix bug" />
   </component>
 </project>

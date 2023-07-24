@@ -101,4 +101,28 @@ public class OrderDAO implements OrderDAOInterface {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public Order get(String orderID) {
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("SELECT * FROM Orders WHERE OrderID = ?;");
+            preparedStatement.setString(1, orderID);
+            resultSet = preparedStatement.executeQuery();
+            Order order = new Order();
+            if (resultSet.next()) {
+                order = new Order(
+                        resultSet.getString("OrderID").trim(),
+                        resultSet.getString("InvoiceID").trim(),
+                        resultSet.getDate("ExpectedDeliveryDate"),
+                        resultSet.getString("DeliveryAddress").trim(),
+                        resultSet.getString("Notes").trim());
+            }
+            return order;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }
+    }
 }

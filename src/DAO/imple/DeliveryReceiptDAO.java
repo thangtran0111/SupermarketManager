@@ -99,4 +99,28 @@ public class DeliveryReceiptDAO implements DeliveryReceiptDAOInterface {
             DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
     }
+
+    @Override
+    public DeliveryReceipt get(String deliveryReceiptID) {
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("SELECT * FROM DeliveryReceipt;");
+            resultSet = preparedStatement.executeQuery();
+            DeliveryReceipt deliveryReceipt = new DeliveryReceipt();
+            if (resultSet.next()) {
+                deliveryReceipt = new DeliveryReceipt(
+                        resultSet.getString("DeliveryReceiptID").trim(),
+                        resultSet.getDate("DeliveryDate"),
+                        resultSet.getString("DeliveryStatus").trim(),
+                        resultSet.getInt("DeliveryFee"),
+                        resultSet.getString("OrderID").trim(),
+                        resultSet.getString("DeliveryEmployeeID").trim()
+                );
+            }
+            return deliveryReceipt;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }    }
 }
