@@ -16,7 +16,8 @@ public class AddProcessManager {
     private final SupplierDAOInterface supplierDAO;
     private final OrderDAOInterface orderDAO;
     private final DeliveryReceiptDAOInterface deliveryReceiptDAO;
-    private final SupplyRequestDAOInterface warehouseReceiptDAO;
+    private final SupplyRequestDAOInterface supplyRequestDAO;
+    private final ProductRequestDAOInterface productRequestDAO;
 
     public AddProcessManager() {
         productDAO = new ProductDAO();
@@ -27,11 +28,13 @@ public class AddProcessManager {
         supplierDAO = new SupplierDAO();
         orderDAO = new OrderDAO();
         deliveryReceiptDAO = new DeliveryReceiptDAO();
-        warehouseReceiptDAO = new SupplyRequestDAO();
+        supplyRequestDAO = new SupplyRequestDAO();
+        productRequestDAO = new ProductRequestDAO();
     }
 
     public void processAdd(View view) {
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
+        if(selectedTable.equals(view.getTableName(0))) return;
         MessageCode message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
         int count = 0;
         if (message.equals(MessageCode.ID_NOT_EXIST)) {
@@ -61,7 +64,12 @@ public class AddProcessManager {
                 count = deliveryReceiptDAO.create(deliveryReceipt);
             } else if (selectedTable.equals(view.getTableName(9))) {
                 SupplyRequest supplyRequest = view.createObject(selectedTable, view.getNewFieldValues());
-                count = warehouseReceiptDAO.create(supplyRequest);
+                count = supplyRequestDAO.create(supplyRequest);
+            } else if(selectedTable.equals(view.getTableName(10))){
+                ProductRequest productRequest = view.createObject(selectedTable, view.getNewFieldValues());
+                count = productRequestDAO.create(productRequest);
+            }else{
+                View.showMessage(view.getAddFrame(), MessageCode.ERROR_OCCURRED.getMessage());
             }
         } else {
             View.showMessage(view.getAddFrame(), message.getMessage());

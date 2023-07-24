@@ -39,7 +39,8 @@ public class Controller implements ActionListener {
         if ("findButtonClicked".equals(actionCommand)) {
             String findText = view.getFindField().getText();
             String selectedTable = (String) view.getTableChooser().getSelectedItem();
-            if (selectedTable != null && selectedTable.equals(view.getTableName(4))) {
+            if(selectedTable.equals(view.getTableName(0))) return;
+            if (selectedTable != null && selectedTable.equals(view.getTableName(4)) || selectedTable.equals(view.getTableName(10))) {
                 Object[][] searchObject = searchProcessManager.processSearchMultipleRows(findText, selectedTable, (DefaultTableModel) view.getTable().getModel(), view.getFrame());
                 view.createInfoFrameWithMultipleRows(view.getColumnNames(Objects.requireNonNull(selectedTable)), searchObject);
 

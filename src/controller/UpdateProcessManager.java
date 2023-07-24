@@ -16,7 +16,8 @@ public class UpdateProcessManager {
     private final SupplierDAOInterface supplierDAO;
     private final OrderDAOInterface orderDAO;
     private final DeliveryReceiptDAOInterface deliveryReceiptDAO;
-    private final SupplyRequestDAOInterface warehouseReceiptDAO;
+    private final SupplyRequestDAOInterface supplyRequestDAO;
+    private final ProductRequestDAOInterface productRequestDAO;
 
     public UpdateProcessManager() {
         productDAO = new ProductDAO();
@@ -27,11 +28,13 @@ public class UpdateProcessManager {
         supplierDAO = new SupplierDAO();
         orderDAO = new OrderDAO();
         deliveryReceiptDAO = new DeliveryReceiptDAO();
-        warehouseReceiptDAO = new SupplyRequestDAO();
+        supplyRequestDAO = new SupplyRequestDAO();
+        productRequestDAO = new ProductRequestDAO();
     }
 
     public void processUpdate(View view) {
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
+        if(selectedTable.equals(view.getTableName(0))) return;
         MessageCode message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
         int count = 0;
         if (message.equals(MessageCode.ID_ALREADY_EXISTS) || message.equals(MessageCode.BARCODE_ALREADY_EXISTS)) {
@@ -61,7 +64,10 @@ public class UpdateProcessManager {
                 count = deliveryReceiptDAO.update(deliveryReceipt);
             } else if (selectedTable.equals(view.getTableName(9))) {
                 SupplyRequest supplyRequest = view.createObject(selectedTable, view.getNewFieldValues());
-                count = warehouseReceiptDAO.update(supplyRequest);
+                count = supplyRequestDAO.update(supplyRequest);
+            } else if (selectedTable.equals(view.getTableName(10))) {
+                ProductRequest productRequest = view.createObject(selectedTable, view.getNewFieldValues());
+                count = productRequestDAO.update(productRequest);
             }
         } else {
             View.showMessage(view.getAddFrame(), message.getMessage());

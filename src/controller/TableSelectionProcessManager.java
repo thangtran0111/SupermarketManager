@@ -18,7 +18,8 @@ public class TableSelectionProcessManager {
     private final SupplierDAOInterface supplierDAO;
     private final OrderDAOInterface orderDAO;
     private final DeliveryReceiptDAOInterface deliveryReceiptDAO;
-    private final SupplyRequestDAOInterface warehouseReceiptDAO;
+    private final SupplyRequestDAOInterface supplyRequestDAO;
+    private final ProductRequestDAOInterface productRequestDAO;
 
     public TableSelectionProcessManager() {
         productDAO = new ProductDAO();
@@ -29,11 +30,15 @@ public class TableSelectionProcessManager {
         supplierDAO = new SupplierDAO();
         orderDAO = new OrderDAO();
         deliveryReceiptDAO = new DeliveryReceiptDAO();
-        warehouseReceiptDAO = new SupplyRequestDAO();
+        supplyRequestDAO = new SupplyRequestDAO();
+        productRequestDAO = new ProductRequestDAO();
     }
 
     public void processTableSelection(View view) {
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
+        if(selectedTable.equals(view.getTableName(0))) {
+            return;
+        }
         DefaultTableModel oldModel = (DefaultTableModel) view.getTable().getModel();
         oldModel.setRowCount(0);
         Object[] columnNames = view.getColumnNames(Objects.requireNonNull(selectedTable));
@@ -56,8 +61,10 @@ public class TableSelectionProcessManager {
             view.createDeliveryReceiptManagementFrame();
         } else if (selectedTable.equals(view.getTableName(9))) {
             view.createSupplyRequestManagementFrame();
+        } else if (selectedTable.equals(view.getTableName(10))) {
+            view.createProductRequestManagementFrame();
         } else {
-            return;
+            View.showMessage(view.getContentPane(), MessageCode.ERROR_OCCURRED.getMessage());
         }
 
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
@@ -103,10 +110,17 @@ public class TableSelectionProcessManager {
                 model.addRow(new Object[]{String.valueOf(deliveryReceipt.getDeliveryReceiptID()), deliveryReceipt.getDeliveryDate(), String.valueOf(deliveryReceipt.getDeliveryStatus()), String.valueOf(deliveryReceipt.getOrderID()), String.valueOf(deliveryReceipt.getDeliveryEmployeeID())});
             }
         } else if (selectedTable.equals(view.getTableName(9))) {
-            List<SupplyRequest> supplyRequestList = warehouseReceiptDAO.read();
+            List<SupplyRequest> supplyRequestList = supplyRequestDAO.read();
             for (SupplyRequest supplyRequest : supplyRequestList) {
                 model.addRow(new Object[]{String.valueOf(supplyRequest.getSupplyRequestID()), supplyRequest.getSupplyRequestDate(), String.valueOf(supplyRequest.getSupplyRequestStatus()), supplyRequest.getReceiveDate(), String.valueOf(supplyRequest.getSupplierID()), String.valueOf(supplyRequest.getEmployeeID())});
             }
+        } else if (selectedTable.equals(view.getTableName(10))) {
+            List<ProductRequest> productRequestList = productRequestDAO.read();
+            for (ProductRequest productRequest : productRequestList){
+                model.addRow(new Object[]{String.valueOf(productRequest.getSupplyRequestID()), String.valueOf(productRequest.getProductID()), productRequest.getQuantityReceived(), productRequest.getUnitPrice()});
+            }
+        }else{
+            View.showMessage(view.getContentPane(), MessageCode.ERROR_OCCURRED.getMessage());
         }
 
         view.getTable().setModel(model);

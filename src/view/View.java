@@ -30,7 +30,7 @@ public class View extends JFrame {
     private final Object[] orderColumnNames = {"Order ID", "Invoice ID", "Expected Delivery Date", "Delivery Address", "Notes"};
     private final Object[] deliveryReceiptColumnNames = {"Delivery Receipt ID", "Delivery Date", "Delivery Status", "Order ID", "Delivery Employee ID"};
     private final Object[] supplyRequestColumnNames = {"Supply Request ID", "Supply Request Date", "Supply Request Status", "Receive Date", "Supplier ID", "Employee ID"};
-
+    private final Object[] productRequestColumnNames = {"Supply Request ID", "Product ID", "Quantity Received", "Unit Price"};
     //login component
     private JFrame loginFrame;
     private JButton loginButton;
@@ -41,7 +41,7 @@ public class View extends JFrame {
     private JPanel topPanel;
     private JPanel midPanel;
     private JPanel bottomPanel;
-    private final String[] tableNames = new String[]{"", "Employee", "Product", "SalesInvoice", "InvoiceProduct", "Customer", "Supplier", "Order", "DeliveryReceipt", "SupplyRequest"};
+    private final String[] tableNames = new String[]{"", "Employee", "Product", "SalesInvoice", "InvoiceProduct", "Customer", "Supplier", "Order", "DeliveryReceipt", "SupplyRequest", "ProductRequest"};
     private final JComboBox<String> tableChooser = new JComboBox<>(tableNames);
     private JTextField findField;
     private final JTable table = new JTable();
@@ -241,6 +241,9 @@ public class View extends JFrame {
     public void createInvoiceProductManagementFrame() {
         setupManagementFrame();
 
+        getSalesInvoiceDetailButton.setActionCommand("getSalesInvoiceDetailButtonClicked");
+        topPanel.add(getSalesInvoiceDetailButton);
+
         scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(getWidth() - PADDING, (getHeight() - 200)));
         midPanel.add(scrollPane);
@@ -304,6 +307,17 @@ public class View extends JFrame {
         repaint();
     }
 
+    public void createProductRequestManagementFrame() {
+        setupManagementFrame();
+
+        scrollPane = new JScrollPane(table);
+        scrollPane.setPreferredSize(new Dimension(getWidth() - PADDING, (getHeight() - 200)));
+        midPanel.add(scrollPane);
+
+        revalidate();
+        repaint();
+    }
+
     public void createInfoFrame(Object[] titles, Object[] data) {
         infoFrame = new JFrame("Information");
         infoFrame.setLayout(new BorderLayout());
@@ -323,7 +337,7 @@ public class View extends JFrame {
         gridBagConstraints.weighty = 1;
         gridBagConstraints.ipadx = PADDING;
         gridBagConstraints.ipady = PADDING / 2;
-        for(int i = 0; i < rowCount; i++){
+        for (int i = 0; i < rowCount; i++) {
             gridBagConstraints.gridx = 0;
             gridBagConstraints.gridy++;
             insideMidInfoPanel.add(new JLabel(String.valueOf(titles[i]), SwingConstants.LEFT), gridBagConstraints);
@@ -360,7 +374,7 @@ public class View extends JFrame {
 
         JPanel topInfoPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         topInfoPanel.setBorder(new EmptyBorder(BORDER, BORDER, BORDER, BORDER));
-        topInfoPanel.add(new JLabel("INFORMATION " + data[0][0]));
+        topInfoPanel.add(new JLabel("INFORMATION " + tableChooser.getSelectedItem().toString().toUpperCase() + ": " + data[0][0]));
 
         JPanel midInfoPanel = new JPanel(new GridBagLayout());
         midInfoPanel.setBorder(BorderFactory.createEmptyBorder(NO_BORDER, BORDER, NO_BORDER, BORDER));
@@ -391,7 +405,6 @@ public class View extends JFrame {
 
         JPanel bottomInfoPanel = new JPanel();
         bottomInfoPanel.setBorder(new EmptyBorder(BORDER, BORDER, BORDER, BORDER));
-
 
 
         closeInfoFrameButton.setActionCommand("closeInfoFrameButtonClicked");
@@ -480,7 +493,7 @@ public class View extends JFrame {
         gridBagConstraints.gridx = 4;
         detailPanel.add(new JLabel("Amount", SwingConstants.RIGHT), gridBagConstraints);
 
-        for(int i = 0; i < rowDataCount; i++){
+        for (int i = 0; i < rowDataCount; i++) {
             Product product = salesInvoiceDetail.getProductList().get(i);
             InvoiceProduct invoiceProduct = salesInvoiceDetail.getInvoiceProductList().get(i);
             int amount = product.getRetailPrice() * invoiceProduct.getQuantity();
@@ -597,7 +610,7 @@ public class View extends JFrame {
 
         String ID = JOptionPane.showInputDialog("Enter " + selectedTable.toLowerCase() + " ID you want to update");
         oldValue = new SearchProcessManager().processSearch(ID, selectedTable, (DefaultTableModel) table.getModel(), updateFrame);
-
+        if(oldValue == null) return;
         newValuesField = new JTextField[rowCount];
         for (int i = 0; i < rowCount; i++) {
             midUpdatePanel.add(new JLabel(table.getModel().getColumnName(i)));
@@ -675,26 +688,35 @@ public class View extends JFrame {
             case "Order" -> Order.class;
             case "DeliveryReceipt" -> DeliveryReceipt.class;
             case "SupplyRequest" -> SupplyRequest.class;
+            case "ProductRequest" -> ProductRequest.class;
             default -> null;
         };
     }
 
     public <T> T createObject(String selectedTable, JTextField[] _properties) {
-        Class<?> cl = getClassByTableName(selectedTable);
-        if (cl == null) {
+        Class<?> _class = getClassByTableName(selectedTable);
+        if (_class == null) {
             throw new IllegalArgumentException("Invalid table name: " + selectedTable);
         }
         try {
             Constructor<?> constructor = switch (selectedTable) {
-                case "Product" -> cl.getConstructor(String.class, String.class, String.class, int.class, int.class, String.class, String.class);
-                case "Employee" -> cl.getConstructor(String.class, String.class, String.class, String.class, String.class, Date.class, String.class, String.class, String.class, int.class);
-                case "SalesInvoice" -> cl.getConstructor(String.class, Date.class, String.class, String.class);
-                case "SupplyRequest" -> cl.getConstructor(String.class, Date.class, String.class, Date.class, String.class, String.class);
-                case "DeliveryReceipt" -> cl.getConstructor(String.class, Date.class, String.class, String.class, String.class);
-                case "InvoiceProduct" -> cl.getConstructor(String.class, String.class, int.class);
-                case "Customer" -> cl.getConstructor(String.class, String.class, Date.class, String.class, String.class, int.class);
-                case "Supplier" -> cl.getConstructor(String.class, String.class, String.class, String.class, String.class);
-                case "Order" -> cl.getConstructor(String.class, String.class, Date.class, String.class, String.class);
+                case "Product" ->
+                        _class.getConstructor(String.class, String.class, String.class, int.class, int.class, String.class, String.class);
+                case "Employee" ->
+                        _class.getConstructor(String.class, String.class, String.class, String.class, String.class, Date.class, String.class, String.class, String.class, int.class);
+                case "SalesInvoice" -> _class.getConstructor(String.class, Date.class, String.class, String.class);
+                case "SupplyRequest" ->
+                        _class.getConstructor(String.class, Date.class, String.class, Date.class, String.class, String.class);
+                case "DeliveryReceipt" ->
+                        _class.getConstructor(String.class, Date.class, String.class, String.class, String.class);
+                case "InvoiceProduct" -> _class.getConstructor(String.class, String.class, int.class);
+                case "Customer" ->
+                        _class.getConstructor(String.class, String.class, Date.class, String.class, String.class, int.class);
+                case "Supplier" ->
+                        _class.getConstructor(String.class, String.class, String.class, String.class, String.class);
+                case "Order" ->
+                        _class.getConstructor(String.class, String.class, Date.class, String.class, String.class);
+                case "ProductRequest" -> _class.getConstructor(String.class, String.class, int.class, int.class);
                 default -> throw new IllegalStateException("Invalid table name: " + selectedTable);
             };
             String[] properties = new String[_properties.length];
@@ -829,6 +851,10 @@ public class View extends JFrame {
         return supplierColumnNames;
     }
 
+    public Object[] getProductRequestColumnNames() {
+        return productRequestColumnNames;
+    }
+
     public Object[] getColumnNames(String selectedTable) {
         return switch (selectedTable) {
             case "Employee" -> getEmployeeColumnNames();
@@ -840,6 +866,7 @@ public class View extends JFrame {
             case "Order" -> getOrderColumnNames();
             case "DeliveryReceipt" -> getDeliveryReceiptColumnNames();
             case "SupplyRequest" -> getSupplyRequestColumnNames();
+            case "ProductRequest" -> getProductRequestColumnNames();
             default -> new Object[0];
         };
     }

@@ -15,7 +15,8 @@ public class DeleteProcessManager {
     private final SupplierDAOInterface supplierDAO;
     private final OrderDAOInterface orderDAO;
     private final DeliveryReceiptDAOInterface deliveryReceiptDAO;
-    private final SupplyRequestDAOInterface warehouseReceiptDAO;
+    private final SupplyRequestDAOInterface supplyRequestDAO;
+    private final ProductRequestDAOInterface productRequestDAO;
 
     public DeleteProcessManager() {
         productDAO = new ProductDAO();
@@ -26,11 +27,13 @@ public class DeleteProcessManager {
         supplierDAO = new SupplierDAO();
         orderDAO = new OrderDAO();
         deliveryReceiptDAO = new DeliveryReceiptDAO();
-        warehouseReceiptDAO = new SupplyRequestDAO();
+        supplyRequestDAO = new SupplyRequestDAO();
+        productRequestDAO = new ProductRequestDAO();
     }
-
+    //TODO: xử lý những bảng có 2 khoá chính, xoá bảng chính phải xoá dữ liêu ở bảng khoá ngoại
     public void processDelete(View view) {
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
+        if(selectedTable.equals(view.getTableName(0))) return;
         String ID = view.getNewFieldValues()[0].getText();
         MessageCode message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
         int count = 0;
@@ -57,7 +60,9 @@ public class DeleteProcessManager {
             } else if (selectedTable.equals(view.getTableName(8))) {
                 count = deliveryReceiptDAO.delete(ID);
             } else if (selectedTable.equals(view.getTableName(9))) {
-                count = warehouseReceiptDAO.delete(ID);
+                count = supplyRequestDAO.delete(ID);
+            } else if (selectedTable.equals(view.getTableName(10))) {
+                count = productRequestDAO.delete(ID, view.getNewFieldValues()[1].getText());
             }
         } else {
             View.showMessage(view.getAddFrame(), message.getMessage());
