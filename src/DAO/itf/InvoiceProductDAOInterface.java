@@ -6,10 +6,15 @@ import java.util.List;
 
 public interface InvoiceProductDAOInterface {
     int create(InvoiceProduct invoiceProduct);
+
     List<InvoiceProduct> read();
+
     int update(InvoiceProduct invoiceProduct);
+
     int delete(String invoiceID, String productID);
+
     int delete(String invoiceID);
-    List<InvoiceProduct> get(String salesInvoiceID);
+
+    List<InvoiceProduct> getBySalesInvoiceID(String salesInvoiceID);
 }
 

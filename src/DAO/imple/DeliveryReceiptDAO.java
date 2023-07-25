@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DeliveryReceiptDAO implements DeliveryReceiptDAOInterface {
@@ -85,7 +86,7 @@ public class DeliveryReceiptDAO implements DeliveryReceiptDAOInterface {
     }
 
     @Override
-    public int delete(String deliveryReceiptID) {
+    public int deleteByDeliveryReceiptID(String deliveryReceiptID) {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("DELETE FROM DeliveryReceipt WHERE DeliveryReceiptID = ?");
@@ -101,12 +102,29 @@ public class DeliveryReceiptDAO implements DeliveryReceiptDAOInterface {
     }
 
     @Override
-    public DeliveryReceipt get(String deliveryReceiptID) {
+    public int deleteByOrderID(String orderID) {
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("SELECT * FROM DeliveryReceipt;");
+            preparedStatement = connection.prepareStatement("DELETE FROM DeliveryReceipt WHERE DeliveryReceiptID = ?");
+
+            preparedStatement.setString(1, orderID);
+
+            return preparedStatement.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }
+    }
+
+    @Override
+    public DeliveryReceipt getByDeliveryReceiptID(String deliveryReceiptID) {
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("SELECT * FROM DeliveryReceipt WHERE DeliveryReceiptID = ?;");
+            preparedStatement.setString(1, deliveryReceiptID);
             resultSet = preparedStatement.executeQuery();
-            DeliveryReceipt deliveryReceipt = new DeliveryReceipt();
+            DeliveryReceipt deliveryReceipt = null;
             if (resultSet.next()) {
                 deliveryReceipt = new DeliveryReceipt(
                         resultSet.getString("DeliveryReceiptID").trim(),
@@ -122,5 +140,87 @@ public class DeliveryReceiptDAO implements DeliveryReceiptDAOInterface {
             throw new RuntimeException(e);
         } finally {
             DatabaseConnection.close(connection, preparedStatement, resultSet);
-        }    }
+        }
+    }
+
+    @Override
+    public List<DeliveryReceipt> getByOrderID(String orderID) {
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("SELECT * FROM DeliveryReceipt WHERE OrderID = ?;");
+            preparedStatement.setString(1, orderID);
+            resultSet = preparedStatement.executeQuery();
+            List<DeliveryReceipt> deliveryReceiptList = new ArrayList<>();
+            while (resultSet.next()) {
+                DeliveryReceipt deliveryReceipt = new DeliveryReceipt(
+                        resultSet.getString("DeliveryReceiptID").trim(),
+                        resultSet.getDate("DeliveryDate"),
+                        resultSet.getString("DeliveryStatus").trim(),
+                        resultSet.getInt("DeliveryFee"),
+                        resultSet.getString("OrderID").trim(),
+                        resultSet.getString("DeliveryEmployeeID").trim()
+                );
+                deliveryReceiptList.add(deliveryReceipt);
+            }
+            return deliveryReceiptList;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }
+    }
+
+    @Override
+    public List<DeliveryReceipt> getByDeliveryStatus(String deliveryStatus) {
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("SELECT * FROM DeliveryReceipt WHERE DeliveryStatus = ?;");
+            preparedStatement.setString(1, deliveryStatus);
+            resultSet = preparedStatement.executeQuery();
+            List<DeliveryReceipt> deliveryReceiptList = new ArrayList<>();
+            while (resultSet.next()) {
+                DeliveryReceipt deliveryReceipt = new DeliveryReceipt(
+                        resultSet.getString("DeliveryReceiptID").trim(),
+                        resultSet.getDate("DeliveryDate"),
+                        resultSet.getString("DeliveryStatus").trim(),
+                        resultSet.getInt("DeliveryFee"),
+                        resultSet.getString("OrderID").trim(),
+                        resultSet.getString("DeliveryEmployeeID").trim()
+                );
+                deliveryReceiptList.add(deliveryReceipt);
+            }
+            return deliveryReceiptList;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }
+    }
+
+    @Override
+    public List<DeliveryReceipt> getByDeliveryDate(Date deliveryDate) {
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("SELECT * FROM DeliveryReceipt WHERE DeliveryDate = ?;");
+            preparedStatement.setDate(1, new java.sql.Date(deliveryDate.getTime()));
+            resultSet = preparedStatement.executeQuery();
+            List<DeliveryReceipt> deliveryReceiptList = new ArrayList<>();
+            while (resultSet.next()) {
+                DeliveryReceipt deliveryReceipt = new DeliveryReceipt(
+                        resultSet.getString("DeliveryReceiptID").trim(),
+                        resultSet.getDate("DeliveryDate"),
+                        resultSet.getString("DeliveryStatus").trim(),
+                        resultSet.getInt("DeliveryFee"),
+                        resultSet.getString("OrderID").trim(),
+                        resultSet.getString("DeliveryEmployeeID").trim()
+                );
+                deliveryReceiptList.add(deliveryReceipt);
+            }
+            return deliveryReceiptList;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }
+    }
 }

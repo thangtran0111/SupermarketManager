@@ -13,7 +13,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 public class View extends JFrame {
@@ -566,7 +565,7 @@ public class View extends JFrame {
         detailFrame.setVisible(true);
     }
 
-    public void createSupplyRequestDetailFrame(SupplyRequestDetail supplyRequestDetail){
+    public void createSupplyRequestDetailFrame(SupplyRequestDetail supplyRequestDetail) {
         detailFrame = new JFrame("Detail");
         detailFrame.setLayout(new BorderLayout());
         detailFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/resource/info.png"))).getImage());
@@ -665,7 +664,7 @@ public class View extends JFrame {
         detailFrame.setVisible(true);
     }
 
-    public void createDeliveryReceiptDetailFrame(DeliveryReceiptDetail deliveryReceiptDetail){
+    public void createDeliveryReceiptDetailFrame(DeliveryReceiptDetail deliveryReceiptDetail) {
         detailFrame = new JFrame("Detail");
         detailFrame.setLayout(new BorderLayout());
         detailFrame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/resource/info.png"))).getImage());
@@ -822,7 +821,7 @@ public class View extends JFrame {
 
         String ID = JOptionPane.showInputDialog("Enter " + selectedTable.toLowerCase() + " ID you want to update");
         oldValue = new SearchProcessManager().processSearch(ID, selectedTable, (DefaultTableModel) table.getModel(), updateFrame);
-        if(oldValue == null) return;
+        if (oldValue == null) return;
         newValuesField = new JTextField[rowCount];
         for (int i = 0; i < rowCount; i++) {
             midUpdatePanel.add(new JLabel(table.getModel().getColumnName(i)));

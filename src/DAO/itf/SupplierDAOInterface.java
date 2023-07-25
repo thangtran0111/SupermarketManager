@@ -13,5 +13,5 @@ public interface SupplierDAOInterface {
 
     int delete(String supplierID);
 
-    Supplier get(String supplierID);
+    Supplier getBySupplierID(String supplierID);
 }

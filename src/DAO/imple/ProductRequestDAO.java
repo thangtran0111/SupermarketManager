@@ -19,15 +19,15 @@ public class ProductRequestDAO implements ProductRequestDAOInterface {
 
     @Override
     public int create(ProductRequest productRequest) {
-        int count = 0;
+        int count;
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("INSERT INTO ProductRequest (ProductID, SupplyRequestID, QuantityReceived, UnitPrice) VALUES (?, ?, ?, ?);");
+            preparedStatement = connection.prepareStatement("INSERT INTO ProductRequest (SupplyRequestID, ProductID, QuantityReceived, UnitPrice) VALUES (?, ?, ?, ?);");
 
-            preparedStatement.setString(1, productRequest.getProductID());
-            preparedStatement.setString(2, productRequest.getSupplyRequestID());
+            preparedStatement.setString(1, productRequest.getSupplyRequestID());
+            preparedStatement.setString(2, productRequest.getProductID());
             preparedStatement.setInt(3, productRequest.getQuantityReceived());
-            preparedStatement.setInt(4, productRequest.getUnitPrice());
+            preparedStatement.setFloat(4, productRequest.getUnitPrice());
 
             count = preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
@@ -37,6 +37,28 @@ public class ProductRequestDAO implements ProductRequestDAOInterface {
         }
         return count;
     }
+
+    @Override
+    public int update(ProductRequest productRequest) {
+        int count;
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("UPDATE ProductRequest SET QuantityReceived = ?, UnitPrice = ? WHERE SupplyRequestID = ? AND ProductID = ?");
+
+            preparedStatement.setInt(1, productRequest.getQuantityReceived());
+            preparedStatement.setFloat(2, productRequest.getUnitPrice());
+            preparedStatement.setString(3, productRequest.getSupplyRequestID());
+            preparedStatement.setString(4, productRequest.getProductID());
+
+            count = preparedStatement.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }
+        return count;
+    }
+
 
     @Override
     public List<ProductRequest> read() {
@@ -69,7 +91,7 @@ public class ProductRequestDAO implements ProductRequestDAOInterface {
             resultSet = preparedStatement.executeQuery();
             List<ProductRequest> productRequestList = new ArrayList<>();
             while (resultSet.next()) {
-                productRequestList .add(new ProductRequest(
+                productRequestList.add(new ProductRequest(
                         resultSet.getString("ProductID").trim(),
                         resultSet.getString("SupplyRequestID").trim(),
                         resultSet.getInt("QuantityReceived"),
@@ -107,31 +129,9 @@ public class ProductRequestDAO implements ProductRequestDAOInterface {
         }
     }
 
-    //TODO: xử lí vấn đề cặp khoá chính
-    @Override
-    public int update(ProductRequest productRequest) {
-        int count = 0;
-        try {
-            connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("UPDATE ProductRequest SET ProductID = ?, QuantityReceived = ?, UnitPrice = ? WHERE SupplyRequestID = ?");
-
-            preparedStatement.setString(1, productRequest.getSupplyRequestID());
-            preparedStatement.setInt(2, productRequest.getQuantityReceived());
-            preparedStatement.setInt(3, productRequest.getUnitPrice());
-            preparedStatement.setString(4, productRequest.getProductID());
-
-            count = preparedStatement.executeUpdate();
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } finally {
-            DatabaseConnection.close(connection, preparedStatement, resultSet);
-        }
-        return count;
-    }
-
     @Override
     public int delete(String supplyRequestID) {
-        int count = 0;
+        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("DELETE FROM ProductRequest WHERE SupplyRequestID = ?");
@@ -150,7 +150,7 @@ public class ProductRequestDAO implements ProductRequestDAOInterface {
 
     @Override
     public int delete(String supplyProductID, String productID) {
-        int count = 0;
+        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("DELETE FROM ProductRequest WHERE SupplyRequestID = ? AND ProductID = ?");

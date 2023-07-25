@@ -19,7 +19,7 @@ public class SalesInvoiceDAO implements SalesInvoiceDAOInterface {
 
     @Override
     public int create(SalesInvoice salesInvoice) {
-        int count = 0;
+        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("INSERT INTO SalesInvoice (InvoiceID, InvoiceDate, CustomerID, PaymentMethod) VALUES (?, ?, ?, ?)");
@@ -62,7 +62,7 @@ public class SalesInvoiceDAO implements SalesInvoiceDAOInterface {
 
     @Override
     public int update(SalesInvoice salesInvoice) {
-        int count = 0;
+        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("UPDATE SalesInvoice SET  InvoiceDate = ?, CustomerID = ?, PaymentMethod = ? WHERE InvoiceID = ?");
@@ -82,7 +82,7 @@ public class SalesInvoiceDAO implements SalesInvoiceDAOInterface {
 
     @Override
     public int delete(String saleInvoiceID) {
-        int count = 0;
+        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("DELETE FROM SalesInvoice WHERE InvoiceID = ?");
@@ -100,7 +100,7 @@ public class SalesInvoiceDAO implements SalesInvoiceDAOInterface {
     }
 
     @Override
-    public SalesInvoice get(String salesInvoiceID) {
+    public SalesInvoice getBySalesInvoiceID(String salesInvoiceID) {
         SalesInvoice salesInvoice = null;
         try {
             connection = DatabaseConnection.connect();
@@ -108,7 +108,7 @@ public class SalesInvoiceDAO implements SalesInvoiceDAOInterface {
             preparedStatement.setString(1, salesInvoiceID);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                salesInvoice =new SalesInvoice(
+                salesInvoice = new SalesInvoice(
                         resultSet.getString("InvoiceID").trim(),
                         resultSet.getDate("InvoiceDate"),
                         resultSet.getString("CustomerID").trim(),
@@ -121,4 +121,28 @@ public class SalesInvoiceDAO implements SalesInvoiceDAOInterface {
         }
         return salesInvoice;
     }
+
+    @Override
+    public SalesInvoice getByCustomerID(String customerID) {
+        SalesInvoice salesInvoice = null;
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("SELECT * FROM SalesInvoice WHERE CustomerID = ?;");
+            preparedStatement.setString(1, customerID);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                salesInvoice = new SalesInvoice(
+                        resultSet.getString("InvoiceID").trim(),
+                        resultSet.getDate("InvoiceDate"),
+                        resultSet.getString("CustomerID").trim(),
+                        resultSet.getString("PaymentMethod").trim());
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }
+        return salesInvoice;
+    }
+
 }

@@ -42,7 +42,7 @@ public class ProductDAO implements ProductDAOInterface {
     }
 
     @Override
-    public Product get(String code) {
+    public Product getByProductID(String code) {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("SELECT * FROM Product WHERE ProductID = ? OR Barcode = ?;");
@@ -70,8 +70,8 @@ public class ProductDAO implements ProductDAOInterface {
 
     @Override
     public int create(Product product) {
-        int count = 0;
-        try{
+        int count;
+        try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("INSERT Product (ProductID, Barcode, ProductName, RetailPrice, QuantityInStock, ProductType, Description) VALUES (?, ?, ?, ?, ?, ?, ?);");
 
@@ -86,7 +86,7 @@ public class ProductDAO implements ProductDAOInterface {
             count = preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
         return count;
@@ -94,7 +94,7 @@ public class ProductDAO implements ProductDAOInterface {
 
     @Override
     public int update(Product product) {
-        int count = 0;
+        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("UPDATE Product SET ProductName = ?, RetailPrice = ?, QuantityInStock = ?, ProductType = ?, Description = ? WHERE ProductID = ?");
@@ -117,7 +117,7 @@ public class ProductDAO implements ProductDAOInterface {
 
     @Override
     public int delete(String productID) {
-        int count = 0;
+        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("DELETE FROM Product WHERE ProductID = ?");
@@ -133,4 +133,66 @@ public class ProductDAO implements ProductDAOInterface {
         }
         return count;
     }
+
+    @Override
+
+    public List<Product> getByProductType(String productType) {
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("SELECT * FROM Product WHERE ProductType = ?;");
+            preparedStatement.setString(1, productType);
+            resultSet = preparedStatement.executeQuery();
+            List<Product> productList = new ArrayList<>();
+            while (resultSet.next()) {
+                productList.add(new Product(
+                        resultSet.getString("ProductID").trim(),
+                        resultSet.getString("Barcode").trim(),
+                        resultSet.getString("ProductName").trim(),
+                        resultSet.getInt("RetailPrice"),
+                        resultSet.getInt("QuantityInStock"),
+                        resultSet.getString("ProductType").trim(),
+                        resultSet.getString("Description").trim()));
+            }
+            return productList;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }
+    }
+
+    @Override
+
+    public List<Product> getByProductTypeAndStockStatus(String productType, boolean inStock) {
+        try {
+            connection = DatabaseConnection.connect();
+            String query = "SELECT * FROM Product WHERE ProductType = ? AND ";
+            if (inStock) {
+                query += "QuantityInStock > 0;";
+            } else {
+                query += "QuantityInStock <= 0;";
+            }
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, productType);
+            resultSet = preparedStatement.executeQuery();
+            List<Product> productList = new ArrayList<>();
+            while (resultSet.next()) {
+                productList.add(new Product(
+                        resultSet.getString("ProductID").trim(),
+                        resultSet.getString("Barcode").trim(),
+                        resultSet.getString("ProductName").trim(),
+                        resultSet.getInt("RetailPrice"),
+                        resultSet.getInt("QuantityInStock"),
+                        resultSet.getString("ProductType").trim(),
+                        resultSet.getString("Description").trim()));
+            }
+            return productList;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }
+    }
+
+
 }

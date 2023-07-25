@@ -1,13 +1,6 @@
 package controller;
 
-import DAO.imple.CustomerDAO;
-import DAO.imple.InvoiceProductDAO;
-import DAO.imple.ProductDAO;
-import DAO.imple.SalesInvoiceDAO;
-import DAO.itf.CustomerDAOInterface;
-import DAO.itf.InvoiceProductDAOInterface;
-import DAO.itf.ProductDAOInterface;
-import DAO.itf.SalesInvoiceDAOInterface;
+import DAO.DAOFactory;
 import model.InvoiceProduct;
 import model.Product;
 import model.SalesInvoiceDetail;
@@ -17,43 +10,38 @@ import javax.swing.*;
 import java.util.Objects;
 
 public class SalesInvoiceDetailController {
-    private final SalesInvoiceDAOInterface salesInvoiceDAO;
-    private final CustomerDAOInterface customerDAO;
-    private final InvoiceProductDAOInterface invoiceProductDAO;
-    private final ProductDAOInterface productDAO;
+    private final DAOFactory daoFactory;
 
-    SalesInvoiceDetailController(){
-        salesInvoiceDAO = new SalesInvoiceDAO();
-        customerDAO = new CustomerDAO();
-        invoiceProductDAO = new InvoiceProductDAO();
-        productDAO = new ProductDAO();
+    SalesInvoiceDetailController(DAOFactory daoFactory) {
+        this.daoFactory = daoFactory;
     }
 
-    void process(View view){
+    void process(View view) {
         String ID = JOptionPane.showInputDialog("Enter sales invoice id you want to see details: ");
         MessageCode message = Controller.checkCode(Objects.requireNonNull(view.getTableChooser().getSelectedItem()).toString(), ID);
-        if(message.equals(MessageCode.ID_ALREADY_EXISTS)){
+        if (message.equals(MessageCode.ID_ALREADY_EXISTS)) {
             SalesInvoiceDetail salesInvoiceDetail = getSalesInvoiceDetail(ID);
-            if(salesInvoiceDetail == null){
+            if (salesInvoiceDetail == null) {
                 View.showMessage(view.getContentPane(), MessageCode.ERROR_OCCURRED.getMessage());
                 return;
             }
             view.createSalesInvoiceDetailFrame(salesInvoiceDetail);
-        }else{
+        } else {
             View.showMessage(view.getDetailFrame(), message.getMessage());
         }
     }
-    SalesInvoiceDetail getSalesInvoiceDetail(String salesInvoicesID){
+
+    SalesInvoiceDetail getSalesInvoiceDetail(String salesInvoicesID) {
         SalesInvoiceDetail salesInvoiceDetail = new SalesInvoiceDetail();
-        salesInvoiceDetail.setSalesInvoice(salesInvoiceDAO.get(salesInvoicesID));
-        if(salesInvoiceDetail.getSalesInvoice() == null){
+        salesInvoiceDetail.setSalesInvoice(daoFactory.getSalesInvoiceDAO().getBySalesInvoiceID(salesInvoicesID));
+        if (salesInvoiceDetail.getSalesInvoice() == null) {
             return null;
         }
-        salesInvoiceDetail.setCustomer(customerDAO.get(salesInvoiceDetail.getSalesInvoice().getCustomerID()));
-        salesInvoiceDetail.setInvoiceProductList(invoiceProductDAO.get(salesInvoicesID));
+        salesInvoiceDetail.setCustomer(daoFactory.getCustomerDAO().getByCustomerID(salesInvoiceDetail.getSalesInvoice().getCustomerID()));
+        salesInvoiceDetail.setInvoiceProductList(daoFactory.getInvoiceProductDAO().getBySalesInvoiceID(salesInvoicesID));
         int totalAmount = 0;
         for (InvoiceProduct invoiceProduct : salesInvoiceDetail.getInvoiceProductList()) {
-            Product product = productDAO.get(invoiceProduct.getProductID());
+            Product product = daoFactory.getProductDAO().getByProductID(invoiceProduct.getProductID());
             salesInvoiceDetail.getProductList().add(product);
             totalAmount += salesInvoiceDetail.getTotalAmount() + (invoiceProduct.getQuantity() * product.getRetailPrice());
         }

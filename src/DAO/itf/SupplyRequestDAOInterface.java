@@ -18,5 +18,7 @@ public interface SupplyRequestDAOInterface {
 
     int delete(String supplyRequestID);
 
-    SupplyRequest get(String supplyRequestID);
+    SupplyRequest getBySupplyRequestID(String supplyRequestID);
+
+    List<SupplyRequest> getBySupplyRequestStatus(String status);
 }

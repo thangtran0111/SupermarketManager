@@ -15,9 +15,10 @@ public class InvoiceProductDAO implements InvoiceProductDAOInterface {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
+
     @Override
     public int create(InvoiceProduct invoiceProduct) {
-        int count = 0;
+        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("INSERT INTO InvoiceProduct (InvoiceID, ProductID, Quantity) VALUES (?, ?, ?)");
@@ -59,7 +60,7 @@ public class InvoiceProductDAO implements InvoiceProductDAOInterface {
 
     @Override
     public int update(InvoiceProduct invoiceProduct) {
-        int count = 0;
+        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("UPDATE InvoiceProduct SET Quantity = ? WHERE InvoiceID = ? AND ProductID = ?");
@@ -79,7 +80,7 @@ public class InvoiceProductDAO implements InvoiceProductDAOInterface {
 
     @Override
     public int delete(String invoiceID, String productID) {
-        int count = 0;
+        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("DELETE FROM InvoiceProduct WHERE InvoiceID = ? AND ProductID = ?");
@@ -100,7 +101,7 @@ public class InvoiceProductDAO implements InvoiceProductDAOInterface {
 
     @Override
     public int delete(String invoiceID) {
-        int count = 0;
+        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("DELETE FROM InvoiceProduct WHERE InvoiceID = ?");
@@ -117,7 +118,7 @@ public class InvoiceProductDAO implements InvoiceProductDAOInterface {
     }
 
     @Override
-    public List<InvoiceProduct> get(String salesInvoiceID) {
+    public List<InvoiceProduct> getBySalesInvoiceID(String salesInvoiceID) {
         List<InvoiceProduct> invoiceProductList = new ArrayList<>();
         try {
             connection = DatabaseConnection.connect();

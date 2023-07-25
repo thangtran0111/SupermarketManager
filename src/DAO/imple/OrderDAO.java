@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class OrderDAO implements OrderDAOInterface {
 
             preparedStatement.setString(1, order.getOrderID());
             preparedStatement.setString(2, order.getInvoiceID());
-            preparedStatement.setString(3, String.valueOf(order.getExpectedDeliveryDate()));
+            preparedStatement.setDate(3, new java.sql.Date(order.getExpectedDeliveryDate().getTime()));
             preparedStatement.setString(4, order.getDeliveryAddress());
             preparedStatement.setString(5, order.getNotes());
 
@@ -36,6 +35,8 @@ public class OrderDAO implements OrderDAOInterface {
             return count;
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
     }
 
@@ -69,7 +70,7 @@ public class OrderDAO implements OrderDAOInterface {
             preparedStatement = connection.prepareStatement("UPDATE Orders SET InvoiceID = ?, ExpectedDeliveryDate = ?, DeliveryAddress = ?, Notes = ? WHERE OrderID = ?");
 
             preparedStatement.setString(1, order.getInvoiceID());
-            preparedStatement.setString(2, order.getExpectedDeliveryDate().toString());
+            preparedStatement.setDate(2, new java.sql.Date(order.getExpectedDeliveryDate().getTime()));
             preparedStatement.setString(3, order.getDeliveryAddress());
             preparedStatement.setString(4, order.getNotes());
             preparedStatement.setString(5, order.getOrderID());
@@ -81,6 +82,8 @@ public class OrderDAO implements OrderDAOInterface {
             return count;
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
     }
 
@@ -99,6 +102,8 @@ public class OrderDAO implements OrderDAOInterface {
             return count;
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
     }
 

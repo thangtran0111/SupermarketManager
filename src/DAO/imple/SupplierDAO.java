@@ -51,13 +51,11 @@ public class SupplierDAO implements SupplierDAOInterface {
             preparedStatement.setString(4, supplier.getEmail());
             preparedStatement.setString(5, supplier.getAddress());
 
-            int count = preparedStatement.executeUpdate();
-
-            DatabaseConnection.close(connection, preparedStatement, null);
-
-            return count;
+            return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
     }
 
@@ -73,13 +71,11 @@ public class SupplierDAO implements SupplierDAOInterface {
             preparedStatement.setString(4, supplier.getAddress());
             preparedStatement.setString(5, supplier.getSupplierID());
 
-            int count = preparedStatement.executeUpdate();
-
-            DatabaseConnection.close(connection, preparedStatement, null);
-
-            return count;
+            return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
     }
 
@@ -91,18 +87,16 @@ public class SupplierDAO implements SupplierDAOInterface {
 
             preparedStatement.setString(1, supplierID);
 
-            int count = preparedStatement.executeUpdate();
-
-            DatabaseConnection.close(connection, preparedStatement, null);
-
-            return count;
+            return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
     }
 
     @Override
-    public Supplier get(String supplierID) {
+    public Supplier getBySupplierID(String supplierID) {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("SELECT * FROM Supplier WHERE SupplierID = ?;");
@@ -122,5 +116,6 @@ public class SupplierDAO implements SupplierDAOInterface {
             throw new RuntimeException(e);
         } finally {
             DatabaseConnection.close(connection, preparedStatement, resultSet);
-        }    }
+        }
+    }
 }

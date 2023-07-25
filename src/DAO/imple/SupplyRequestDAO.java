@@ -133,13 +133,14 @@ public class SupplyRequestDAO implements SupplyRequestDAOInterface {
     }
 
     @Override
-    public SupplyRequest get(String supplyRequestID) {
+    public SupplyRequest getBySupplyRequestID(String supplyRequestID) {
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("SELECT * FROM SupplyRequest;");
+            preparedStatement = connection.prepareStatement("SELECT * FROM SupplyRequest WHERE SupplyRequestID = ?;");
+            preparedStatement.setString(1, supplyRequestID);
             resultSet = preparedStatement.executeQuery();
             SupplyRequest supplyRequest = null;
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 supplyRequest = new SupplyRequest(
                         resultSet.getString("SupplyRequestID").trim(),
                         resultSet.getDate("SupplyRequestDate"),
@@ -150,6 +151,33 @@ public class SupplyRequestDAO implements SupplyRequestDAOInterface {
                 );
             }
             return supplyRequest;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }
+    }
+
+    @Override
+    public List<SupplyRequest> getBySupplyRequestStatus(String status) {
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("SELECT * FROM SupplyRequest WHERE SupplyRequestStatus = ?;");
+            preparedStatement.setString(1, status);
+            resultSet = preparedStatement.executeQuery();
+            List<SupplyRequest> supplyRequestList = new ArrayList<>();
+            while (resultSet.next()) {
+                SupplyRequest supplyRequest = new SupplyRequest(
+                        resultSet.getString("SupplyRequestID").trim(),
+                        resultSet.getDate("SupplyRequestDate"),
+                        resultSet.getString("SupplyRequestStatus").trim(),
+                        resultSet.getDate("ReceiveDate".trim()),
+                        resultSet.getString("SupplierID").trim(),
+                        resultSet.getString("EmployeeID").trim()
+                );
+                supplyRequestList.add(supplyRequest);
+            }
+            return supplyRequestList;
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {

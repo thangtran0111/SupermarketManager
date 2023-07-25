@@ -2,6 +2,7 @@ package DAO.itf;
 
 import model.DeliveryReceipt;
 
+import java.util.Date;
 import java.util.List;
 
 public interface DeliveryReceiptDAOInterface {
@@ -11,7 +12,15 @@ public interface DeliveryReceiptDAOInterface {
 
     int update(DeliveryReceipt deliveryReceipt);
 
-    int delete(String deliveryReceiptID);
+    int deleteByDeliveryReceiptID(String deliveryReceiptID);
 
-    DeliveryReceipt get(String deliveryReceiptID);
+    int deleteByOrderID(String orderID);
+
+    DeliveryReceipt getByDeliveryReceiptID(String deliveryReceiptID);
+
+    List<DeliveryReceipt> getByOrderID(String orderID);
+
+    List<DeliveryReceipt> getByDeliveryStatus(String deliveryStatus);
+
+    List<DeliveryReceipt> getByDeliveryDate(Date deliveryDate);
 }

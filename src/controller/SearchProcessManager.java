@@ -28,7 +28,7 @@ public class SearchProcessManager {
                     break;
                 }
             }
-        }else if(message.equals(MessageCode.BARCODE_ALREADY_EXISTS)){
+        } else if (message.equals(MessageCode.BARCODE_ALREADY_EXISTS)) {
             int rowCount = model.getRowCount();
             int columnCount = model.getColumnCount();
 
@@ -41,7 +41,7 @@ public class SearchProcessManager {
                     break;
                 }
             }
-        }else {
+        } else {
             showMessage(cmp, message.getMessage());
         }
 
@@ -73,6 +73,4 @@ public class SearchProcessManager {
         dataList.toArray(data);
         return data;
     }
-
-
 }

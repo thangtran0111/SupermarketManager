@@ -9,7 +9,16 @@ public class Customer {
     private String phoneNumber;
     private String email;
     private int loyaltyPoints;
-    private final static double LOYALTY_POINTS_RATIO = 1.0/100000;
+    private final static double LOYALTY_POINTS_RATIO = 1.0 / 100000;
+
+    public Customer(String customerID, String customerName, Date dateOfBirth, String phoneNumber, String email) {
+        this.customerID = customerID;
+        this.customerName = customerName;
+        this.dateOfBirth = dateOfBirth;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.loyaltyPoints = 0;
+    }
 
     public Customer(String customerID, String customerName, Date dateOfBirth, String phoneNumber, String email, int loyaltyPoints) {
         this.customerID = customerID;
@@ -19,7 +28,6 @@ public class Customer {
         this.email = email;
         this.loyaltyPoints = loyaltyPoints;
     }
-
     public Customer() {
 
     }
@@ -54,9 +62,8 @@ public class Customer {
         return (int) Math.round(loyaltyPoints);
     }
 
-    public void increaseLoyaltyPoints(int money){
-        loyaltyPoints +=  getIncreaseLoyaltyPoints(money);
+    public void increaseLoyaltyPoints(int money) {
+        loyaltyPoints += getIncreaseLoyaltyPoints(money);
     }
-
 }
 

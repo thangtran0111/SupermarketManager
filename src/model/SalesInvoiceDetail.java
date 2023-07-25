@@ -10,7 +10,7 @@ public class SalesInvoiceDetail {
     private List<Product> productList;
     private int totalAmount;
 
-    public SalesInvoiceDetail(SalesInvoice salesInvoice, Customer customer, List<InvoiceProduct> invoiceProductList, List<Product> productList, int totalAmount){
+    public SalesInvoiceDetail(SalesInvoice salesInvoice, Customer customer, List<InvoiceProduct> invoiceProductList, List<Product> productList, int totalAmount) {
         this.salesInvoice = salesInvoice;
         this.customer = customer;
         this.invoiceProductList = invoiceProductList;
@@ -55,7 +55,7 @@ public class SalesInvoiceDetail {
     }
 
     public void setTotalAmount(int totalAmount) {
-         this.totalAmount = totalAmount;
+        this.totalAmount = totalAmount;
     }
 
     public Customer getCustomer() {

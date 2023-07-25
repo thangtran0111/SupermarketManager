@@ -1,7 +1,9 @@
 package DAO.imple;
+
 import DAO.itf.EmployeeDAOInterface;
 import databaseConnection.DatabaseConnection;
 import model.Employee;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +42,7 @@ public class EmployeeDAO implements EmployeeDAOInterface {
 
     @Override
     public int create(Employee employee) {
-        int count = 0;
+        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("INSERT INTO Employee (EmployeeID, EmployeeName, IDNumber, PhoneNumber, Email, DateOfBirth, Gender, Address, Position, Salary) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -68,7 +70,7 @@ public class EmployeeDAO implements EmployeeDAOInterface {
 
     @Override
     public int update(Employee employee) {
-        int count = 0;
+        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("UPDATE Employee SET EmployeeName = ?, IDNumber = ?, PhoneNumber = ?, Email = ?, DateOfBirth = ?, Gender = ?, Address = ?, Position = ?, Salary = ? WHERE EmployeeID = ?");
@@ -95,7 +97,7 @@ public class EmployeeDAO implements EmployeeDAOInterface {
 
     @Override
     public int delete(String EmployeeID) {
-        int count = 0;
+        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("DELETE FROM Employee WHERE EmployeeID = ?");
@@ -113,13 +115,14 @@ public class EmployeeDAO implements EmployeeDAOInterface {
     }
 
     @Override
-    public Employee get(String employeeID) {
+    public Employee getByEmployeeID(String employeeID) {
         try {
             connection = DatabaseConnection.connect();
-            preparedStatement = connection.prepareStatement("SELECT * FROM Employee;");
+            preparedStatement = connection.prepareStatement("SELECT * FROM Employee WHERE EmployeeID = ?");
+            preparedStatement.setString(1, employeeID);
             resultSet = preparedStatement.executeQuery();
             Employee employee = null;
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 employee = new Employee(resultSet.getString("EmployeeID").trim(),
                         resultSet.getString("EmployeeName").trim(),
                         resultSet.getString("IDNumber").trim(),
@@ -139,5 +142,92 @@ public class EmployeeDAO implements EmployeeDAOInterface {
         }
     }
 
+    @Override
+    public List<Employee> getByPhoneNumber(String phoneNumber) {
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("SELECT * FROM Employee WHERE PhoneNumber = ?");
+            preparedStatement.setString(1, phoneNumber);
+            resultSet = preparedStatement.executeQuery();
+            List<Employee> employeeList = new ArrayList<>();
+            while (resultSet.next()) {
+                Employee employee = new Employee(resultSet.getString("EmployeeID").trim(),
+                        resultSet.getString("EmployeeName").trim(),
+                        resultSet.getString("IDNumber").trim(),
+                        resultSet.getString("PhoneNumber").trim(),
+                        resultSet.getString("Email").trim(),
+                        resultSet.getDate("DateOfBirth"),
+                        resultSet.getString("Gender").trim(),
+                        resultSet.getString("Address").trim(),
+                        resultSet.getString("Position").trim(),
+                        resultSet.getInt("Salary"));
+                employeeList.add(employee);
+            }
+            return employeeList;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }
+    }
+
+    @Override
+    public List<Employee> getByEmail(String email) {
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("SELECT * FROM Employee WHERE Email = ?");
+            preparedStatement.setString(1, email);
+            resultSet = preparedStatement.executeQuery();
+            List<Employee> employeeList = new ArrayList<>();
+            while (resultSet.next()) {
+                Employee employee = new Employee(resultSet.getString("EmployeeID").trim(),
+                        resultSet.getString("EmployeeName").trim(),
+                        resultSet.getString("IDNumber").trim(),
+                        resultSet.getString("PhoneNumber").trim(),
+                        resultSet.getString("Email").trim(),
+                        resultSet.getDate("DateOfBirth"),
+                        resultSet.getString("Gender").trim(),
+                        resultSet.getString("Address").trim(),
+                        resultSet.getString("Position").trim(),
+                        resultSet.getInt("Salary"));
+                employeeList.add(employee);
+            }
+            return employeeList;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }
+    }
+
+    @Override
+    public List<Employee> getByIDNumber(String idNumber) {
+        try {
+            connection = DatabaseConnection.connect();
+            preparedStatement = connection.prepareStatement("SELECT * FROM Employee WHERE IDNumber = ?");
+            preparedStatement.setString(1, idNumber);
+            resultSet = preparedStatement.executeQuery();
+            List<Employee> employeeList = new ArrayList<>();
+            while (resultSet.next()) {
+                Employee employee = new Employee(resultSet.getString("EmployeeID").trim(),
+                        resultSet.getString("EmployeeName").trim(),
+                        resultSet.getString("IDNumber").trim(),
+                        resultSet.getString("PhoneNumber").trim(),
+                        resultSet.getString("Email").trim(),
+                        resultSet.getDate("DateOfBirth"),
+                        resultSet.getString("Gender").trim(),
+                        resultSet.getString("Address").trim(),
+                        resultSet.getString("Position").trim(),
+                        resultSet.getInt("Salary"));
+                employeeList.add(employee);
+            }
+            return employeeList;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseConnection.close(connection, preparedStatement, resultSet);
+        }
+    }
 
 }
+

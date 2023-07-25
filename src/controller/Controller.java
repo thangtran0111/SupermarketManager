@@ -1,5 +1,6 @@
 package controller;
 
+import DAO.DAOFactory;
 import view.View;
 
 import javax.swing.table.DefaultTableModel;
@@ -21,15 +22,16 @@ public class Controller implements ActionListener {
 
     public Controller() {
         view = new View();
-        this.loginProcessManager = new LoginProcessManager();
+        DAOFactory daoFactory = new DAOFactory();
+        this.loginProcessManager = new LoginProcessManager(daoFactory);
         this.searchProcessManager = new SearchProcessManager();
-        this.addProcessManager = new AddProcessManager();
-        this.tableSelectionProcessManager = new TableSelectionProcessManager();
-        this.deleteProcessManager = new DeleteProcessManager();
-        this.updateProcessManager = new UpdateProcessManager();
-        this.salesInvoiceDetailController = new SalesInvoiceDetailController();
-        this.supplyRequestDetailController = new SupplyRequestDetailController();
-        this.deliveryReceiptDetailController = new DeliveryReceiptDetailController();
+        this.addProcessManager = new AddProcessManager(daoFactory);
+        this.tableSelectionProcessManager = new TableSelectionProcessManager(daoFactory);
+        this.deleteProcessManager = new DeleteProcessManager(daoFactory);
+        this.updateProcessManager = new UpdateProcessManager(daoFactory);
+        this.salesInvoiceDetailController = new SalesInvoiceDetailController(daoFactory);
+        this.supplyRequestDetailController = new SupplyRequestDetailController(daoFactory);
+        this.deliveryReceiptDetailController = new DeliveryReceiptDetailController(daoFactory);
         addActionListener();
     }
 
@@ -42,7 +44,7 @@ public class Controller implements ActionListener {
         if ("findButtonClicked".equals(actionCommand)) {
             String findText = view.getFindField().getText();
             String selectedTable = (String) view.getTableChooser().getSelectedItem();
-            if(Objects.requireNonNull(selectedTable).equals(view.getTableName(0))) return;
+            if (Objects.requireNonNull(selectedTable).equals(view.getTableName(0))) return;
             if (selectedTable.equals(view.getTableName(4)) || selectedTable.equals(view.getTableName(10))) {
                 Object[][] searchObject = searchProcessManager.processSearchMultipleRows(findText, selectedTable, (DefaultTableModel) view.getTable().getModel(), view.getFrame());
                 view.createInfoFrameWithMultipleRows(view.getColumnNames(Objects.requireNonNull(selectedTable)), searchObject);
@@ -102,18 +104,18 @@ public class Controller implements ActionListener {
             tableSelectionProcessManager.processTableSelection(view);
         }
 
-        if("getSalesInvoiceDetailButtonClicked".equals(actionCommand)){
+        if ("getSalesInvoiceDetailButtonClicked".equals(actionCommand)) {
             salesInvoiceDetailController.process(view);
         }
 
-        if("getSupplyRequestDetailButtonClicked".equals(actionCommand)){
+        if ("getSupplyRequestDetailButtonClicked".equals(actionCommand)) {
             supplyRequestDetailController.process(view);
         }
 
-        if("getDeliveryReceiptDetailButtonClicked".equals(actionCommand)){
+        if ("getDeliveryReceiptDetailButtonClicked".equals(actionCommand)) {
             deliveryReceiptDetailController.process(view);
         }
-        if("closeDetailFrameButtonClicked".equals(actionCommand)){
+        if ("closeDetailFrameButtonClicked".equals(actionCommand)) {
             view.getDetailFrame().dispose();
         }
 
@@ -147,7 +149,7 @@ public class Controller implements ActionListener {
         return MessageCode.ID_NOT_EXIST;
     }
 
-    public void addActionListener() {
+    private void addActionListener() {
         view.getLoginButton().addActionListener(this);
         view.getFindButton().addActionListener(this);
         view.getTableChooser().addActionListener(this);

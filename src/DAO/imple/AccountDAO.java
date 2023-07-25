@@ -41,7 +41,6 @@ public class AccountDAO implements AccountDAOInterface {
 
             preparedStatement.setString(1, username);
             resultSet = preparedStatement.executeQuery();
-            resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 account = new Account(resultSet.getString(1).toCharArray(), resultSet.getString(2), resultSet.getString(3));
             } else {
@@ -58,39 +57,39 @@ public class AccountDAO implements AccountDAOInterface {
 
     @Override
     public boolean exist(String username) {
-        boolean hadFound = false;
+        boolean isFound;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("SELECT * FROM Account WHERE Username = ?");
 
             preparedStatement.setString(1, username);
-            hadFound = preparedStatement.executeQuery().next();
+            isFound = preparedStatement.executeQuery().next();
 
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
             DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
-        return hadFound;
+        return isFound;
     }
 
     @Override
     public boolean exist(String username, String passwd) {
-        boolean hadFound = false;
+        boolean isFound;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("SELECT * FROM Account WHERE Username = ? AND Passwd = ?");
 
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, passwd);
-            hadFound = preparedStatement.executeQuery().next();
+            isFound = preparedStatement.executeQuery().next();
 
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
             DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
-        return hadFound;
+        return isFound;
     }
 
 

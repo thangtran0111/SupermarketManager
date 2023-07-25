@@ -6,16 +6,17 @@ public class ProductRequest {
     private int quantityReceived;
     private int unitPrice;
 
-    public ProductRequest(String supplyRequestID,String productID, int quantityReceived, int unitPrice){
+    public ProductRequest(String supplyRequestID, String productID, int quantityReceived, int unitPrice) {
         this.supplyRequestID = supplyRequestID;
         this.productID = productID;
         this.quantityReceived = quantityReceived;
         this.unitPrice = unitPrice;
     }
 
-    public ProductRequest(){
+    public ProductRequest() {
 
     }
+
     public String getProductID() {
         return productID;
     }

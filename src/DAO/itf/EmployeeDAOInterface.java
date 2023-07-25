@@ -14,5 +14,11 @@ public interface EmployeeDAOInterface {
 
     int delete(String employeeID);
 
-    Employee get(String employeeID);
+    Employee getByEmployeeID(String employeeID);
+
+    List<Employee> getByPhoneNumber(String phoneNumber);
+
+    List<Employee> getByEmail(String email);
+
+    List<Employee> getByIDNumber(String idNumber);
 }
