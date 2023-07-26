@@ -18,11 +18,11 @@ public class SupplyRequestDetailController {
 
     void process(View view) {
         String ID = JOptionPane.showInputDialog("Enter supply request id you want to see details: ");
-        MessageCode message = Controller.checkCode(Objects.requireNonNull(view.getTableChooser().getSelectedItem()).toString(), ID);
-        if (message.equals(MessageCode.ID_ALREADY_EXISTS)) {
+        Message message = Controller.checkCode(Objects.requireNonNull(view.getTableChooser().getSelectedItem()).toString(), ID);
+        if (message.equals(Message.ID_ALREADY_EXISTS)) {
             SupplyRequestDetail supplyRequestDetail = getSupplyRequestDetail(ID);
             if (supplyRequestDetail == null) {
-                View.showMessage(view.getContentPane(), MessageCode.ERROR_OCCURRED.getMessage());
+                View.showMessage(view.getContentPane(), Message.ERROR_OCCURRED.getMessage());
                 return;
             }
             view.createSupplyRequestDetailFrame(supplyRequestDetail);

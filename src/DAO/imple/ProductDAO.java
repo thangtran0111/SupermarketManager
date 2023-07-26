@@ -21,7 +21,9 @@ public class ProductDAO implements ProductDAOInterface {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("SELECT * FROM Product;");
+
             resultSet = preparedStatement.executeQuery();
+
             List<Product> productList = new ArrayList<>();
             while (resultSet.next()) {
                 productList.add(new Product(
@@ -48,7 +50,9 @@ public class ProductDAO implements ProductDAOInterface {
             preparedStatement = connection.prepareStatement("SELECT * FROM Product WHERE ProductID = ? OR Barcode = ?;");
             preparedStatement.setString(1, code);
             preparedStatement.setString(2, code);
+
             resultSet = preparedStatement.executeQuery();
+
             Product product = null;
             while (resultSet.next()) {
                 product = (new Product(
@@ -70,7 +74,6 @@ public class ProductDAO implements ProductDAOInterface {
 
     @Override
     public int create(Product product) {
-        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("INSERT Product (ProductID, Barcode, ProductName, RetailPrice, QuantityInStock, ProductType, Description) VALUES (?, ?, ?, ?, ?, ?, ?);");
@@ -83,18 +86,16 @@ public class ProductDAO implements ProductDAOInterface {
             preparedStatement.setString(6, product.getProductType());
             preparedStatement.setString(7, product.getDescription());
 
-            count = preparedStatement.executeUpdate();
+            return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
             DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
-        return count;
     }
 
     @Override
     public int update(Product product) {
-        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("UPDATE Product SET ProductName = ?, RetailPrice = ?, QuantityInStock = ?, ProductType = ?, Description = ? WHERE ProductID = ?");
@@ -106,32 +107,30 @@ public class ProductDAO implements ProductDAOInterface {
             preparedStatement.setString(5, product.getDescription());
             preparedStatement.setString(6, product.getProductID());
 
-            count = preparedStatement.executeUpdate();
+            return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
             DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
-        return count;
     }
 
     @Override
     public int delete(String productID) {
-        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("DELETE FROM Product WHERE ProductID = ?");
 
             preparedStatement.setString(1, productID);
 
-            count = preparedStatement.executeUpdate();
+            return preparedStatement.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
             DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
-        return count;
+
     }
 
     @Override
@@ -141,7 +140,9 @@ public class ProductDAO implements ProductDAOInterface {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("SELECT * FROM Product WHERE ProductType = ?;");
             preparedStatement.setString(1, productType);
+
             resultSet = preparedStatement.executeQuery();
+
             List<Product> productList = new ArrayList<>();
             while (resultSet.next()) {
                 productList.add(new Product(
@@ -174,7 +175,9 @@ public class ProductDAO implements ProductDAOInterface {
             }
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, productType);
+
             resultSet = preparedStatement.executeQuery();
+
             List<Product> productList = new ArrayList<>();
             while (resultSet.next()) {
                 productList.add(new Product(
@@ -193,6 +196,4 @@ public class ProductDAO implements ProductDAOInterface {
             DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
     }
-
-
 }

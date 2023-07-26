@@ -45,7 +45,7 @@ public class TableSelectionProcessManager {
         } else if (selectedTable.equals(view.getTableName(10))) {
             view.createProductRequestManagementFrame();
         } else {
-            View.showMessage(view.getContentPane(), MessageCode.ERROR_OCCURRED.getMessage());
+            View.showMessage(view.getContentPane(), Message.ERROR_OCCURRED.getMessage());
         }
 
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
@@ -101,7 +101,7 @@ public class TableSelectionProcessManager {
                 model.addRow(new Object[]{String.valueOf(productRequest.getSupplyRequestID()), String.valueOf(productRequest.getProductID()), productRequest.getQuantityReceived(), productRequest.getUnitPrice()});
             }
         } else {
-            View.showMessage(view.getContentPane(), MessageCode.ERROR_OCCURRED.getMessage());
+            View.showMessage(view.getContentPane(), Message.ERROR_OCCURRED.getMessage());
         }
 
         view.getTable().setModel(model);

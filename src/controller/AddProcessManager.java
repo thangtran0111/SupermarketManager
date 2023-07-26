@@ -17,9 +17,9 @@ public class AddProcessManager {
     void processAdd(View view) {
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
         if (Objects.requireNonNull(selectedTable).equals(view.getTableName(0))) return;
-        MessageCode message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
+        Message message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
         int count = 0;
-        if (message.equals(MessageCode.ID_NOT_EXIST)) {
+        if (message.equals(Message.ID_NOT_EXIST)) {
             if (Objects.requireNonNull(selectedTable).equals(view.getTableName(1))) {
                 Employee nv = view.createObject(selectedTable, view.getNewFieldValues());
                 count = daoFactory.getEmployeeDAO().create(nv);
@@ -51,16 +51,16 @@ public class AddProcessManager {
                 ProductRequest productRequest = view.createObject(selectedTable, view.getNewFieldValues());
                 count = daoFactory.getProductRequestDAO().create(productRequest);
             } else {
-                View.showMessage(view.getAddFrame(), MessageCode.ERROR_OCCURRED.getMessage());
+                View.showMessage(view.getAddFrame(), Message.ERROR_OCCURRED.getMessage());
             }
         } else {
             View.showMessage(view.getAddFrame(), message.getMessage());
             view.clearNewsValue();
         }
         if (count == 0) {
-            View.showMessage(view.getAddFrame(), MessageCode.ERROR_OCCURRED.getMessage());
+            View.showMessage(view.getAddFrame(), Message.ERROR_OCCURRED.getMessage());
         } else {
-            View.showMessage(view.getDeleteFrame(), MessageCode.SUCCESS.getMessage());
+            View.showMessage(view.getDeleteFrame(), Message.SUCCESS.getMessage());
         }
     }
 }

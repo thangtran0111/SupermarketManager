@@ -1,8 +1,11 @@
 package DAO.imple;
 
+import DAO.DAOFactory;
 import DAO.itf.CustomerDAOInterface;
 import databaseConnection.DatabaseConnection;
 import model.Customer;
+import model.LogRecord;
+import view.View;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -54,6 +57,8 @@ public class CustomerDAO implements CustomerDAOInterface {
             preparedStatement.setString(5, customer.getEmail());
             preparedStatement.setInt(6, customer.getLoyaltyPoints());
 
+            
+
             int count = preparedStatement.executeUpdate();
 
             DatabaseConnection.close(connection, preparedStatement, null);
@@ -79,6 +84,8 @@ public class CustomerDAO implements CustomerDAOInterface {
             preparedStatement.setInt(5, customer.getLoyaltyPoints());
             preparedStatement.setString(6, customer.getCustomerID());
 
+            
+
             int count = preparedStatement.executeUpdate();
 
             DatabaseConnection.close(connection, preparedStatement, null);
@@ -96,6 +103,8 @@ public class CustomerDAO implements CustomerDAOInterface {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("DELETE FROM Customer WHERE CustomerID = ?");
+
+            
 
             preparedStatement.setString(1, customerID);
 

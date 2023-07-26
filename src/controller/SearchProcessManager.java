@@ -12,10 +12,10 @@ public class SearchProcessManager {
     }
 
     public Object[] processSearch(String findText, String selectedTable, DefaultTableModel model, Component cmp) {
-        MessageCode message = Controller.checkCode(selectedTable, findText);
+        Message message = Controller.checkCode(selectedTable, findText);
         Object[] rowData = null;
 
-        if (message.equals(MessageCode.ID_ALREADY_EXISTS)) {
+        if (message.equals(Message.ID_ALREADY_EXISTS)) {
             int rowCount = model.getRowCount();
             int columnCount = model.getColumnCount();
 
@@ -28,7 +28,7 @@ public class SearchProcessManager {
                     break;
                 }
             }
-        } else if (message.equals(MessageCode.BARCODE_ALREADY_EXISTS)) {
+        } else if (message.equals(Message.BARCODE_ALREADY_EXISTS)) {
             int rowCount = model.getRowCount();
             int columnCount = model.getColumnCount();
 
@@ -49,10 +49,10 @@ public class SearchProcessManager {
     }
 
     public Object[][] processSearchMultipleRows(String searchCode, String selectedTable, DefaultTableModel model, Component cmp) {
-        MessageCode message = Controller.checkCode(selectedTable, searchCode);
+        Message message = Controller.checkCode(selectedTable, searchCode);
         List<Object[]> dataList = new ArrayList<>();
 
-        if (message.equals(MessageCode.ID_ALREADY_EXISTS) || message.equals(MessageCode.BARCODE_ALREADY_EXISTS)) {
+        if (message.equals(Message.ID_ALREADY_EXISTS) || message.equals(Message.BARCODE_ALREADY_EXISTS)) {
             int rowCount = model.getRowCount();
             int columnCount = model.getColumnCount();
 

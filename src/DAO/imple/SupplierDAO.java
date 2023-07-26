@@ -1,8 +1,11 @@
 package DAO.imple;
 
+import DAO.DAOFactory;
 import DAO.itf.SupplierDAOInterface;
 import databaseConnection.DatabaseConnection;
+import model.LogRecord;
 import model.Supplier;
+import view.View;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

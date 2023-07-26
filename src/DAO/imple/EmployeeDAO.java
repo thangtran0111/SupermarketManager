@@ -1,8 +1,11 @@
 package DAO.imple;
 
+import DAO.DAOFactory;
 import DAO.itf.EmployeeDAOInterface;
 import databaseConnection.DatabaseConnection;
 import model.Employee;
+import model.LogRecord;
+import view.View;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -58,6 +61,8 @@ public class EmployeeDAO implements EmployeeDAOInterface {
             preparedStatement.setString(9, employee.getPosition());
             preparedStatement.setInt(10, employee.getSalary());
 
+            
+
             count = preparedStatement.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -86,6 +91,8 @@ public class EmployeeDAO implements EmployeeDAOInterface {
             preparedStatement.setInt(9, employee.getSalary());
             preparedStatement.setString(10, employee.getEmployeeID());
 
+            
+
             count = preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -103,6 +110,8 @@ public class EmployeeDAO implements EmployeeDAOInterface {
             preparedStatement = connection.prepareStatement("DELETE FROM Employee WHERE EmployeeID = ?");
 
             preparedStatement.setString(1, EmployeeID);
+
+            
 
             count = preparedStatement.executeUpdate();
 

@@ -1,8 +1,11 @@
 package DAO.imple;
 
+import DAO.DAOFactory;
 import DAO.itf.InvoiceProductDAOInterface;
 import databaseConnection.DatabaseConnection;
 import model.InvoiceProduct;
+import model.LogRecord;
+import view.View;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,6 +29,8 @@ public class InvoiceProductDAO implements InvoiceProductDAOInterface {
             preparedStatement.setString(1, invoiceProduct.getInvoiceID());
             preparedStatement.setString(2, invoiceProduct.getProductID());
             preparedStatement.setInt(3, invoiceProduct.getQuantity());
+
+            
 
             count = preparedStatement.executeUpdate();
 
@@ -69,6 +74,8 @@ public class InvoiceProductDAO implements InvoiceProductDAOInterface {
             preparedStatement.setString(2, invoiceProduct.getInvoiceID());
             preparedStatement.setString(3, invoiceProduct.getProductID());
 
+            
+
             count = preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -87,6 +94,8 @@ public class InvoiceProductDAO implements InvoiceProductDAOInterface {
 
             preparedStatement.setString(1, invoiceID);
             preparedStatement.setString(2, productID);
+
+            
 
             count = preparedStatement.executeUpdate();
 
@@ -107,8 +116,10 @@ public class InvoiceProductDAO implements InvoiceProductDAOInterface {
             preparedStatement = connection.prepareStatement("DELETE FROM InvoiceProduct WHERE InvoiceID = ?");
 
             preparedStatement.setString(1, invoiceID);
-            count = preparedStatement.executeUpdate();
 
+            
+
+            count = preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {

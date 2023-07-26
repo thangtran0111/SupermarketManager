@@ -16,9 +16,9 @@ public class DeleteProcessManager {
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
         if (Objects.requireNonNull(selectedTable).equals(view.getTableName(0))) return;
         String ID = view.getNewFieldValues()[0].getText();
-        MessageCode message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
+        Message message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
         int count = 0;
-        if (message.equals(MessageCode.ID_ALREADY_EXISTS) || message.equals(MessageCode.BARCODE_ALREADY_EXISTS)) {
+        if (message.equals(Message.ID_ALREADY_EXISTS) || message.equals(Message.BARCODE_ALREADY_EXISTS)) {
             if (Objects.requireNonNull(selectedTable).equals(view.getTableName(1))) {
                 if (!ID.equals("99999")) {
                     count = daoFactory.getEmployeeDAO().delete(ID);
@@ -51,9 +51,9 @@ public class DeleteProcessManager {
             view.createDeleteFrame();
         }
         if (count == 0) {
-            View.showMessage(view.getDeleteFrame(), MessageCode.ERROR_OCCURRED.getMessage());
+            View.showMessage(view.getDeleteFrame(), Message.ERROR_OCCURRED.getMessage());
         } else {
-            View.showMessage(view.getDeleteFrame(), MessageCode.SUCCESS.getMessage());
+            View.showMessage(view.getDeleteFrame(), Message.SUCCESS.getMessage());
         }
     }
 }

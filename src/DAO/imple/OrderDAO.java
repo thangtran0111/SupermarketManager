@@ -1,8 +1,11 @@
 package DAO.imple;
 
+import DAO.DAOFactory;
 import DAO.itf.OrderDAOInterface;
 import databaseConnection.DatabaseConnection;
+import model.LogRecord;
 import model.Order;
+import view.View;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,11 +31,9 @@ public class OrderDAO implements OrderDAOInterface {
             preparedStatement.setString(4, order.getDeliveryAddress());
             preparedStatement.setString(5, order.getNotes());
 
-            int count = preparedStatement.executeUpdate();
+            
 
-            DatabaseConnection.close(connection, preparedStatement, null);
-
-            return count;
+            return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
@@ -75,11 +76,9 @@ public class OrderDAO implements OrderDAOInterface {
             preparedStatement.setString(4, order.getNotes());
             preparedStatement.setString(5, order.getOrderID());
 
-            int count = preparedStatement.executeUpdate();
+            
 
-            DatabaseConnection.close(connection, preparedStatement, null);
-
-            return count;
+            return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
@@ -95,11 +94,9 @@ public class OrderDAO implements OrderDAOInterface {
 
             preparedStatement.setString(1, orderID);
 
-            int count = preparedStatement.executeUpdate();
+            
 
-            DatabaseConnection.close(connection, preparedStatement, null);
-
-            return count;
+            return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {

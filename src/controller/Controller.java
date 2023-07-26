@@ -125,28 +125,28 @@ public class Controller implements ActionListener {
 
     }
 
-    public static MessageCode checkCode(String selectedTable, String ID) {
-        if (ID == null) return MessageCode.NULL_ID;
+    public static Message checkCode(String selectedTable, String ID) {
+        if (ID == null) return Message.NULL_ID;
         if (selectedTable.equals(view.getTableName(2))) {
             DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
             for (int rowIndex = 0; rowIndex < model.getRowCount(); rowIndex++) {
                 if (model.getValueAt(rowIndex, 0).equals(ID)) {
-                    return MessageCode.ID_ALREADY_EXISTS;
+                    return Message.ID_ALREADY_EXISTS;
                 } else if (model.getValueAt(rowIndex, 1).equals(ID)) {
-                    return MessageCode.BARCODE_ALREADY_EXISTS;
+                    return Message.BARCODE_ALREADY_EXISTS;
                 }
             }
         } else {
-            if (!ID.matches("^\\d{5}")) return MessageCode.ID_FORMAT_INCORRECT;
+            if (!ID.matches("^\\d{5}")) return Message.ID_FORMAT_INCORRECT;
             DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
             for (int rowIndex = 0; rowIndex < model.getRowCount(); rowIndex++) {
                 if (model.getValueAt(rowIndex, 0).equals(ID)) {
-                    return MessageCode.ID_ALREADY_EXISTS;
+                    return Message.ID_ALREADY_EXISTS;
                 }
             }
         }
 
-        return MessageCode.ID_NOT_EXIST;
+        return Message.ID_NOT_EXIST;
     }
 
     private void addActionListener() {

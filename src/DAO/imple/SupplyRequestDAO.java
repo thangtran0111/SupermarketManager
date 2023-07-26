@@ -1,8 +1,11 @@
 package DAO.imple;
 
+import DAO.DAOFactory;
 import DAO.itf.SupplyRequestDAOInterface;
 import databaseConnection.DatabaseConnection;
+import model.LogRecord;
 import model.SupplyRequest;
+import view.View;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -91,6 +94,7 @@ public class SupplyRequestDAO implements SupplyRequestDAOInterface {
             preparedStatement = connection.prepareStatement("UPDATE SupplyRequest SET SupplyRequestStatus = ? WHERE SupplyRequestID = ?");
             preparedStatement.setString(1, supplyRequestStatus);
             preparedStatement.setString(2, supplyRequestID);
+
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -107,6 +111,9 @@ public class SupplyRequestDAO implements SupplyRequestDAOInterface {
             preparedStatement.setString(1, supplyRequestStatus);
             preparedStatement.setDate(2, new java.sql.Date(receiveDate.getTime()));
             preparedStatement.setString(3, supplyRequestID);
+
+            
+
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);

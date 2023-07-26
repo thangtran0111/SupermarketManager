@@ -1,8 +1,11 @@
 package DAO.imple;
 
+import DAO.DAOFactory;
 import DAO.itf.DeliveryReceiptDAOInterface;
 import databaseConnection.DatabaseConnection;
 import model.DeliveryReceipt;
+import model.LogRecord;
+import view.View;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -56,6 +59,8 @@ public class DeliveryReceiptDAO implements DeliveryReceiptDAOInterface {
             preparedStatement.setString(5, deliveryReceipt.getOrderID());
             preparedStatement.setString(6, deliveryReceipt.getDeliveryEmployeeID());
 
+            
+
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -77,6 +82,8 @@ public class DeliveryReceiptDAO implements DeliveryReceiptDAOInterface {
             preparedStatement.setString(5, deliveryReceipt.getDeliveryEmployeeID());
             preparedStatement.setString(6, deliveryReceipt.getDeliveryReceiptID());
 
+            
+
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -93,6 +100,8 @@ public class DeliveryReceiptDAO implements DeliveryReceiptDAOInterface {
 
             preparedStatement.setString(1, deliveryReceiptID);
 
+            
+
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -108,6 +117,8 @@ public class DeliveryReceiptDAO implements DeliveryReceiptDAOInterface {
             preparedStatement = connection.prepareStatement("DELETE FROM DeliveryReceipt WHERE DeliveryReceiptID = ?");
 
             preparedStatement.setString(1, orderID);
+
+            
 
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {

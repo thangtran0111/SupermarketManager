@@ -17,4 +17,9 @@ public class Account {
         return passwd;
     }
 
+    public char[] getUsername() {
+        return username;
+    }
+
+
 }

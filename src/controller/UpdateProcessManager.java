@@ -18,9 +18,9 @@ public class UpdateProcessManager {
     void processUpdate(View view) {
         String selectedTable = (String) view.getTableChooser().getSelectedItem();
         if (Objects.requireNonNull(selectedTable).equals(view.getTableName(0))) return;
-        MessageCode message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
+        Message message = Controller.checkCode(selectedTable, view.getNewFieldValues()[0].getText());
         int count = 0;
-        if (message.equals(MessageCode.ID_ALREADY_EXISTS) || message.equals(MessageCode.BARCODE_ALREADY_EXISTS)) {
+        if (message.equals(Message.ID_ALREADY_EXISTS) || message.equals(Message.BARCODE_ALREADY_EXISTS)) {
             if (Objects.requireNonNull(selectedTable).equals(view.getTableName(1))) {
                 Employee employee = view.createObject(selectedTable, view.getNewFieldValues());
                 count = daoFactory.getEmployeeDAO().update(employee);
@@ -57,9 +57,9 @@ public class UpdateProcessManager {
             view.clearNewsValue();
         }
         if (count == 0) {
-            View.showMessage(view.getUpdateFrame(), MessageCode.ERROR_OCCURRED.getMessage());
+            View.showMessage(view.getUpdateFrame(), Message.ERROR_OCCURRED.getMessage());
         } else {
-            View.showMessage(view.getUpdateFrame(), MessageCode.SUCCESS.getMessage());
+            View.showMessage(view.getUpdateFrame(), Message.SUCCESS.getMessage());
         }
     }
 }

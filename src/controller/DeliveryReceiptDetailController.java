@@ -19,11 +19,11 @@ public class DeliveryReceiptDetailController {
 
     void process(View view) {
         String ID = JOptionPane.showInputDialog("Enter delivery receipt id you want to see details: ");
-        MessageCode message = Controller.checkCode(Objects.requireNonNull(view.getTableChooser().getSelectedItem()).toString(), ID);
-        if (message.equals(MessageCode.ID_ALREADY_EXISTS)) {
+        Message message = Controller.checkCode(Objects.requireNonNull(view.getTableChooser().getSelectedItem()).toString(), ID);
+        if (message.equals(Message.ID_ALREADY_EXISTS)) {
             DeliveryReceiptDetail deliveryReceiptDetail = getDeliveryReceiptDetail(ID);
             if (deliveryReceiptDetail == null) {
-                View.showMessage(view.getContentPane(), MessageCode.ERROR_OCCURRED.getMessage());
+                View.showMessage(view.getContentPane(), Message.ERROR_OCCURRED.getMessage());
                 return;
             }
             view.createDeliveryReceiptDetailFrame(deliveryReceiptDetail);

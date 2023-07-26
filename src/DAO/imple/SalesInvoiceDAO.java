@@ -1,8 +1,11 @@
 package DAO.imple;
 
+import DAO.DAOFactory;
 import DAO.itf.SalesInvoiceDAOInterface;
 import databaseConnection.DatabaseConnection;
+import model.LogRecord;
 import model.SalesInvoice;
+import view.View;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +22,6 @@ public class SalesInvoiceDAO implements SalesInvoiceDAOInterface {
 
     @Override
     public int create(SalesInvoice salesInvoice) {
-        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("INSERT INTO SalesInvoice (InvoiceID, InvoiceDate, CustomerID, PaymentMethod) VALUES (?, ?, ?, ?)");
@@ -28,14 +30,14 @@ public class SalesInvoiceDAO implements SalesInvoiceDAOInterface {
             preparedStatement.setDate(2, new java.sql.Date(salesInvoice.getInvoiceDate().getTime()));
             preparedStatement.setString(3, salesInvoice.getCustomerID());
             preparedStatement.setString(4, salesInvoice.getPaymentMethod());
-            count = preparedStatement.executeUpdate();
+
+            return preparedStatement.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
             DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
-        return count;
     }
 
     @Override
@@ -43,7 +45,9 @@ public class SalesInvoiceDAO implements SalesInvoiceDAOInterface {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("SELECT * FROM SalesInvoice;");
+
             resultSet = preparedStatement.executeQuery();
+
             List<SalesInvoice> listSalesInvoice = new ArrayList<>();
             while (resultSet.next()) {
                 listSalesInvoice.add(new SalesInvoice(
@@ -62,7 +66,7 @@ public class SalesInvoiceDAO implements SalesInvoiceDAOInterface {
 
     @Override
     public int update(SalesInvoice salesInvoice) {
-        int count;
+
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("UPDATE SalesInvoice SET  InvoiceDate = ?, CustomerID = ?, PaymentMethod = ? WHERE InvoiceID = ?");
@@ -71,32 +75,33 @@ public class SalesInvoiceDAO implements SalesInvoiceDAOInterface {
             preparedStatement.setString(2, salesInvoice.getCustomerID());
             preparedStatement.setString(3, salesInvoice.getPaymentMethod());
             preparedStatement.setString(4, salesInvoice.getInvoiceID());
-            count = preparedStatement.executeUpdate();
+
+            return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
             DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
-        return count;
+
     }
 
     @Override
     public int delete(String saleInvoiceID) {
-        int count;
+
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("DELETE FROM SalesInvoice WHERE InvoiceID = ?");
 
             preparedStatement.setString(1, saleInvoiceID);
 
-            count = preparedStatement.executeUpdate();
+            return preparedStatement.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
             DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
-        return count;
+
     }
 
     @Override
@@ -106,7 +111,9 @@ public class SalesInvoiceDAO implements SalesInvoiceDAOInterface {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("SELECT * FROM SalesInvoice WHERE InvoiceID = ?;");
             preparedStatement.setString(1, salesInvoiceID);
+
             resultSet = preparedStatement.executeQuery();
+
             if (resultSet.next()) {
                 salesInvoice = new SalesInvoice(
                         resultSet.getString("InvoiceID").trim(),
@@ -128,8 +135,11 @@ public class SalesInvoiceDAO implements SalesInvoiceDAOInterface {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("SELECT * FROM SalesInvoice WHERE CustomerID = ?;");
+
             preparedStatement.setString(1, customerID);
+
             resultSet = preparedStatement.executeQuery();
+
             if (resultSet.next()) {
                 salesInvoice = new SalesInvoice(
                         resultSet.getString("InvoiceID").trim(),
