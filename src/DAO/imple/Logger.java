@@ -1,6 +1,6 @@
 package DAO.imple;
 
-import DAO.itf.LogRecordDAOInterface;
+import DAO.itf.LoggerInterface;
 import databaseConnection.DatabaseConnection;
 import model.LogRecord;
 
@@ -9,16 +9,15 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-public class LogRecordDAO implements LogRecordDAOInterface {
+public class Logger implements LoggerInterface {
     private Connection connection;
     private PreparedStatement preparedStatement;
 
     @Override
-    public int create(LogRecord logRecord) {
+    public int log(LogRecord logRecord) {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("INSERT INTO LogRecord(LogMessage, LogDateTime, Username) VALUES (?, ? ,?)");
-
             preparedStatement.setString(1, logRecord.getLogMessage());
             preparedStatement.setTimestamp(2, Timestamp.valueOf(logRecord.getLogTime()));
             preparedStatement.setString(3, logRecord.getUsername());

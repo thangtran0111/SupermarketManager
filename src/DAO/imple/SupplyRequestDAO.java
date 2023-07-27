@@ -1,11 +1,8 @@
 package DAO.imple;
 
-import DAO.DAOFactory;
 import DAO.itf.SupplyRequestDAOInterface;
 import databaseConnection.DatabaseConnection;
-import model.LogRecord;
 import model.SupplyRequest;
-import view.View;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -51,13 +48,11 @@ public class SupplyRequestDAO implements SupplyRequestDAOInterface {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("INSERT INTO SupplyRequest (SupplyRequestID, SupplyRequestDate, SupplyRequestStatus, SupplierID, EmployeeID) VALUES (?, ?, ?, ?, ?);");
-
             preparedStatement.setString(1, supplyRequest.getSupplyRequestID());
             preparedStatement.setDate(2, new java.sql.Date(supplyRequest.getSupplyRequestDate().getTime()));
             preparedStatement.setString(3, supplyRequest.getSupplyRequestStatus());
             preparedStatement.setString(4, supplyRequest.getSupplierID());
             preparedStatement.setString(5, supplyRequest.getEmployeeID());
-
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -71,14 +66,12 @@ public class SupplyRequestDAO implements SupplyRequestDAOInterface {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("UPDATE SupplyRequest SET SupplyRequestDate = ?, SupplyRequestStatus = ?, ReceiveDate = ?, SupplierID = ?, EmployeeID = ? WHERE SupplyRequestID = ?");
-
             preparedStatement.setDate(1, new java.sql.Date(supplyRequest.getSupplyRequestDate().getTime()));
             preparedStatement.setString(2, supplyRequest.getSupplyRequestStatus());
             preparedStatement.setDate(3, new java.sql.Date(supplyRequest.getReceiveDate().getTime()));
             preparedStatement.setString(4, supplyRequest.getSupplierID());
             preparedStatement.setString(5, supplyRequest.getEmployeeID());
             preparedStatement.setString(6, supplyRequest.getSupplyRequestID());
-
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -94,7 +87,6 @@ public class SupplyRequestDAO implements SupplyRequestDAOInterface {
             preparedStatement = connection.prepareStatement("UPDATE SupplyRequest SET SupplyRequestStatus = ? WHERE SupplyRequestID = ?");
             preparedStatement.setString(1, supplyRequestStatus);
             preparedStatement.setString(2, supplyRequestID);
-
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -111,9 +103,6 @@ public class SupplyRequestDAO implements SupplyRequestDAOInterface {
             preparedStatement.setString(1, supplyRequestStatus);
             preparedStatement.setDate(2, new java.sql.Date(receiveDate.getTime()));
             preparedStatement.setString(3, supplyRequestID);
-
-            
-
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -128,9 +117,7 @@ public class SupplyRequestDAO implements SupplyRequestDAOInterface {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("DELETE FROM SupplyRequest WHERE SupplyRequestID = ?");
-
             preparedStatement.setString(1, supplyRequestID);
-
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);

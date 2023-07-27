@@ -37,8 +37,6 @@ public class View extends JFrame {
     private JTextField userTextField;
     private JPasswordField userPasswordField;
 
-    private static String currentAccount;
-
     // component
     private JPanel topPanel;
     private JPanel midPanel;
@@ -1166,13 +1164,5 @@ public class View extends JFrame {
 
     public JButton getCloseDetailFrame() {
         return closeDetailFrame;
-    }
-
-    public static String getCurrentAccount() {
-        return currentAccount;
-    }
-
-    public void setCurrentAccount(String currentAccount) {
-        this.currentAccount = currentAccount;
     }
 }

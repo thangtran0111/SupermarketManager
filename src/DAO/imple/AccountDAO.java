@@ -5,7 +5,6 @@ import databaseConnection.DatabaseConnection;
 import model.Account;
 
 import java.sql.Connection;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,7 +45,6 @@ public class AccountDAO implements AccountDAOInterface {
             } else {
                 account = new Account();
             }
-
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
@@ -61,10 +59,8 @@ public class AccountDAO implements AccountDAOInterface {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("SELECT * FROM Account WHERE Username = ?");
-
             preparedStatement.setString(1, username);
             isFound = preparedStatement.executeQuery().next();
-
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
@@ -79,11 +75,9 @@ public class AccountDAO implements AccountDAOInterface {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("SELECT * FROM Account WHERE Username = ? AND Passwd = ?");
-
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, passwd);
             isFound = preparedStatement.executeQuery().next();
-
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {

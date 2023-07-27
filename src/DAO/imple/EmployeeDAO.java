@@ -1,13 +1,13 @@
 package DAO.imple;
 
-import DAO.DAOFactory;
 import DAO.itf.EmployeeDAOInterface;
 import databaseConnection.DatabaseConnection;
 import model.Employee;
-import model.LogRecord;
-import view.View;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,11 +45,9 @@ public class EmployeeDAO implements EmployeeDAOInterface {
 
     @Override
     public int create(Employee employee) {
-        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("INSERT INTO Employee (EmployeeID, EmployeeName, IDNumber, PhoneNumber, Email, DateOfBirth, Gender, Address, Position, Salary) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
             preparedStatement.setString(1, employee.getEmployeeID());
             preparedStatement.setString(2, employee.getEmployeeName());
             preparedStatement.setString(3, employee.getIDNumber());
@@ -60,26 +58,19 @@ public class EmployeeDAO implements EmployeeDAOInterface {
             preparedStatement.setString(8, employee.getAddress());
             preparedStatement.setString(9, employee.getPosition());
             preparedStatement.setInt(10, employee.getSalary());
-
-            
-
-            count = preparedStatement.executeUpdate();
-
+            return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
             DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
-        return count;
     }
 
     @Override
     public int update(Employee employee) {
-        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("UPDATE Employee SET EmployeeName = ?, IDNumber = ?, PhoneNumber = ?, Email = ?, DateOfBirth = ?, Gender = ?, Address = ?, Position = ?, Salary = ? WHERE EmployeeID = ?");
-
             preparedStatement.setString(1, employee.getEmployeeName());
             preparedStatement.setString(2, employee.getIDNumber());
             preparedStatement.setString(3, employee.getPhoneNumber());
@@ -90,37 +81,26 @@ public class EmployeeDAO implements EmployeeDAOInterface {
             preparedStatement.setString(8, employee.getPosition());
             preparedStatement.setInt(9, employee.getSalary());
             preparedStatement.setString(10, employee.getEmployeeID());
-
-            
-
-            count = preparedStatement.executeUpdate();
+            return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
             DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
-        return count;
     }
 
     @Override
     public int delete(String EmployeeID) {
-        int count;
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("DELETE FROM Employee WHERE EmployeeID = ?");
-
             preparedStatement.setString(1, EmployeeID);
-
-            
-
-            count = preparedStatement.executeUpdate();
-
+            return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
             DatabaseConnection.close(connection, preparedStatement, resultSet);
         }
-        return count;
     }
 
     @Override

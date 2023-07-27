@@ -1,11 +1,8 @@
 package DAO.imple;
 
-import DAO.DAOFactory;
 import DAO.itf.SupplierDAOInterface;
 import databaseConnection.DatabaseConnection;
-import model.LogRecord;
 import model.Supplier;
-import view.View;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -47,13 +44,11 @@ public class SupplierDAO implements SupplierDAOInterface {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("INSERT INTO Supplier (SupplierID, SupplierName, PhoneNumber, Email, Address) VALUES (?, ?, ?, ?, ?);");
-
             preparedStatement.setString(1, supplier.getSupplierID());
             preparedStatement.setString(2, supplier.getSupplierName());
             preparedStatement.setString(3, supplier.getPhoneNumber());
             preparedStatement.setString(4, supplier.getEmail());
             preparedStatement.setString(5, supplier.getAddress());
-
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -67,13 +62,11 @@ public class SupplierDAO implements SupplierDAOInterface {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("UPDATE Supplier SET SupplierName = ?, PhoneNumber = ?, Email = ?, Address = ? WHERE SupplierID = ?");
-
             preparedStatement.setString(1, supplier.getSupplierName());
             preparedStatement.setString(2, supplier.getPhoneNumber());
             preparedStatement.setString(3, supplier.getEmail());
             preparedStatement.setString(4, supplier.getAddress());
             preparedStatement.setString(5, supplier.getSupplierID());
-
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -87,9 +80,7 @@ public class SupplierDAO implements SupplierDAOInterface {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("DELETE FROM Supplier WHERE SupplierID = ?");
-
             preparedStatement.setString(1, supplierID);
-
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);

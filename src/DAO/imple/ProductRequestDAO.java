@@ -1,11 +1,8 @@
 package DAO.imple;
 
-import DAO.DAOFactory;
 import DAO.itf.ProductRequestDAOInterface;
 import databaseConnection.DatabaseConnection;
-import model.LogRecord;
 import model.ProductRequest;
-import view.View;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,12 +22,10 @@ public class ProductRequestDAO implements ProductRequestDAOInterface {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("INSERT INTO ProductRequest (SupplyRequestID, ProductID, QuantityReceived, UnitPrice) VALUES (?, ?, ?, ?);");
-
             preparedStatement.setString(1, productRequest.getSupplyRequestID());
             preparedStatement.setString(2, productRequest.getProductID());
             preparedStatement.setInt(3, productRequest.getQuantityReceived());
             preparedStatement.setFloat(4, productRequest.getUnitPrice());
-
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -44,12 +39,10 @@ public class ProductRequestDAO implements ProductRequestDAOInterface {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("UPDATE ProductRequest SET QuantityReceived = ?, UnitPrice = ? WHERE SupplyRequestID = ? AND ProductID = ?");
-
             preparedStatement.setInt(1, productRequest.getQuantityReceived());
             preparedStatement.setFloat(2, productRequest.getUnitPrice());
             preparedStatement.setString(3, productRequest.getSupplyRequestID());
             preparedStatement.setString(4, productRequest.getProductID());
-
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -58,15 +51,12 @@ public class ProductRequestDAO implements ProductRequestDAOInterface {
         }
     }
 
-
     @Override
     public List<ProductRequest> read() {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("SELECT * FROM ProductRequest;");
-
             resultSet = preparedStatement.executeQuery();
-
             List<ProductRequest> productRequestList = new ArrayList<>();
             while (resultSet.next()) {
                 productRequestList.add(new ProductRequest(
@@ -75,7 +65,6 @@ public class ProductRequestDAO implements ProductRequestDAOInterface {
                         resultSet.getInt("QuantityReceived"),
                         resultSet.getInt("UnitPrice")));
             }
-
             return productRequestList;
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -90,11 +79,9 @@ public class ProductRequestDAO implements ProductRequestDAOInterface {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("SELECT * FROM ProductRequest WHERE SupplyRequestID = ?;");
             preparedStatement.setString(1, supplyRequestID);
-
             resultSet = preparedStatement.executeQuery();
-
             List<ProductRequest> productRequestList = new ArrayList<>();
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 productRequestList.add(new ProductRequest(
                         resultSet.getString("ProductID").trim(),
                         resultSet.getString("SupplyRequestID").trim(),
@@ -114,14 +101,11 @@ public class ProductRequestDAO implements ProductRequestDAOInterface {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("SELECT * FROM ProductRequest WHERE SupplyRequestID = ? AND ProductID = ?;");
-
             preparedStatement.setString(1, supplyRequestID);
             preparedStatement.setString(2, productID);
-
             resultSet = preparedStatement.executeQuery();
-
             ProductRequest productRequest = null;
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 productRequest = new ProductRequest(
                         resultSet.getString("ProductID").trim(),
                         resultSet.getString("SupplyRequestID").trim(),
@@ -141,9 +125,7 @@ public class ProductRequestDAO implements ProductRequestDAOInterface {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("DELETE FROM ProductRequest WHERE SupplyRequestID = ?");
-
             preparedStatement.setString(1, supplyRequestID);
-
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -154,13 +136,11 @@ public class ProductRequestDAO implements ProductRequestDAOInterface {
 
     @Override
     public int delete(String supplyProductID, String productID) {
-
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("DELETE FROM ProductRequest WHERE SupplyRequestID = ? AND ProductID = ?");
             preparedStatement.setString(1, supplyProductID);
             preparedStatement.setString(2, productID);
-
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);

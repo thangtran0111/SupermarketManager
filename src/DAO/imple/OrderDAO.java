@@ -1,11 +1,8 @@
 package DAO.imple;
 
-import DAO.DAOFactory;
 import DAO.itf.OrderDAOInterface;
 import databaseConnection.DatabaseConnection;
-import model.LogRecord;
 import model.Order;
-import view.View;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,15 +21,11 @@ public class OrderDAO implements OrderDAOInterface {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("INSERT INTO Orders (OrderID, InvoiceID, ExpectedDeliveryDate, DeliveryAddress, Notes) VALUES (?, ?, ?, ?, ?);");
-
             preparedStatement.setString(1, order.getOrderID());
             preparedStatement.setString(2, order.getInvoiceID());
             preparedStatement.setDate(3, new java.sql.Date(order.getExpectedDeliveryDate().getTime()));
             preparedStatement.setString(4, order.getDeliveryAddress());
             preparedStatement.setString(5, order.getNotes());
-
-            
-
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -69,15 +62,11 @@ public class OrderDAO implements OrderDAOInterface {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("UPDATE Orders SET InvoiceID = ?, ExpectedDeliveryDate = ?, DeliveryAddress = ?, Notes = ? WHERE OrderID = ?");
-
             preparedStatement.setString(1, order.getInvoiceID());
             preparedStatement.setDate(2, new java.sql.Date(order.getExpectedDeliveryDate().getTime()));
             preparedStatement.setString(3, order.getDeliveryAddress());
             preparedStatement.setString(4, order.getNotes());
             preparedStatement.setString(5, order.getOrderID());
-
-            
-
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -91,11 +80,7 @@ public class OrderDAO implements OrderDAOInterface {
         try {
             connection = DatabaseConnection.connect();
             preparedStatement = connection.prepareStatement("DELETE FROM Orders WHERE OrderID = ?");
-
             preparedStatement.setString(1, orderID);
-
-            
-
             return preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);

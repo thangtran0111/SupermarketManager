@@ -4,34 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="add DAOFactory and change functions that use DAO, fix bugs">
-      <change afterPath="$PROJECT_DIR$/src/DAO/imple/LogRecordDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DAO/itf/LogRecordDAOInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/LogRecord.java" afterDir="false" />
+    <list default="true" id="b118a8c7-ee26-4f98-b0d6-462e55a98860" name="Changes" comment="optimized code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/DAOFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAOFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/imple/AccountDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/AccountDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAO/imple/CustomerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/CustomerDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAO/imple/DeliveryReceiptDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/DeliveryReceiptDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAO/imple/EmployeeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/EmployeeDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAO/imple/InvoiceProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/InvoiceProductDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/imple/LogRecordDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/Logger.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAO/imple/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/OrderDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAO/imple/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/ProductDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAO/imple/ProductRequestDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/ProductRequestDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAO/imple/SalesInvoiceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/SalesInvoiceDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAO/imple/SupplierDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/SupplierDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAO/imple/SupplyRequestDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/imple/SupplyRequestDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/AddProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/AddProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/DeleteProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DeleteProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/DeliveryReceiptDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DeliveryReceiptDetailController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/LoginProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/LoginProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/MessageCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Message.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/SalesInvoiceDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/SalesInvoiceDetailController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/SearchProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/SearchProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/SupplyRequestDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/SupplyRequestDetailController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/TableSelectionProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/TableSelectionProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/UpdateProcessManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/UpdateProcessManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/itf/LogRecordDAOInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/itf/LoggerInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/View.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -326,11 +313,17 @@
       <option name="project" value="LOCAL" />
       <updated>1690305848381</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="optimized code">
+      <created>1690392211300</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1690392211314</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Translate the InvoiceProduct table into English" />
     <MESSAGE value="Change database" />
     <MESSAGE value="Fix error" />
     <MESSAGE value="Translate table name" />
@@ -355,6 +348,7 @@
     <MESSAGE value="add DeliveryFee attribute and fix bug" />
     <MESSAGE value="add DeliveryReceiptDetail and related functions" />
     <MESSAGE value="add DAOFactory and change functions that use DAO, fix bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="add DAOFactory and change functions that use DAO, fix bugs" />
+    <MESSAGE value="optimized code" />
+    <option name="LAST_COMMIT_MESSAGE" value="optimized code" />
   </component>
 </project>
